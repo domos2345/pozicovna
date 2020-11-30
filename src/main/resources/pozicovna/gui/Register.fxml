@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="460.0" layoutY="210.0" mnemonicParsing="false" onAction="#registerButtonClick" text="Registrovať sa" />
+      <TextField fx:id="nameTextField" layoutX="130.0" layoutY="86.0" />
+      <Label layoutX="235.0" layoutY="23.0" text="Registrácia">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="90.0" text="Meno: *" />
+      <Label layoutX="25.0" layoutY="121.0" text="Priezvisko: *" />
+      <TextField fx:id="surnameTextField" layoutX="130.0" layoutY="117.0" />
+      <Label layoutX="25.0" layoutY="152.0" text="Email: *" />
+      <TextField fx:id="emailTextField" layoutX="130.0" layoutY="148.0" />
+      <Label layoutX="25.0" layoutY="183.0" prefHeight="17.0" prefWidth="52.0" text="Heslo: *" />
+      <TextField fx:id="passwordTextField" layoutX="130.0" layoutY="179.0" />
+      <TextField fx:id="passwordConfirmationTextField" layoutX="130.0" layoutY="210.0" />
+      <Label layoutX="25.0" layoutY="214.0" text="Potvrdenie hesla: *" />
+      <Label layoutX="310.0" layoutY="121.0" text="Obec:" />
+      <Label layoutX="310.0" layoutY="152.0" text="Ulica:" />
+      <Label layoutX="310.0" layoutY="183.0" text="Číslo domu:" />
+      <Label layoutX="466.0" layoutY="183.0" text="PSČ:" />
+      <Label layoutX="310.0" layoutY="90.0" text="Tel. č.:" />
+      <TextField fx:id="houseNumberTextField" layoutX="379.0" layoutY="179.0" prefHeight="25.0" prefWidth="64.0" />
+      <TextField fx:id="postalCodeTextField" layoutX="500.0" layoutY="179.0" prefHeight="25.0" prefWidth="52.0" />
+      <TextField fx:id="streetTextField" layoutX="379.0" layoutY="148.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="cityTextField" layoutX="379.0" layoutY="117.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="phoneNumberTextField" layoutX="379.0" layoutY="86.0" prefHeight="25.0" prefWidth="174.0" />
+   </children>
+</AnchorPane>

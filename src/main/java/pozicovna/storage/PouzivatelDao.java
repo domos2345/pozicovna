@@ -1,4 +1,6 @@
-package pozicovna;
+package pozicovna.storage;
+
+import pozicovna.entities.Pouzivatel;
 
 import java.util.List;
 

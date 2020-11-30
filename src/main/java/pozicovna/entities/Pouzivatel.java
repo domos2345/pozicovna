@@ -1,4 +1,4 @@
-package pozicovna;
+package pozicovna.entities;
 
 public class Pouzivatel {
 	private Long id;

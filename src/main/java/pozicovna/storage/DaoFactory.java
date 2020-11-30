@@ -1,4 +1,4 @@
-package pozicovna;
+package pozicovna.storage;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;
