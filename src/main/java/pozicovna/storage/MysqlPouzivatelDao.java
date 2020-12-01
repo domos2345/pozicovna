@@ -17,8 +17,8 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 	}
 
 	public List<Pouzivatel> getAll() {
-		return jdbcTemplate.query("SELECT id, meno, priezvisko, email,tel_cislo,"
-				+ " heslo, mesto, ulica, cislo_domu, psc " + "FROM pouzivatel", new RowMapper<Pouzivatel>() {
+		return jdbcTemplate.query("SELECT id, meno, priezvisko, email, tel_cislo,"
+				+ " heslo, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel", new RowMapper<Pouzivatel>() {
 
 					public Pouzivatel mapRow(ResultSet rs, int rowNum) throws SQLException {
 						long id = rs.getLong("id");

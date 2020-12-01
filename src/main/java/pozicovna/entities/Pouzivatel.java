@@ -108,7 +108,7 @@ public class Pouzivatel {
 	public void setPsc(String psc) {
 		this.psc = psc;
 	}
-	
+
 	public String getOkres() {
 		return okres;
 	}
@@ -117,5 +117,10 @@ public class Pouzivatel {
 		this.psc = okres;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Pouzivatel [id=" + id + ", meno=" + meno + ", priezvisko=" + priezvisko + ", email=" + email
+				+ ", tel_cislo=" + tel_cislo + ", heslo=" + heslo + ", mesto=" + mesto + ", ulica=" + ulica
+				+ ", cislo_domu=" + cislo_domu + ", psc=" + psc + ", okres=" + okres + "]";
+	}
 }

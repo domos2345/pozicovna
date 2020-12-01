@@ -11,21 +11,21 @@ public enum DaoFactory {
 	
 	private boolean testing = false;
 	private JdbcTemplate jdbcTemplate;
-//	private StudentDao studentDao;
+	private PouzivatelDao PouzivatelDao;
 //	private PredmetDao predmetDao;
 	
 	public void testing() {
 		testing = true;
 	}
 	
-//	public StudentDao getStudentDao() {
-//		if (studentDao==null) {
-//			studentDao = new MysqlStudentDao(getJdbc()); 
-//			
-//		}
-//		return studentDao;
-//		
-//	}
+	public PouzivatelDao getPouzivatelDao() {
+		if (PouzivatelDao==null) {
+			PouzivatelDao = new MysqlPouzivatelDao(getJdbc()); 
+			
+		}
+		return PouzivatelDao;
+		
+	}
 //	
 //	public PredmetDao getPredmetDao() {
 //		if (predmetDao==null) {
