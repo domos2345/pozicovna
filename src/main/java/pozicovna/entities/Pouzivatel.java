@@ -11,9 +11,10 @@ public class Pouzivatel {
 	private String ulica;
 	private String cislo_domu;
 	private String psc;
+	private String okres;
 
 	public Pouzivatel(Long id, String meno, String priezvisko, String email, String tel_cislo, String heslo,
-			String mesto, String ulica, String cislo_domu, String psc) {
+			String mesto, String ulica, String cislo_domu, String psc, String okres) {
 		super();
 		this.id = id;
 		this.meno = meno;
@@ -25,6 +26,7 @@ public class Pouzivatel {
 		this.ulica = ulica;
 		this.cislo_domu = cislo_domu;
 		this.psc = psc;
+		this.okres = okres;
 	}
 
 	public Long getId() {
@@ -106,5 +108,14 @@ public class Pouzivatel {
 	public void setPsc(String psc) {
 		this.psc = psc;
 	}
+	
+	public String getOkres() {
+		return okres;
+	}
+
+	public void setOkres(String okres) {
+		this.psc = okres;
+	}
+
 
 }

@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `pozicovna` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pozicovna`;
+CREATE DATABASE  IF NOT EXISTS `pozicovna_test` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `pozicovna_test`;
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pozicovna

@@ -31,8 +31,9 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 						String ulica = rs.getString("ulica");
 						String cislo_domu = rs.getString("cislo_domu");
 						String psc = rs.getString("psc");
+						String okres = rs.getString("okres");
 						return new Pouzivatel(id, meno, priezvisko, email, tel_cislo, heslo, mesto, ulica, cislo_domu,
-								psc);
+								psc, okres);
 					}
 
 				});
