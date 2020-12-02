@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import pozicovna.entities.Pouzivatel;
+import pozicovna.storage.DaoFactory;
+import pozicovna.storage.EntityNotFoundException;
+import pozicovna.storage.PouzivatelDao;
 
 import java.io.IOException;
 
@@ -15,23 +19,46 @@ public class SignInSceneController {
     private TextField emailTextField;
 
     @FXML
-    private TextField passwordTextField;
-
+    private PasswordField passwordField;
 
     @FXML
-    void initialize() {
+    private Label errorLabel;
 
-    }
+    @FXML
+    private Button signInButton;
+
+
+    Pouzivatel pouzivatel;
+    PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+
+    @FXML
+    void initialize() {}
 
     @FXML
     void signInButtonClick(ActionEvent event) {
-        //ToDo: overenie udajov
-        //ToDo: ulozenie usera
+        errorLabel.setStyle("-fx-text-fill: lightcoral");
+        emailTextField.setStyle("-fx-background-color: white");
+        passwordField.setStyle("-fx-background-color: white");
+
+        try {
+            pouzivatel = pouzivatelDao.getByEmail(emailTextField.getText());
+        } catch (EntityNotFoundException e) {
+            errorLabel.setText("Neplatný email");
+            emailTextField.setStyle("-fx-background-color: lightcoral");
+            return;
+        }
+
+        if(!pouzivatel.getHeslo().equals(passwordField.getText())){
+            errorLabel.setText("Neplatné heslo");
+            passwordField.setText("");
+            passwordField.setStyle("-fx-background-color: lightcoral");
+            return;
+        }
 
         emailTextField.getScene().getWindow().hide();
+
         //ToDo: hide aj LoggedOutScene
         //  asi cez konstruktor si poslat scenu
-
         try {
             SignInSceneController controller = new SignInSceneController();
             FXMLLoader loader = new FXMLLoader(App.class.getResource("LoggedIn.fxml"));
