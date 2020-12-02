@@ -28,6 +28,23 @@ public class Pouzivatel {
 		this.psc = psc;
 		this.okres = okres;
 	}
+	
+
+	public Pouzivatel(String meno, String priezvisko, String email, String tel_cislo, String heslo, String mesto,
+			String ulica, String cislo_domu, String psc, String okres) {
+		super();
+		this.meno = meno;
+		this.priezvisko = priezvisko;
+		this.email = email;
+		this.tel_cislo = tel_cislo;
+		this.heslo = heslo;
+		this.mesto = mesto;
+		this.ulica = ulica;
+		this.cislo_domu = cislo_domu;
+		this.psc = psc;
+		this.okres = okres;
+	}
+
 
 	public Long getId() {
 		return id;
