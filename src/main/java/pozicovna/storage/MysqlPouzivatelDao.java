@@ -17,31 +17,31 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
 	private JdbcTemplate jdbcTemplate;
 
+	private class PouzivatelRowMapper implements RowMapper<Pouzivatel>{
+		public Pouzivatel mapRow(ResultSet rs, int rowNum) throws SQLException {
+			long id = rs.getLong("id");
+			String meno = rs.getString("meno");
+			String priezvisko = rs.getString("priezvisko");
+			String email = rs.getString("email");
+			String tel_cislo = rs.getString("tel_cislo");
+			String heslo = rs.getString("heslo");
+			String mesto = rs.getString("mesto");
+			String ulica = rs.getString("ulica");
+			String cislo_domu = rs.getString("cislo_domu");
+			String psc = rs.getString("psc");
+			String okres = rs.getString("okres");
+			return new Pouzivatel(id, meno, priezvisko, email, tel_cislo, heslo, mesto, ulica, cislo_domu,
+					psc, okres);
+		}
+	}
+
 	public MysqlPouzivatelDao(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	public List<Pouzivatel> getAll() {
 		return jdbcTemplate.query("SELECT id, meno, priezvisko, email, tel_cislo,"
-				+ " heslo, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel", new RowMapper<Pouzivatel>() {
-
-					public Pouzivatel mapRow(ResultSet rs, int rowNum) throws SQLException {
-						long id = rs.getLong("id");
-						String meno = rs.getString("meno");
-						String priezvisko = rs.getString("priezvisko");
-						String email = rs.getString("email");
-						String tel_cislo = rs.getString("tel_cislo");
-						String heslo = rs.getString("heslo");
-						String mesto = rs.getString("mesto");
-						String ulica = rs.getString("ulica");
-						String cislo_domu = rs.getString("cislo_domu");
-						String psc = rs.getString("psc");
-						String okres = rs.getString("okres");
-						return new Pouzivatel(id, meno, priezvisko, email, tel_cislo, heslo, mesto, ulica, cislo_domu,
-								psc, okres);
-					}
-
-				});
+				+ " heslo, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel", new PouzivatelRowMapper() );
 
 	}
 
@@ -91,28 +91,9 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 		try {
 			return jdbcTemplate.queryForObject("SELECT id, meno, priezvisko, email, tel_cislo,"
 					+ " heslo, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel WHERE id = " + id,
-					new RowMapper<Pouzivatel>() {
-
-						public Pouzivatel mapRow(ResultSet rs, int rowNum) throws SQLException {
-							long id = rs.getLong("id");
-							String meno = rs.getString("meno");
-							String priezvisko = rs.getString("priezvisko");
-							String email = rs.getString("email");
-							String tel_cislo = rs.getString("tel_cislo");
-							String heslo = rs.getString("heslo");
-							String mesto = rs.getString("mesto");
-							String ulica = rs.getString("ulica");
-							String cislo_domu = rs.getString("cislo_domu");
-							String psc = rs.getString("psc");
-							String okres = rs.getString("okres");
-							return new Pouzivatel(id, meno, priezvisko, email, tel_cislo, heslo, mesto, ulica,
-									cislo_domu, psc, okres);
-						}
-
-					});
+					new PouzivatelRowMapper());
 		} catch (DataAccessException e) {
 			throw new EntityNotFoundException("Pouzivatel s id " + id + " not found");
-
 		}
 
 	}
@@ -124,4 +105,18 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 		return pouzivatel;
 
 	}
+
+	public Pouzivatel getByEmail(String email) throws NullPointerException, EntityNotFoundException {
+		if (email == null)
+			throw new NullPointerException("Email cannot be null");
+		try {
+			String sql = "SELECT id, meno, priezvisko, email, tel_cislo, heslo, mesto, ulica, cislo_domu, psc, okres "
+					+ "FROM pouzivatel "
+					+ "WHERE email = ? ";
+			return jdbcTemplate.queryForObject(sql, new PouzivatelRowMapper(), email);
+		} catch (DataAccessException e) {
+			throw new EntityNotFoundException("Pouzivatel s emailom " + email + " neexistuje");
+		}
+	}
+
 }

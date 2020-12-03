@@ -82,4 +82,29 @@ class MysqlPouzivatelDaoTest {
 
 		pouzivatelDao.delete(savedPouzivatel.getId());
 	}
+
+	@Test
+	void testGetByEmail() {
+		assertThrows(NullPointerException.class, () -> { pouzivatelDao.getByEmail(null); });
+		assertThrows(EntityNotFoundException.class, () -> { pouzivatelDao.getByEmail("vymysleny_mail???"); });
+
+		Pouzivatel newPouzivatel = new Pouzivatel("x", "x", "moj_mail", "1", "bla", "M", "U", "0",
+				"444", "aa");
+		Pouzivatel savedPouzivatel = pouzivatelDao.save(newPouzivatel);
+		Pouzivatel byEmail = pouzivatelDao.getByEmail(savedPouzivatel.getEmail());
+		pouzivatelDao.getById(savedPouzivatel.getId());
+
+		assertEquals(savedPouzivatel.getMeno(), byEmail.getMeno());
+		assertEquals(savedPouzivatel.getPriezvisko(), byEmail.getPriezvisko());
+		assertEquals(savedPouzivatel.getEmail(), byEmail.getEmail());
+		assertEquals(savedPouzivatel.getTel_cislo(), byEmail.getTel_cislo());
+		assertEquals(savedPouzivatel.getHeslo(), byEmail.getHeslo());
+		assertEquals(savedPouzivatel.getMesto(), byEmail.getMesto());
+		assertEquals(savedPouzivatel.getUlica(), byEmail.getUlica());
+		assertEquals(savedPouzivatel.getPsc(), byEmail.getPsc());
+		assertEquals(savedPouzivatel.getOkres(), byEmail.getOkres());
+		assertEquals(savedPouzivatel.getId(), byEmail.getId());
+
+		pouzivatelDao.delete(savedPouzivatel.getId());
+	}
 }
