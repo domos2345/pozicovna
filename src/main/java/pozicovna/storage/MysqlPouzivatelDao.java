@@ -47,7 +47,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
 	public Pouzivatel save(Pouzivatel pouzivatel) throws EntityNotFoundException {
 		if (pouzivatel.getId() == null) {// INSERT
-			SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
+			SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);		
 			insert.withTableName("pouzivatel");
 			insert.usingGeneratedKeyColumns("id");
 			insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "heslo", "mesto", "ulica", "cislo_domu",
