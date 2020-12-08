@@ -6,45 +6,46 @@ public class Pouzivatel {
 	private String priezvisko;
 	private String email;
 	private String tel_cislo;
-	private String heslo;
+	private String sol_hash;
+	private String heslo_hash;
 	private String mesto;
 	private String ulica;
 	private String cislo_domu;
 	private String psc;
 	private String okres;
 
-	public Pouzivatel(Long id, String meno, String priezvisko, String email, String tel_cislo, String heslo,
-			String mesto, String ulica, String cislo_domu, String psc, String okres) {
+	public Pouzivatel(Long id, String meno, String priezvisko, String email, String tel_cislo, String sol_hash,
+			String heslo_hash, String mesto, String ulica, String cislo_domu, String psc, String okres) {
 		super();
 		this.id = id;
 		this.meno = meno;
 		this.priezvisko = priezvisko;
 		this.email = email;
 		this.tel_cislo = tel_cislo;
-		this.heslo = heslo;
+		this.sol_hash = sol_hash;
+		this.heslo_hash = heslo_hash;
 		this.mesto = mesto;
 		this.ulica = ulica;
 		this.cislo_domu = cislo_domu;
 		this.psc = psc;
 		this.okres = okres;
 	}
-	
 
-	public Pouzivatel(String meno, String priezvisko, String email, String tel_cislo, String heslo, String mesto,
-			String ulica, String cislo_domu, String psc, String okres) {
+	public Pouzivatel(String meno, String priezvisko, String email, String tel_cislo, 
+			String heslo_hash, String mesto, String ulica, String cislo_domu, String psc, String okres) {
 		super();
 		this.meno = meno;
 		this.priezvisko = priezvisko;
 		this.email = email;
 		this.tel_cislo = tel_cislo;
-		this.heslo = heslo;
+		this.sol_hash = sol_hash;
+		this.heslo_hash = heslo_hash;
 		this.mesto = mesto;
 		this.ulica = ulica;
 		this.cislo_domu = cislo_domu;
 		this.psc = psc;
 		this.okres = okres;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -86,12 +87,20 @@ public class Pouzivatel {
 		this.tel_cislo = tel_cislo;
 	}
 
-	public String getHeslo() {
-		return heslo;
+	public String getSol_hash() {
+		return sol_hash;
 	}
 
-	public void setHeslo(String heslo) {
-		this.heslo = heslo;
+	public void setSol_hash(String sol_hash) {
+		this.sol_hash = sol_hash;
+	}
+
+	public String getHeslo_hash() {
+		return heslo_hash;
+	}
+
+	public void setHeslo_hash(String heslo_hash) {
+		this.heslo_hash = heslo_hash;
 	}
 
 	public String getMesto() {
@@ -137,7 +146,7 @@ public class Pouzivatel {
 	@Override
 	public String toString() {
 		return "Pouzivatel [id=" + id + ", meno=" + meno + ", priezvisko=" + priezvisko + ", email=" + email
-				+ ", tel_cislo=" + tel_cislo + ", heslo=" + heslo + ", mesto=" + mesto + ", ulica=" + ulica
+				+ ", tel_cislo=" + tel_cislo + ", heslo=" + heslo_hash + ", mesto=" + mesto + ", ulica=" + ulica
 				+ ", cislo_domu=" + cislo_domu + ", psc=" + psc + ", okres=" + okres + "]";
 	}
 }

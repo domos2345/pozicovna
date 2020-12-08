@@ -57,7 +57,7 @@ public class SignInSceneController {
             return false;
         }
 
-        if(!pouzivatel.getHeslo().equals(passwordField.getText())){
+        if(!pouzivatel.getHeslo_hash().equals(passwordField.getText())){
             errorLabel.setText("Neplatné heslo");
             passwordField.setText("");
             passwordField.setStyle("-fx-background-color: lightcoral");

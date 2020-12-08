@@ -39,14 +39,15 @@ class MysqlPouzivatelDaoTest {
 	}
 
 	@Test()
-	// id, meno, priezvisko, email, tel_cislo,"
-	// heslo, mesto, ulica, cislo_domu, psc, okres
+	// id, meno, priezvisko, email, tel_cislo, sol_hash,"
+	// heslo_hash, mesto, ulica, cislo_domu, psc, okres
 
 //	pouzivatel.getMeno()
 //	pouzivatel.getPriezvisko()
 //	pouzivatel.getEmail()
 //	pouzivatel.getTel_cislo()
-//	pouzivatel.getHeslo()
+//	pouzivatel.getSol_hash()
+//	pouzivatel.getHeslo_hash()
 //	pouzivatel.getMesto()
 //	pouzivatel.getUlica()
 //	pouzivatel.getPsc()
@@ -73,7 +74,8 @@ class MysqlPouzivatelDaoTest {
 		assertEquals(savedPouzivatel.getPriezvisko(), byId.getPriezvisko());
 		assertEquals(savedPouzivatel.getEmail(), byId.getEmail());
 		assertEquals(savedPouzivatel.getTel_cislo(), byId.getTel_cislo());
-		assertEquals(savedPouzivatel.getHeslo(), byId.getHeslo());
+		assertEquals(savedPouzivatel.getSol_hash(), byId.getSol_hash());
+		assertEquals(savedPouzivatel.getHeslo_hash(), byId.getHeslo_hash());
 		assertEquals(savedPouzivatel.getMesto(), byId.getMesto());
 		assertEquals(savedPouzivatel.getUlica(), byId.getUlica());
 		assertEquals(savedPouzivatel.getPsc(), byId.getPsc());
@@ -85,11 +87,14 @@ class MysqlPouzivatelDaoTest {
 
 	@Test
 	void testGetByEmail() {
-		assertThrows(NullPointerException.class, () -> { pouzivatelDao.getByEmail(null); });
-		assertThrows(EntityNotFoundException.class, () -> { pouzivatelDao.getByEmail("vymysleny_mail???"); });
+		assertThrows(NullPointerException.class, () -> {
+			pouzivatelDao.getByEmail(null);
+		});
+		assertThrows(EntityNotFoundException.class, () -> {
+			pouzivatelDao.getByEmail("vymysleny_mail???");
+		});
 
-		Pouzivatel newPouzivatel = new Pouzivatel("x", "x", "moj_mail", "1", "bla", "M", "U", "0",
-				"444", "aa");
+		Pouzivatel newPouzivatel = new Pouzivatel("x", "x", "moj_mail", "1", "bla", "M", "U", "0", "444", "aa");
 		Pouzivatel savedPouzivatel = pouzivatelDao.save(newPouzivatel);
 		Pouzivatel byEmail = pouzivatelDao.getByEmail(savedPouzivatel.getEmail());
 		pouzivatelDao.getById(savedPouzivatel.getId());
@@ -98,7 +103,8 @@ class MysqlPouzivatelDaoTest {
 		assertEquals(savedPouzivatel.getPriezvisko(), byEmail.getPriezvisko());
 		assertEquals(savedPouzivatel.getEmail(), byEmail.getEmail());
 		assertEquals(savedPouzivatel.getTel_cislo(), byEmail.getTel_cislo());
-		assertEquals(savedPouzivatel.getHeslo(), byEmail.getHeslo());
+		// assertEquals(savedPouzivatel.getSol_hash(), byEmail.getSol_hash());
+		// assertEquals(savedPouzivatel.getHeslo_hash(), byEmail.getHeslo_hash());
 		assertEquals(savedPouzivatel.getMesto(), byEmail.getMesto());
 		assertEquals(savedPouzivatel.getUlica(), byEmail.getUlica());
 		assertEquals(savedPouzivatel.getPsc(), byEmail.getPsc());
