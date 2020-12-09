@@ -57,19 +57,16 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 			insert.usingGeneratedKeyColumns("id");
 			insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto", "ulica", "cislo_domu",
 					"psc", "okres");
-			
-			String sol_hash = BCrypt.gensalt();
-			String heslo_hash = BCrypt.hashpw("heslo123", sol_hash);
-			System.out.println(heslo_hash);
-			
+
+
 			Map<String, String> valuesMap = new HashMap<String, String>();
 
 			valuesMap.put("meno", pouzivatel.getMeno());
 			valuesMap.put("priezvisko", pouzivatel.getPriezvisko());
 			valuesMap.put("email", pouzivatel.getEmail());
 			valuesMap.put("tel_cislo", pouzivatel.getTel_cislo());
-			valuesMap.put("sol_hash", sol_hash);
-			valuesMap.put("heslo_hash", heslo_hash);
+			valuesMap.put("sol_hash", pouzivatel.getSol_hash());
+			valuesMap.put("heslo_hash", pouzivatel.getHeslo_hash());
 			valuesMap.put("mesto", pouzivatel.getMesto());
 			valuesMap.put("ulica", pouzivatel.getUlica());
 			valuesMap.put("cislo_domu", pouzivatel.getCislo_domu());
