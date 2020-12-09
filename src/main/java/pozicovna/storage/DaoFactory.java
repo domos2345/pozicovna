@@ -1,38 +1,29 @@
 package pozicovna.storage;
 
-
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-
 public enum DaoFactory {
 	INSTANCE;
-	
-	private boolean testing = false;
+
+	private boolean testing = true;
 	private JdbcTemplate jdbcTemplate;
 	private PouzivatelDao PouzivatelDao;
 //	private PredmetDao predmetDao;
-	
+
 	public void testing() {
 		testing = true;
 	}
-	
+
 	public PouzivatelDao getPouzivatelDao() {
-		if (PouzivatelDao==null) {
-			PouzivatelDao = new MysqlPouzivatelDao(getJdbc()); 
-			
+		if (PouzivatelDao == null) {
+			PouzivatelDao = new MysqlPouzivatelDao(getJdbc());
+
 		}
 		return PouzivatelDao;
-		
+
 	}
-//	
-//	public PredmetDao getPredmetDao() {
-//		if (predmetDao==null) {
-//			predmetDao= new MysqlPredmetDao(getJdbc());
-//		}
-//		return predmetDao;
-//	}
 
 	private JdbcTemplate getJdbc() {
 		if (jdbcTemplate == null) {
@@ -44,7 +35,7 @@ public enum DaoFactory {
 			} else {
 				dataSource.setUrl("jdbc:mysql://localhost/pozicovna?serverTimezone=Europe/Bratislava");
 			}
-			
+
 			jdbcTemplate = new JdbcTemplate(dataSource);
 		}
 		return jdbcTemplate;
@@ -52,4 +43,3 @@ public enum DaoFactory {
 	}
 
 }
-

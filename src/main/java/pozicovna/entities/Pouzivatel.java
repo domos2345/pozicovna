@@ -33,8 +33,8 @@ public class Pouzivatel {
 		this.okres = okres;
 	}
 
-	public Pouzivatel(String meno, String priezvisko, String email, String tel_cislo, 
-			String heslo_hash, String mesto, String ulica, String cislo_domu, String psc, String okres) {
+	public Pouzivatel(String meno, String priezvisko, String email, String tel_cislo, String heslo_hash, String mesto,
+			String ulica, String cislo_domu, String psc, String okres) {
 		super();
 		this.meno = meno;
 		this.priezvisko = priezvisko;
@@ -149,7 +149,8 @@ public class Pouzivatel {
 	@Override
 	public String toString() {
 		return "Pouzivatel [id=" + id + ", meno=" + meno + ", priezvisko=" + priezvisko + ", email=" + email
-				+ ", tel_cislo=" + tel_cislo + ", heslo=" + heslo_hash + ", mesto=" + mesto + ", ulica=" + ulica
-				+ ", cislo_domu=" + cislo_domu + ", psc=" + psc + ", okres=" + okres + "]";
+				+ ", tel_cislo=" + tel_cislo + ", sol_hash=" + sol_hash + ", heslo_hash=" + heslo_hash + ", mesto="
+				+ mesto + ", ulica=" + ulica + ", cislo_domu=" + cislo_domu + ", psc=" + psc + ", okres=" + okres + "]";
 	}
+
 }
