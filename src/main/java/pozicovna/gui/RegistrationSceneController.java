@@ -71,11 +71,14 @@ public class RegistrationSceneController {
         nameTextField.getScene().getWindow().hide();
     }
 
+    @FXML
+    void cancelButtonClick(ActionEvent event) {
+        nameTextField.getParent().getScene().getWindow().hide();
+    }
+
     private boolean mandatoryFieldsFilled(){
         for(TextField tf: mandatoryFields){
-            System.out.println(tf.getText());
             if(tf.getText() == null || tf.getText().isEmpty()){
-                System.out.println("_" + tf.getText() + "_");
                 tf.setStyle("-fx-background-color: lightcoral");
                 errorLabel.setText("Nevyplnené povinné políčka");
                 errorLabel.setStyle("-fx-text-fill: lightcoral");

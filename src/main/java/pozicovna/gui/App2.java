@@ -22,7 +22,10 @@ public class App2 {
 		 "423", "094", "vr"));
 		//System.out.println(pouzivatelDao.delete(pouzivatelDao.getById(4).getId()));
 		List<Pouzivatel> pouzivatelia = pouzivatelDao.getAll();
-		System.out.println(pouzivatelia);
+		for (int i = 0; i < pouzivatelia.size(); i++) {
+			System.out.println(pouzivatelia.get(i).toString());
+		}
+		
 
 //		String sol_hash = BCrypt.gensalt();
 //		String heslo_hash = BCrypt.hashpw("heslo123", sol_hash);

@@ -2,18 +2,15 @@ package pozicovna.storage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 //import org.springframework.security.crypto.bcrypt;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import pozicovna.entities.Pouzivatel;
 
@@ -60,7 +57,11 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 			insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto", "ulica",
 					"cislo_domu", "psc", "okres");
 
+			insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto", "ulica",
+					"cislo_domu", "psc", "okres");
+
 			Map<String, String> valuesMap = new HashMap<String, String>();
+
 			valuesMap.put("meno", pouzivatel.getMeno());
 			valuesMap.put("priezvisko", pouzivatel.getPriezvisko());
 			valuesMap.put("email", pouzivatel.getEmail());
@@ -120,7 +121,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 		if (email == null)
 			throw new NullPointerException("Email cannot be null");
 		try {
-			String sql = "SELECT id, meno, priezvisko, email, tel_cislo, sol_hash, heslo_hash, mesto, ulica, cislo_domu, psc, okres "
+			String sql = "SELECT id, meno, priezvisko, email, tel_cislo,sol_hash, heslo_hash, mesto, ulica, cislo_domu, psc, okres "
 					+ "FROM pouzivatel " + "WHERE email = ? ";
 			return jdbcTemplate.queryForObject(sql, new PouzivatelRowMapper(), email);
 		} catch (DataAccessException e) {

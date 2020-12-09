@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.DaoFactory;
 import pozicovna.storage.EntityNotFoundException;
@@ -30,6 +31,11 @@ public class SignInSceneController {
 
     @FXML
     void initialize() {}
+
+    @FXML
+    void cancelButtonClick(ActionEvent event) {
+        emailTextField.getScene().getWindow().hide();
+    }
 
     @FXML
     void signInButtonClick(ActionEvent event) {
@@ -57,7 +63,7 @@ public class SignInSceneController {
             return false;
         }
 
-        if(!pouzivatel.getHeslo_hash().equals(passwordField.getText())){
+        if(!pouzivatel.getHeslo_hash().equals(BCrypt.hashpw(passwordField.getText(), pouzivatel.getSol_hash()))){
             errorLabel.setText("Neplatné heslo");
             passwordField.setText("");
             passwordField.setStyle("-fx-background-color: lightcoral");
@@ -68,7 +74,7 @@ public class SignInSceneController {
 
     public void showLoggedInWindow(){
         try {
-            LoggedInSceneContoller controller = new LoggedInSceneContoller();
+            LoggedInSceneContoller controller = new LoggedInSceneContoller(pouzivatel);
             FXMLLoader loader = new FXMLLoader(App.class.getResource("LoggedIn.fxml"));
             loader.setController(controller);
             Parent parent = loader.load();
