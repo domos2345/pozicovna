@@ -97,6 +97,33 @@ LOCK TABLES `kategoria` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `kategoria_druh_naradie`
+--
+
+DROP TABLE IF EXISTS `kategoria_druh_naradie`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kategoria_druh_naradie` (
+  `druh_naradia_id` int NOT NULL,
+  `kategoria_id` int NOT NULL,
+  PRIMARY KEY (`kategoria_id`,`druh_naradia_id`),
+  KEY `fk_kategoria_druh_naradie_kategoria1_idx` (`kategoria_id`),
+  KEY `fk_kategoria_druh_naradie_druh_naradia1` (`druh_naradia_id`),
+  CONSTRAINT `fk_kategoria_druh_naradie_druh_naradia1` FOREIGN KEY (`druh_naradia_id`) REFERENCES `druh_naradia` (`id`),
+  CONSTRAINT `fk_kategoria_druh_naradie_kategoria1` FOREIGN KEY (`kategoria_id`) REFERENCES `kategoria` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kategoria_druh_naradie`
+--
+
+LOCK TABLES `kategoria_druh_naradie` WRITE;
+/*!40000 ALTER TABLE `kategoria_druh_naradie` DISABLE KEYS */;
+/*!40000 ALTER TABLE `kategoria_druh_naradie` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `naradie`
 --
 
@@ -137,14 +164,15 @@ CREATE TABLE `pouzivatel` (
   `id` int NOT NULL AUTO_INCREMENT,
   `meno` varchar(45) NOT NULL,
   `priezvisko` varchar(45) NOT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `tel_cislo` varchar(45) DEFAULT NULL,
-  `heslo` varchar(45) NOT NULL,
-  `mesto` varchar(45) NOT NULL,
-  `ulica` varchar(45) NOT NULL,
-  `cislo_domu` int NOT NULL,
-  `psc` varchar(10) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `sol_hash` varchar(64) NOT NULL,
+  `heslo_hash` varchar(65) NOT NULL,
+  `tel_cislo` varchar(45) NOT NULL,
   `okres` varchar(45) NOT NULL,
+  `mesto` varchar(45) DEFAULT NULL,
+  `ulica` varchar(45) DEFAULT NULL,
+  `cislo_domu` varchar(10) DEFAULT NULL,
+  `psc` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -155,7 +183,7 @@ CREATE TABLE `pouzivatel` (
 
 LOCK TABLES `pouzivatel` WRITE;
 /*!40000 ALTER TABLE `pouzivatel` DISABLE KEYS */;
-INSERT INTO `pouzivatel` VALUES (1,'Samuel','Baran','samo@gamil.com','061545313','hesloheslo','Hanusovne','vlaková',236,'094 35','Vranov'),(2,'Dominik','Dzama','domos2345@gmail.com','0918062677','topHeslo','Bystré','Druzstevna',423,'09434','Prešov'),(3,'František','Kurimský','felko@gmail.com','09516545','feroHeslo','Ťahanovce','Kukučínova',211,'091 51','Košice');
+INSERT INTO `pouzivatel` VALUES (1,'Samuel','Baran','samo@gamil.com','asdfg','hesloheslo','061545313','Vranov','Hanusovne','','','094 35'),(2,'Dominik','Dzama','domos2345@gmail.com','yxcv','topHeslo','0918062677','Prešov','Bystré','Druzstevna','',''),(3,'František','Kurimský','felko@gmail.com','qwert','feroHeslo','09516545','Košice','','Kukučínova','211','091 51');
 /*!40000 ALTER TABLE `pouzivatel` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -168,4 +196,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-01 15:15:54
+-- Dump completed on 2020-12-03 16:54:36
