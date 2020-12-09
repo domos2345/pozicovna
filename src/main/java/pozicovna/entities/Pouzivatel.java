@@ -1,5 +1,7 @@
 package pozicovna.entities;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 public class Pouzivatel {
 	private Long id;
 	private String meno;
@@ -38,13 +40,14 @@ public class Pouzivatel {
 		this.priezvisko = priezvisko;
 		this.email = email;
 		this.tel_cislo = tel_cislo;
-		this.sol_hash = sol_hash;
-		this.heslo_hash = heslo_hash;
+		this.sol_hash = BCrypt.gensalt();
+		this.heslo_hash = BCrypt.hashpw(heslo_hash, sol_hash);
 		this.mesto = mesto;
 		this.ulica = ulica;
 		this.cislo_domu = cislo_domu;
 		this.psc = psc;
 		this.okres = okres;
+		// NA REGISTRACIU
 	}
 
 	public Long getId() {
