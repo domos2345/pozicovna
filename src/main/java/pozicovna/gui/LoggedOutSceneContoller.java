@@ -22,7 +22,6 @@ public class LoggedOutSceneContoller {
 
     @FXML
     void registrationButtonClick(ActionEvent event) {
-        System.out.println("clicked");
         try {
             RegistrationSceneController controller = new RegistrationSceneController();
             FXMLLoader loader = new FXMLLoader(App.class.getResource("Register.fxml"));

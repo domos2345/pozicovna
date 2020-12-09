@@ -32,6 +32,11 @@ public class SignInSceneController {
     void initialize() {}
 
     @FXML
+    void cancelButtonClick(ActionEvent event) {
+        emailTextField.getScene().getWindow().hide();
+    }
+
+    @FXML
     void signInButtonClick(ActionEvent event) {
         if(!fieldsFilledCorrectly())
             return;
@@ -68,7 +73,7 @@ public class SignInSceneController {
 
     public void showLoggedInWindow(){
         try {
-            LoggedInSceneContoller controller = new LoggedInSceneContoller();
+            LoggedInSceneContoller controller = new LoggedInSceneContoller(pouzivatel);
             FXMLLoader loader = new FXMLLoader(App.class.getResource("LoggedIn.fxml"));
             loader.setController(controller);
             Parent parent = loader.load();

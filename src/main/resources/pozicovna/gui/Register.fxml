@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="460.0" layoutY="242.0" mnemonicParsing="false" onAction="#registerButtonClick" text="Registrovať sa" />
+      <Button layoutX="453.0" layoutY="242.0" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="25.0" prefWidth="99.0" text="Registrovať sa" />
       <TextField fx:id="nameTextField" layoutX="130.0" layoutY="86.0" />
       <Label layoutX="235.0" layoutY="23.0" text="Registrácia">
          <font>
@@ -33,11 +33,12 @@
       <TextField fx:id="streetTextField" layoutX="379.0" layoutY="179.0" prefHeight="25.0" prefWidth="174.0" />
       <TextField fx:id="cityTextField" layoutX="379.0" layoutY="148.0" prefHeight="25.0" prefWidth="174.0" />
       <TextField fx:id="phoneNumberTextField" layoutX="379.0" layoutY="86.0" prefHeight="25.0" prefWidth="174.0" />
-      <Label fx:id="errorLabel" layoutX="209.0" layoutY="246.0" prefHeight="17.0" prefWidth="166.0" />
-      <Label layoutX="26.0" layoutY="246.0" text="* povinne políčka" />
+      <Label fx:id="errorLabel" layoutX="191.0" layoutY="246.0" prefHeight="17.0" prefWidth="180.0" />
+      <Label layoutX="26.0" layoutY="246.0" prefHeight="17.0" prefWidth="99.0" text="* povinne políčka" />
       <TextField fx:id="districtTextField" layoutX="379.0" layoutY="117.0" prefHeight="25.0" prefWidth="174.0" />
       <Label layoutX="311.0" layoutY="121.0" text="Okres: *" />
       <PasswordField fx:id="passwordField" layoutX="130.0" layoutY="179.0" />
+      <Button layoutX="379.0" layoutY="242.0" mnemonicParsing="false" onAction="#cancelButtonClick" prefHeight="25.0" prefWidth="63.0" text="Zrušiť" />
       <PasswordField fx:id="passwordConfirmationField" layoutX="130.0" layoutY="210.0" />
    </children>
 </AnchorPane>
