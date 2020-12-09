@@ -1,7 +1,5 @@
 package pozicovna.gui;
 
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +11,7 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		LoggedOutSceneContoller controller = new LoggedOutSceneContoller();
+		LoggedOutSceneController controller = new LoggedOutSceneController();
 		FXMLLoader loader = new FXMLLoader(App.class.getResource("LoggedOut.fxml"));
 		loader.setController(controller);
 		Parent parent = loader.load();

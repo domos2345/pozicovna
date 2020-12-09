@@ -5,13 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import pozicovna.entities.Pouzivatel;
 
-public class LoggedInSceneContoller {
+public class LoggedInSceneController extends Controller {
     @FXML
     private Label credentailsLabel;
 
     Pouzivatel pouzivatel;
 
-    public LoggedInSceneContoller(Pouzivatel pouzivatel){
+    public LoggedInSceneController(Pouzivatel pouzivatel){
         this.pouzivatel = pouzivatel;
     }
 
@@ -22,6 +22,6 @@ public class LoggedInSceneContoller {
 
     @FXML
     void logOutButtonCLick(ActionEvent event) {
-        credentailsLabel.getScene().getWindow().hide();
+        changeScene(new LoggedOutSceneController(), "LoggedOut.fxml");
     }
 }

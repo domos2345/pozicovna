@@ -7,18 +7,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class LoggedOutSceneContoller {
+public class LoggedOutSceneController extends Controller {
     @FXML
     private TextField searchTextField;
 
 
     @FXML
-    void initialize() {
-
-    }
+    void initialize() { }
 
     @FXML
     void registrationButtonClick(ActionEvent event) {
@@ -53,6 +52,10 @@ public class LoggedOutSceneContoller {
             stage.setTitle("Prihlasovanie");
             stage.setScene(scene);
             stage.show();
+
+            ((SignInSceneController)loader.getController()).pouzivatelProperty().addListener((x, y, pouzivatel) -> {
+                changeScene(new LoggedInSceneController(pouzivatel), "LoggedIn.fxml");
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
