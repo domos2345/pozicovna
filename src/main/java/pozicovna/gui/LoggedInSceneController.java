@@ -3,9 +3,16 @@ package pozicovna.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import pozicovna.entities.Pouzivatel;
+
+import java.io.IOException;
 
 public class LoggedInSceneController extends Controller{
     @FXML
@@ -41,7 +48,24 @@ public class LoggedInSceneController extends Controller{
 
     @FXML
     void editUserButtonClick(ActionEvent event) {
+        try {
+            EditPouzivatelSceneController controller = new EditPouzivatelSceneController(pouzivatel);
+            // aby som mal po editacii aktualne info
+            controller.pouzivatelProperty().addListener((x, y, pouzivatel) -> { this.pouzivatel = pouzivatel; });
 
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("EditPouzivatel.fxml"));
+            loader.setController(controller);
+            Parent parent = loader.load();
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Editácia");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // "menu"

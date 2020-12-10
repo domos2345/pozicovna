@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,8 +21,8 @@ public class LoggedOutSceneController extends Controller {
     @FXML
     void registrationButtonClick(ActionEvent event) {
         try {
-            RegistrationSceneController controller = new RegistrationSceneController();
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("Register.fxml"));
+            EditPouzivatelSceneController controller = new EditPouzivatelSceneController();
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("EditPouzivatel.fxml"));
             loader.setController(controller);
             Parent parent = loader.load();
             Scene scene = new Scene(parent);
@@ -54,7 +53,7 @@ public class LoggedOutSceneController extends Controller {
             stage.show();
 
             ((SignInSceneController)loader.getController()).pouzivatelProperty().addListener((x, y, pouzivatel) -> {
-                changeScene(new ToolCatalogueSceneController(pouzivatel), "LoggedIn.fxml");
+                changeScene(new ToolCatalogueSceneController(pouzivatel), "ToolCatalogue.fxml");
             });
         } catch (IOException e) {
             e.printStackTrace();

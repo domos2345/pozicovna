@@ -9,9 +9,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="453.0" layoutY="242.0" mnemonicParsing="false" onAction="#registerButtonClick" prefHeight="25.0" prefWidth="99.0" text="Registrovať sa" />
+      <Button fx:id="saveButton" layoutX="453.0" layoutY="242.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="99.0" text="save" />
       <TextField fx:id="nameTextField" layoutX="130.0" layoutY="86.0" />
-      <Label layoutX="235.0" layoutY="23.0" text="Registrácia">
+      <Label fx:id="titleLabel" alignment="CENTER" layoutX="152.0" layoutY="27.0" prefHeight="32.0" prefWidth="280.0" text="title">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
