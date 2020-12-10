@@ -54,7 +54,7 @@ public class LoggedOutSceneController extends Controller {
             stage.show();
 
             ((SignInSceneController)loader.getController()).pouzivatelProperty().addListener((x, y, pouzivatel) -> {
-                changeScene(new LoggedInSceneController(pouzivatel), "LoggedIn.fxml");
+                changeScene(new ToolCatalogueSceneController(pouzivatel), "LoggedIn.fxml");
             });
         } catch (IOException e) {
             e.printStackTrace();
