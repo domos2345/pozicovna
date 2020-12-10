@@ -83,12 +83,12 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
 		else {// UPDATE
 			String sql = "UPDATE pouzivatel SET meno = ?, priezvisko = ?,"
-					+ " email = ?, tel_cislo = ?,sol_hash = ?, heslo_hash = ?, mesto = ?, ulica = ?,"
+					+ " email = ?, tel_cislo = ?, sol_hash = ?, heslo_hash = ?, mesto = ?, ulica = ?,"
 					+ " cislo_domu = ?, psc = ?, okres = ?" + " WHERE id = ?";
 			int changed = jdbcTemplate.update(sql, pouzivatel.getMeno(), pouzivatel.getPriezvisko(),
 					pouzivatel.getEmail(), pouzivatel.getTel_cislo(), pouzivatel.getSol_hash(),
-					pouzivatel.getHeslo_hash(), pouzivatel.getMesto(), pouzivatel.getUlica(), pouzivatel.getPsc(),
-					pouzivatel.getOkres(), pouzivatel.getId());
+					pouzivatel.getHeslo_hash(), pouzivatel.getMesto(), pouzivatel.getUlica(),
+					pouzivatel.getCislo_domu(), pouzivatel.getPsc(), pouzivatel.getOkres(), pouzivatel.getId());
 			if (changed == 1) {
 				return pouzivatel;
 			} else {
