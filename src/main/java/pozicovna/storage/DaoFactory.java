@@ -10,6 +10,7 @@ public enum DaoFactory {
 	private boolean testing = false;
 	private JdbcTemplate jdbcTemplate;
 	private PouzivatelDao PouzivatelDao;
+	private NaradieDao NaradieDao;
 //	private PredmetDao predmetDao;
 
 	public void testing() {
@@ -22,6 +23,15 @@ public enum DaoFactory {
 
 		}
 		return PouzivatelDao;
+
+	}
+	
+	public NaradieDao getNaradieDao() {
+		if (NaradieDao == null) {
+			NaradieDao = new MysqlNaradieDao(getJdbc());
+
+		}
+		return NaradieDao;
 
 	}
 

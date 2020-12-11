@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.*;
 
@@ -17,23 +18,28 @@ public class App2 {
 	public static void main(String[] args) {
 		DaoFactory.INSTANCE.testing(); // NEMAZAT!!! :D
 
+		NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 		PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+
 //		 pouzivatelDao.save(new Pouzivatel("please", "a", "cmon", "01", "h", "bb", "dr",
 //		 "423", "094", "vr"));
-		System.out.println(pouzivatelDao.getById(7).toString());
-		System.out.println(pouzivatelDao.getByEmail("jeden@").toString());
+//		pouzivatelDao.save(new Pouzivatel(null, "a", "test@", "01", "h", "bb", "dr", "423", "094", "vr"));
+//		System.out.println(pouzivatelDao.getById(3).toString());
+//		System.out.println(pouzivatelDao.getByEmail("a@").toString());
 
 		// System.out.println(pouzivatelDao.delete(pouzivatelDao.getById(4).getId()));
-		List<Pouzivatel> pouzivatelia = pouzivatelDao.getAll();
-		System.out.println("LIST POUZIVATELOV");
-		for (int i = 0; i < pouzivatelia.size(); i++) {
-			System.out.println(pouzivatelia.get(i).toString());
+
+//		List<Pouzivatel> pouzivatelia = pouzivatelDao.getAll();
+//		System.out.println("LIST POUZIVATELOV");
+//		for (int i = 0; i < pouzivatelia.size(); i++) {
+//			System.out.println(pouzivatelia.get(i).toString());
+//		}
+
+		List<Naradie> naradieList = naradieDao.getAll();
+		System.out.println("LIST NARADI");
+		for (int i = 0; i < naradieList.size(); i++) {
+			System.out.println(naradieList.get(i).toString());
 		}
-
-//		String sol_hash = BCrypt.gensalt();
-//		String heslo_hash = BCrypt.hashpw("heslo123", sol_hash);
-//		System.out.println(heslo_hash);
-
 	}
 
 }

@@ -113,4 +113,18 @@ class MysqlPouzivatelDaoTest {
 
 		pouzivatelDao.delete(savedPouzivatel.getId());
 	}
+
+	void testSave() {
+		assertThrows(EntityNotFoundException.class, new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				Pouzivatel novyPouzivatel = new Pouzivatel(null, null, null, "as", "asd", "asdad", "asd", "asd", "01",
+						"vrr");
+				pouzivatelDao.save(novyPouzivatel);
+				pouzivatelDao.delete(novyPouzivatel.getId());
+
+			}
+		});
+	}
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -50,50 +52,56 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 	}
 
 	public Pouzivatel save(Pouzivatel pouzivatel) throws EntityNotFoundException {
-		if (pouzivatel.getId() == null) {// INSERT
-			SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
-			insert.withTableName("pouzivatel");
-			insert.usingGeneratedKeyColumns("id");
-			insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto", "ulica",
-					"cislo_domu", "psc", "okres");
+		try {
+			if (pouzivatel.getId() == null) {// INSERT
+				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
+				insert.withTableName("pouzivatel");
+				insert.usingGeneratedKeyColumns("id");
+				insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto",
+						"ulica", "cislo_domu", "psc", "okres");
 
-			insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto", "ulica",
-					"cislo_domu", "psc", "okres");
+				insert.usingColumns("meno", "priezvisko", "email", "tel_cislo", "sol_hash", "heslo_hash", "mesto",
+						"ulica", "cislo_domu", "psc", "okres");
 
-			Map<String, String> valuesMap = new HashMap<String, String>();
+				Map<String, String> valuesMap = new HashMap<String, String>();
 
-			valuesMap.put("meno", pouzivatel.getMeno());
-			valuesMap.put("priezvisko", pouzivatel.getPriezvisko());
-			valuesMap.put("email", pouzivatel.getEmail());
-			valuesMap.put("tel_cislo", pouzivatel.getTel_cislo());
-			valuesMap.put("sol_hash", pouzivatel.getSol_hash());
-			valuesMap.put("heslo_hash", pouzivatel.getHeslo_hash());
-			valuesMap.put("mesto", pouzivatel.getMesto());
-			valuesMap.put("ulica", pouzivatel.getUlica());
-			valuesMap.put("cislo_domu", pouzivatel.getCislo_domu());
-			valuesMap.put("psc", pouzivatel.getPsc());
-			valuesMap.put("okres", pouzivatel.getOkres());
+				valuesMap.put("meno", pouzivatel.getMeno());
+				valuesMap.put("priezvisko", pouzivatel.getPriezvisko());
+				valuesMap.put("email", pouzivatel.getEmail());
+				valuesMap.put("tel_cislo", pouzivatel.getTel_cislo());
+				valuesMap.put("sol_hash", pouzivatel.getSol_hash());
+				valuesMap.put("heslo_hash", pouzivatel.getHeslo_hash());
+				valuesMap.put("mesto", pouzivatel.getMesto());
+				valuesMap.put("ulica", pouzivatel.getUlica());
+				valuesMap.put("cislo_domu", pouzivatel.getCislo_domu());
+				valuesMap.put("psc", pouzivatel.getPsc());
+				valuesMap.put("okres", pouzivatel.getOkres());
 
-			return new Pouzivatel(insert.executeAndReturnKey(valuesMap).longValue(), pouzivatel.getMeno(),
-					pouzivatel.getPriezvisko(), pouzivatel.getEmail(), pouzivatel.getTel_cislo(),
-					pouzivatel.getSol_hash(), pouzivatel.getHeslo_hash(), pouzivatel.getMesto(), pouzivatel.getUlica(),
-					pouzivatel.getCislo_domu(), pouzivatel.getPsc(), pouzivatel.getOkres());
+				return new Pouzivatel(insert.executeAndReturnKey(valuesMap).longValue(), pouzivatel.getMeno(),
+						pouzivatel.getPriezvisko(), pouzivatel.getEmail(), pouzivatel.getTel_cislo(),
+						pouzivatel.getSol_hash(), pouzivatel.getHeslo_hash(), pouzivatel.getMesto(),
+						pouzivatel.getUlica(), pouzivatel.getCislo_domu(), pouzivatel.getPsc(), pouzivatel.getOkres());
 
-		}
-
-		else {// UPDATE
-			String sql = "UPDATE pouzivatel SET meno = ?, priezvisko = ?,"
-					+ " email = ?, tel_cislo = ?, sol_hash = ?, heslo_hash = ?, mesto = ?, ulica = ?,"
-					+ " cislo_domu = ?, psc = ?, okres = ?" + " WHERE id = ?";
-			int changed = jdbcTemplate.update(sql, pouzivatel.getMeno(), pouzivatel.getPriezvisko(),
-					pouzivatel.getEmail(), pouzivatel.getTel_cislo(), pouzivatel.getSol_hash(),
-					pouzivatel.getHeslo_hash(), pouzivatel.getMesto(), pouzivatel.getUlica(),
-					pouzivatel.getCislo_domu(), pouzivatel.getPsc(), pouzivatel.getOkres(), pouzivatel.getId());
-			if (changed == 1) {
-				return pouzivatel;
-			} else {
-				throw new EntityNotFoundException("Pouzivatel s id " + pouzivatel.getId() + " not found");
 			}
+
+			else {// UPDATE
+				String sql = "UPDATE pouzivatel SET meno = ?, priezvisko = ?,"
+						+ " email = ?, tel_cislo = ?, sol_hash = ?, heslo_hash = ?, mesto = ?, ulica = ?,"
+						+ " cislo_domu = ?, psc = ?, okres = ?" + " WHERE id = ?";
+				int changed = jdbcTemplate.update(sql, pouzivatel.getMeno(), pouzivatel.getPriezvisko(),
+						pouzivatel.getEmail(), pouzivatel.getTel_cislo(), pouzivatel.getSol_hash(),
+						pouzivatel.getHeslo_hash(), pouzivatel.getMesto(), pouzivatel.getUlica(),
+						pouzivatel.getCislo_domu(), pouzivatel.getPsc(), pouzivatel.getOkres(), pouzivatel.getId());
+				if (changed == 1) {
+					return pouzivatel;
+				} else {
+					throw new EntityNotFoundException("Pouzivatel s id " + pouzivatel.getId() + " not found");
+				}
+			}
+		} catch (DuplicateKeyException e) {
+			throw new EntityNotFoundException("Pouzivatel s emailom \"" + pouzivatel.getEmail() + "\" užexistuje");
+		} catch (DataIntegrityViolationException e) {
+			throw new EntityNotFoundException("Pouzivatel s hodnotou null na povinných miestach ");
 		}
 	}
 
