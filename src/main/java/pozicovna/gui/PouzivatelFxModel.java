@@ -2,15 +2,18 @@ package pozicovna.gui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import pozicovna.entities.Pouzivatel;
 
 public class PouzivatelFxModel {
 
-    private long id;
+    private Long id;
     private StringProperty meno;
     private StringProperty priezvisko;
     private StringProperty email;
     private StringProperty telCislo;
+    private String solHash;
+    private String hesloHash;
     private StringProperty heslo;
     private StringProperty mesto;
     private StringProperty ulica;
@@ -31,26 +34,39 @@ public class PouzivatelFxModel {
         this.okres = new SimpleStringProperty();
     }
 
-    @Override
-    public String toString() {
-        return "PouzivatelFxModel{" +
-                "id=" + id +
-                ", meno=" + getMeno() +
-                ", priezvisko=" + getPriezvisko() +
-                ", email=" + getEmail() +
-                ", telCislo=" + getTelCislo() +
-                ", heslo=" + getHeslo() +
-                ", mesto=" + getMeno() +
-                ", ulica=" + getUlica() +
-                ", cisloDomu=" + getCisloDomu() +
-                ", psc=" + getPsc() +
-                ", okres=" + getOkres() +
-                '}';
+    // editacia pouzivatela
+    public PouzivatelFxModel(Pouzivatel pouzivatel) {
+        this.id = pouzivatel.getId();
+        this.solHash = pouzivatel.getSol_hash();
+        this.hesloHash = pouzivatel.getHeslo_hash();
+
+        this.meno = new SimpleStringProperty(pouzivatel.getMeno());
+        this.priezvisko = new SimpleStringProperty(pouzivatel.getPriezvisko());
+        this.email = new SimpleStringProperty(pouzivatel.getEmail());
+        this.telCislo = new SimpleStringProperty(pouzivatel.getTel_cislo());
+        this.heslo = new SimpleStringProperty("");
+        this.mesto = new SimpleStringProperty(pouzivatel.getMesto());
+        this.ulica = new SimpleStringProperty(pouzivatel.getUlica());
+        this.cisloDomu = new SimpleStringProperty(pouzivatel.getUlica());
+        this.psc = new SimpleStringProperty(pouzivatel.getPsc());
+        this.okres = new SimpleStringProperty(pouzivatel.getOkres());
     }
 
     Pouzivatel getPouzivatel(){
-        return new Pouzivatel(getMeno(), getPriezvisko(), getEmail(), getTelCislo(), getHeslo(), getMesto(),
-                getUlica(), getCisloDomu(), getPsc(), getOkres());
+        if (id == null) // registracia
+            return new Pouzivatel(  getMeno(), getPriezvisko(), getEmail(),
+                                    getTelCislo(), getHeslo(), getMesto(),
+                                    getUlica(), getCisloDomu(), getPsc(), getOkres());
+        else if (heslo.getValue().equals("")) // heslo nebolo zmenene
+            return new Pouzivatel(  id, getMeno(), getPriezvisko(),
+                                    getEmail(), getTelCislo(), solHash,
+                                    hesloHash ,getMesto(), getUlica(),
+                                    getCisloDomu(), getPsc(), getOkres());
+        else // menil som heslo
+            return new Pouzivatel(  id, getMeno(), getPriezvisko(),
+                                    getEmail(), getTelCislo(), solHash,
+                                    BCrypt.hashpw(getHeslo(), solHash),getMesto(), getUlica(),
+                                    getCisloDomu(), getPsc(), getOkres());
     }
 
     public String getMeno() {
@@ -172,4 +188,22 @@ public class PouzivatelFxModel {
     public void setOkres(String okres) {
         this.okres.set(okres);
     }
+
+    @Override
+    public String toString() {
+        return "PouzivatelFxModel{" +
+                "id=" + id +
+                ", meno=" + getMeno() +
+                ", priezvisko=" + getPriezvisko() +
+                ", email=" + getEmail() +
+                ", telCislo=" + getTelCislo() +
+                ", heslo=" + getHeslo() +
+                ", mesto=" + getMeno() +
+                ", ulica=" + getUlica() +
+                ", cisloDomu=" + getCisloDomu() +
+                ", psc=" + getPsc() +
+                ", okres=" + getOkres() +
+                '}';
+    }
+
 }

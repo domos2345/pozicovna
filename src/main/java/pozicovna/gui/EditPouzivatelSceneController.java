@@ -1,17 +1,25 @@
 package pozicovna.gui;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.DaoFactory;
 import pozicovna.storage.PouzivatelDao;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class RegistrationSceneController {
+public class EditPouzivatelSceneController {
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Label titleLabel;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -39,14 +47,38 @@ public class RegistrationSceneController {
 
 
     PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+    ObjectProperty<Pouzivatel> pouzivatel;
     PouzivatelFxModel pouzivatelModel;
     List<TextField> mandatoryFields;
 
+    public EditPouzivatelSceneController() {
+        pouzivatelModel = new PouzivatelFxModel();
+    }
+
+    public EditPouzivatelSceneController(Pouzivatel pouzivatel) {
+        this.pouzivatel = new SimpleObjectProperty<>(pouzivatel);
+        pouzivatelModel = new PouzivatelFxModel(pouzivatel);
+    }
+
     @FXML
     void initialize() {
-        pouzivatelModel =  new PouzivatelFxModel();
+        chooseRegistrationOrEditing();
         bindUser();
         mandatoryFields = Arrays.asList(nameTextField, surnameTextField, emailTextField, passwordField, passwordConfirmationField, phoneNumberTextField, districtTextField);
+    }
+
+    private void chooseRegistrationOrEditing(){
+        if (pouzivatel == null){
+            titleLabel.setText("Registrácia");
+            saveButton.setText("Registrovať");
+        } else {
+            titleLabel.setText("Editácia používateľa");
+            saveButton.setText("Uložiť");
+            passwordField.setText("");
+            passwordConfirmationField.setText("");
+            // pre pripad ze sa nemeni heslo aby ta nieco bolo
+
+        }
     }
 
     private void bindUser(){
@@ -63,11 +95,11 @@ public class RegistrationSceneController {
     }
 
     @FXML
-    void registerButtonClick(ActionEvent event) {
+    void saveButtonClick(ActionEvent event) {
         if( !mandatoryFieldsFilled() || !passwordConfirmed())
             return;
 
-        pouzivatelDao.save(pouzivatelModel.getPouzivatel());
+        pouzivatel.set(pouzivatelDao.save(pouzivatelModel.getPouzivatel()));
         nameTextField.getScene().getWindow().hide();
     }
 
@@ -78,6 +110,10 @@ public class RegistrationSceneController {
 
     private boolean mandatoryFieldsFilled(){
         for(TextField tf: mandatoryFields){
+            // ak editujem tak nemusim menit hesla
+            if(pouzivatel != null && (tf == passwordField || tf == passwordConfirmationField))
+                continue;
+
             if(tf.getText() == null || tf.getText().isEmpty()){
                 tf.setStyle("-fx-background-color: lightcoral");
                 errorLabel.setText("Nevyplnené povinné políčka");
@@ -100,6 +136,10 @@ public class RegistrationSceneController {
             return false;
         }
         return true;
+    }
+
+    public ObjectProperty<Pouzivatel> pouzivatelProperty() {
+        return pouzivatel;
     }
 }
 

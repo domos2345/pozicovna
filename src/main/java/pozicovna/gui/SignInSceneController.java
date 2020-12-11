@@ -1,21 +1,16 @@
 package pozicovna.gui;
 
+import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.DaoFactory;
 import pozicovna.storage.EntityNotFoundException;
 import pozicovna.storage.PouzivatelDao;
 
-import java.io.IOException;
-
-public class SignInSceneController {
+public class SignInSceneController extends Controller {
     @FXML
     private TextField emailTextField;
     @FXML
@@ -26,8 +21,9 @@ public class SignInSceneController {
     private Button signInButton;
 
 
-    Pouzivatel pouzivatel;
-    PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+    private Pouzivatel pouzivatel;
+    private PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+    private ObjectProperty<Pouzivatel> pouzivatelOP =  new SimpleObjectProperty<>();
 
     @FXML
     void initialize() {}
@@ -41,13 +37,8 @@ public class SignInSceneController {
     void signInButtonClick(ActionEvent event) {
         if(!fieldsFilledCorrectly())
             return;
-
+        pouzivatelOP.setValue(pouzivatel);
         emailTextField.getScene().getWindow().hide();
-
-        //ToDo: hide aj LoggedOutScene
-        //  asi cez konstruktor si poslat scenu
-
-        showLoggedInWindow();
     }
 
     public boolean fieldsFilledCorrectly(){
@@ -72,21 +63,8 @@ public class SignInSceneController {
         return true;
     }
 
-    public void showLoggedInWindow(){
-        try {
-            LoggedInSceneContoller controller = new LoggedInSceneContoller(pouzivatel);
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("LoggedIn.fxml"));
-            loader.setController(controller);
-            Parent parent = loader.load();
-            Scene scene = new Scene(parent);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Pozicovna");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public ObjectProperty<Pouzivatel> pouzivatelProperty() {
+        return pouzivatelOP;
     }
 }
 
