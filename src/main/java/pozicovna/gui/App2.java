@@ -18,14 +18,17 @@ public class App2 {
 		DaoFactory.INSTANCE.testing(); // NEMAZAT!!! :D
 
 		PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
-		 pouzivatelDao.save(new Pouzivatel("a", "a", "a@", "01", "h", "bb", "dr",
-		 "423", "094", "vr"));
-		//System.out.println(pouzivatelDao.delete(pouzivatelDao.getById(4).getId()));
+//		 pouzivatelDao.save(new Pouzivatel("please", "a", "cmon", "01", "h", "bb", "dr",
+//		 "423", "094", "vr"));
+		System.out.println(pouzivatelDao.getById(7).toString());
+		System.out.println(pouzivatelDao.getByEmail("jeden@").toString());
+
+		// System.out.println(pouzivatelDao.delete(pouzivatelDao.getById(4).getId()));
 		List<Pouzivatel> pouzivatelia = pouzivatelDao.getAll();
+		System.out.println("LIST POUZIVATELOV");
 		for (int i = 0; i < pouzivatelia.size(); i++) {
 			System.out.println(pouzivatelia.get(i).toString());
 		}
-		
 
 //		String sol_hash = BCrypt.gensalt();
 //		String heslo_hash = BCrypt.hashpw("heslo123", sol_hash);

@@ -20,7 +20,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
 	private class PouzivatelRowMapper implements RowMapper<Pouzivatel> {
 		public Pouzivatel mapRow(ResultSet rs, int rowNum) throws SQLException {
-			long id = rs.getLong("id");
+			Long id = rs.getLong("id");
 			String meno = rs.getString("meno");
 			String priezvisko = rs.getString("priezvisko");
 			String email = rs.getString("email");
@@ -99,10 +99,10 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
 	public Pouzivatel getById(long id) throws EntityNotFoundException {
 		try {
-			return jdbcTemplate.queryForObject(
-					"SELECT id, meno, priezvisko, email, tel_cislo, sol_hash,"
-							+ " heslo_hash, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel WHERE id = " + id,
-					new PouzivatelRowMapper());
+			String sql = "SELECT id, meno, priezvisko, email, tel_cislo, sol_hash,"
+					+ " heslo_hash, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel WHERE id = " + id;
+			System.out.println(sql);
+			return jdbcTemplate.queryForObject(sql, new PouzivatelRowMapper());
 		} catch (DataAccessException e) {
 			throw new EntityNotFoundException("Pouzivatel s id " + id + " not found");
 		}
@@ -110,10 +110,14 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 	}
 
 	public Pouzivatel delete(long id) throws EntityNotFoundException {
-		Pouzivatel pouzivatel = getById(id);
-		String sql = "DELETE FROM pouzivatel WHERE id = " + id;
-		jdbcTemplate.update(sql);
-		return pouzivatel;
+		try {
+			Pouzivatel pouzivatel = getById(id);
+			String sql = "DELETE FROM pouzivatel WHERE id = " + id;
+			jdbcTemplate.update(sql);
+			return pouzivatel;
+		} catch (DataAccessException e) {
+			throw new EntityNotFoundException("Pouzivatel s id " + id + " not found");
+		}
 
 	}
 
@@ -121,8 +125,8 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 		if (email == null)
 			throw new NullPointerException("Email cannot be null");
 		try {
-			String sql = "SELECT id, meno, priezvisko, email, tel_cislo,sol_hash, heslo_hash, mesto, ulica, cislo_domu, psc, okres "
-					+ "FROM pouzivatel " + "WHERE email = ? ";
+			String sql = "SELECT id, meno, priezvisko, email, tel_cislo, sol_hash,"
+					+ " heslo_hash, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel WHERE email =?";
 			return jdbcTemplate.queryForObject(sql, new PouzivatelRowMapper(), email);
 		} catch (DataAccessException e) {
 			throw new EntityNotFoundException("Pouzivatel s emailom " + email + " neexistuje");

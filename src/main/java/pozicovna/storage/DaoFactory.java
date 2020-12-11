@@ -7,7 +7,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 public enum DaoFactory {
 	INSTANCE;
 
-	private boolean testing = true;
+	private boolean testing = false;
 	private JdbcTemplate jdbcTemplate;
 	private PouzivatelDao PouzivatelDao;
 //	private PredmetDao predmetDao;

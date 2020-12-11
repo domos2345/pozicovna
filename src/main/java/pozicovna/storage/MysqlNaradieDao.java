@@ -65,7 +65,7 @@ public class MysqlNaradieDao implements NaradieDao {
 			insert.usingGeneratedKeyColumns("id");
 			insert.usingColumns("znacka", "typ", "druh_naradia_id", "vlastnik_id");
 
-			Map<String, String> valuesMap = new HashMap<String, String>();
+			Map<String, Object> valuesMap = new HashMap<String, Object>();
 			Map<String, Long> valuesMapLong = new HashMap<String, Long>();
 
 			valuesMap.put("znacka", naradie.getZnacka());
