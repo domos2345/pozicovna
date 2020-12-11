@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `pozicovna_test` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `pozicovna_test`;
+CREATE DATABASE  IF NOT EXISTS `pozicovna` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `pozicovna`;
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pozicovna
@@ -60,7 +60,8 @@ DROP TABLE IF EXISTS `druh_naradia`;
 CREATE TABLE `druh_naradia` (
   `id` int NOT NULL AUTO_INCREMENT,
   `meno` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `meno_UNIQUE` (`meno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,7 +84,8 @@ DROP TABLE IF EXISTS `kategoria`;
 CREATE TABLE `kategoria` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nazov` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nazov_UNIQUE` (`nazov`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -136,6 +138,7 @@ CREATE TABLE `naradie` (
   `typ` varchar(45) NOT NULL,
   `druh_naradia_id` int NOT NULL,
   `vlastnik_id` int NOT NULL,
+  `popis` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_naradie_druh_naradia1_idx` (`druh_naradia_id`),
   KEY `fk_naradie_user1_idx` (`vlastnik_id`),
@@ -173,8 +176,9 @@ CREATE TABLE `pouzivatel` (
   `ulica` varchar(45) DEFAULT NULL,
   `cislo_domu` varchar(10) DEFAULT NULL,
   `psc` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +187,7 @@ CREATE TABLE `pouzivatel` (
 
 LOCK TABLES `pouzivatel` WRITE;
 /*!40000 ALTER TABLE `pouzivatel` DISABLE KEYS */;
-INSERT INTO `pouzivatel` VALUES (1,'Samuel','Baran','samo@gamil.com','asdfg','hesloheslo','061545313','Vranov','Hanusovne','','','094 35'),(2,'Dominik','Dzama','domos2345@gmail.com','yxcv','topHeslo','0918062677','Prešov','Bystré','Druzstevna','',''),(3,'František','Kurimský','felko@gmail.com','qwert','feroHeslo','09516545','Košice','','Kukučínova','211','091 51');
+INSERT INTO `pouzivatel` VALUES (1,'Samuel','Baran','samo@gamil.com','asdfg','hesloheslo','061545313','Vranov','Hanusovne','','','094 35'),(2,'Dominik','Dzama','domos2345@gmail.com','yxcv','topHeslo','0918062677','Prešov','Bystré','Druzstevna','',''),(3,'František','Kurimský','felko@gmail.com','qwert','feroHeslo','09516545','Košice','','Kukučínova','211','091 51'),(4,'a','a','a@','$2a$10$XwHL2bIT28k08LD6MN7vt.','$2a$10$XwHL2bIT28k08LD6MN7vt.7tNXnqMbv0QRhSIGLJ299n1m10blk8W','01','vr','bb','dr','423','094');
 /*!40000 ALTER TABLE `pouzivatel` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -196,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-03 16:54:36
+-- Dump completed on 2020-12-11 16:57:21
