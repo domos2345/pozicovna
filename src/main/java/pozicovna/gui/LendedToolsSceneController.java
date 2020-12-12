@@ -11,6 +11,7 @@ public class LendedToolsSceneController extends LoggedInSceneController{
 
     @FXML
     void initialize() {
+        super.initialize();
         lendedToolsButton.setDisable(true);
     }
 }

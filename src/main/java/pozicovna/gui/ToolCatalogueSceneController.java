@@ -11,6 +11,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
 
     @FXML
     void initialize() {
+        super.initialize();
         toolCatalogueButton.setDisable(true);
     }
 }

@@ -53,6 +53,7 @@ public class EditPouzivatelSceneController {
 
     public EditPouzivatelSceneController() {
         pouzivatelModel = new PouzivatelFxModel();
+        this.pouzivatel =  new SimpleObjectProperty<>(null);
     }
 
     public EditPouzivatelSceneController(Pouzivatel pouzivatel) {
@@ -68,7 +69,8 @@ public class EditPouzivatelSceneController {
     }
 
     private void chooseRegistrationOrEditing(){
-        if (pouzivatel == null){
+        System.out.println(pouzivatel.get());
+        if (pouzivatel.get() == null){
             titleLabel.setText("Registrácia");
             saveButton.setText("Registrovať");
         } else {
@@ -111,7 +113,7 @@ public class EditPouzivatelSceneController {
     private boolean mandatoryFieldsFilled(){
         for(TextField tf: mandatoryFields){
             // ak editujem tak nemusim menit hesla
-            if(pouzivatel != null && (tf == passwordField || tf == passwordConfirmationField))
+            if(pouzivatel.get() != null && (tf == passwordField || tf == passwordConfirmationField))
                 continue;
 
             if(tf.getText() == null || tf.getText().isEmpty()){
