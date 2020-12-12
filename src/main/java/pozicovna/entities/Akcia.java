@@ -8,98 +8,76 @@ import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
+
 public class Akcia {
-
 	private Long id;
-	private Long naradie_id;
-	private Long vlastnik_id;
-	private LocalDateTime ziadost;
-	private LocalDateTime pozicanie;
-	private LocalDateTime zamietnutie;
-	private LocalDateTime vratenie;
-	private Pouzivatel komu;
+	private Pouzivatel komu; // cez join v AkciaDao
+	private Date ziadost;
+	private Date zamietnute;
+	private Date pozicane;
+	private Date vratene;
 
-	public Akcia(Long id, Long naradie_id, Long vlastnik_id, LocalDateTime ziadost, LocalDateTime pozicanie,
-			LocalDateTime zamietnutie, LocalDateTime vratenie) {
-		super();
+	public Akcia(Long id, Pouzivatel komu, Date ziadost, Date zamietnute, Date pozicane, Date vratene) {
 		this.id = id;
-		this.naradie_id = naradie_id;
-		this.vlastnik_id = vlastnik_id;
+		this.komu = komu;
 		this.ziadost = ziadost;
-		this.pozicanie = pozicanie;
-		this.zamietnutie = zamietnutie;
-		this.vratenie = vratenie;
-	}
-
-	public Akcia(Long id, Long naradie_id, Long vlastnik_id, LocalDateTime ziadost) {
-		super();
-		this.id = id;
-		this.naradie_id = naradie_id;
-		this.vlastnik_id = vlastnik_id;
-		this.ziadost = ziadost;
-	}
-
-	public Long getId() {
-		return id;
+		this.zamietnute = zamietnute;
+		this.pozicane = pozicane;
+		this.vratene = vratene;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Long getNaradie_id() {
-		return naradie_id;
+	public void setKomu(Pouzivatel komu) {
+		this.komu = komu;
 	}
 
-	public void setNaradie_id(Long naradie_id) {
-		this.naradie_id = naradie_id;
-	}
-
-	public Long getVlastnik_id() {
-		return vlastnik_id;
-	}
-
-	public void setVlastnik_id(Long vlastnik_id) {
-		this.vlastnik_id = vlastnik_id;
-	}
-
-	public LocalDateTime getZiadost() {
-		return ziadost;
-	}
-
-	public void setZiadost(LocalDateTime ziadost) {
+	public void setZiadost(Date ziadost) {
 		this.ziadost = ziadost;
 	}
 
-	public LocalDateTime getPozicanie() {
-		return pozicanie;
+	public void setZamietnute(Date zamietnute) {
+		this.zamietnute = zamietnute;
 	}
 
-	public void setPozicanie(LocalDateTime pozicanie) {
-		this.pozicanie = pozicanie;
+	public void setPozicane(Date pozicane) {
+		this.pozicane = pozicane;
 	}
 
-	public LocalDateTime getZamietnutie() {
-		return zamietnutie;
+	public void setVratene(Date vratene) {
+		this.vratene = vratene;
 	}
 
-	public void setZamietnutie(LocalDateTime zamietnutie) {
-		this.zamietnutie = zamietnutie;
+	public Long getId() {
+		return id;
 	}
 
-	public LocalDateTime getVratenie() {
-		return vratenie;
+	public Pouzivatel getKomu() {
+		return komu;
 	}
 
-	public void setVratenie(LocalDateTime vratenie) {
-		this.vratenie = vratenie;
+	public Date getZiadost() {
+		return ziadost;
+	}
+
+	public Date getZamietnute() {
+		return zamietnute;
+	}
+
+	public Date getPozicane() {
+		return pozicane;
+	}
+
+	public Date getVratene() {
+		return vratene;
 	}
 
 	@Override
 	public String toString() {
-		return "Akcia [id=" + id + ", naradie_id=" + naradie_id + ", vlastnik_id=" + vlastnik_id + ", ziadost="
-				+ ziadost + ", pozicanie=" + pozicanie + ", zamietnutie=" + zamietnutie + ", vratenie=" + vratenie
-				+ "]";
+		return "Akcia{" + "id=" + id + ", komu=" + komu + ", ziadost=" + ziadost + ", zamietnute=" + zamietnute
+				+ ", pozicane=" + pozicane + ", vratene=" + vratene + '}';
 	}
-
 }

@@ -11,6 +11,7 @@ public class RequestsSceneController extends LoggedInSceneController{
 
     @FXML
     void initialize() {
+        super.initialize();
         requestsButton.setDisable(true);
     }
 }
