@@ -28,23 +28,26 @@ public class MysqlNaradieDao implements NaradieDao {
 			Long id = rs.getLong("id");
 			String znacka = rs.getString("znacka");
 			String typ = rs.getString("typ");
+			Boolean je_dostupne = rs.getBoolean("je_dostupne");
 			Long druh_naradia_id = rs.getLong("druh_naradia_id");
 			Long vlastnik_id = rs.getLong("vlastnik_id");
 			String popis = rs.getString("popis");
 
-			return new Naradie(id, znacka, typ, druh_naradia_id, vlastnik_id, popis);
+			return new Naradie(id, znacka, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis);
 		}
 	}
 
 	public List<Naradie> getAll() {
-		return jdbcTemplate.query("SELECT id, znacka, typ, druh_naradia_id, vlastnik_id, popis FROM naradie",
+		return jdbcTemplate.query(
+				"SELECT id, znacka, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie",
 				new NaradieRowMapper());
 	}
 
 	public Naradie getById(long id) throws EntityNotFoundException {
 		try {
 			return jdbcTemplate.queryForObject(
-					"SELECT id, znacky, typ, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE id = " + id,
+					"SELECT id, znacky, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE id = "
+							+ id,
 					new NaradieRowMapper());
 		} catch (DataAccessException e) {
 			throw new EntityNotFoundException("Náradie s id " + id + " not found");
@@ -55,7 +58,7 @@ public class MysqlNaradieDao implements NaradieDao {
 	public List<Naradie> getByVlastnikId(long id) throws EntityNotFoundException {
 		try {
 			return jdbcTemplate.query(
-					"SELECT id, znacky, typ, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE vlastnik_id = "
+					"SELECT id, znacky, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE vlastnik_id = "
 							+ id,
 					new NaradieRowMapper());
 		} catch (DataAccessException e) {
@@ -72,7 +75,7 @@ public class MysqlNaradieDao implements NaradieDao {
 				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 				insert.withTableName("naradie");
 				insert.usingGeneratedKeyColumns("id");
-				insert.usingColumns("znacka", "typ", "druh_naradia_id", "vlastnik_id", "popis");
+				insert.usingColumns("znacka", "typ", "je_dostupne", "druh_naradia_id", "vlastnik_id", "popis");
 
 				Map<String, Object> valuesMap = new HashMap<String, Object>();
 				Map<String, Long> valuesMapLong = new HashMap<String, Long>();
@@ -80,19 +83,21 @@ public class MysqlNaradieDao implements NaradieDao {
 				valuesMap.put("znacka", naradie.getZnacka());
 				valuesMap.put("typ", naradie.getTyp());
 				valuesMap.put("popis", naradie.getPopis());
+				valuesMap.put("je_dostupne", naradie.getJe_dostupne());
 				valuesMapLong.put("druh_naradia_id", naradie.getDruh_naradia_id());
 				valuesMapLong.put("vlastnik_id", naradie.getVlastnik_id());
 
 				insert.execute(valuesMapLong);
 				return new Naradie(insert.executeAndReturnKey(valuesMap).longValue(), naradie.getZnacka(),
-						naradie.getTyp(), naradie.getDruh_naradia_id(), naradie.getVlastnik_id(), naradie.getPopis());
+						naradie.getTyp(), naradie.getJe_dostupne(), naradie.getDruh_naradia_id(),
+						naradie.getVlastnik_id(), naradie.getPopis());
 
 			}
 
 			else {// UPDATE
-				String sql = "UPDATE naradie SET znacka = ?, typ = ?,"
+				String sql = "UPDATE naradie SET znacka = ?, typ = ?, je_dostupne = ?,"
 						+ " druh_naradia_id = ?, vlastnik_id = ?, popis = ?" + " WHERE id = ?";
-				int changed = jdbcTemplate.update(sql, naradie.getZnacka(), naradie.getTyp(),
+				int changed = jdbcTemplate.update(sql, naradie.getZnacka(), naradie.getTyp(), naradie.getJe_dostupne(),
 						naradie.getDruh_naradia_id(), naradie.getVlastnik_id(), naradie.getTyp(), naradie.getId());
 				if (changed == 1) {
 					return naradie;
