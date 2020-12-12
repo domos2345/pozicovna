@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `pozicovna` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `pozicovna`;
--- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pozicovna
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,7 +37,7 @@ CREATE TABLE `akcia` (
   KEY `fk_ziadost_pouzivatel1_idx` (`pouzivatel_id`),
   CONSTRAINT `fk_ziadost_naradie1` FOREIGN KEY (`naradie_id`) REFERENCES `naradie` (`id`),
   CONSTRAINT `fk_ziadost_pouzivatel1` FOREIGN KEY (`pouzivatel_id`) REFERENCES `pouzivatel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `akcia` (
 
 LOCK TABLES `akcia` WRITE;
 /*!40000 ALTER TABLE `akcia` DISABLE KEYS */;
+INSERT INTO `akcia` VALUES (1,1,7,'2020-12-12 23:19:59',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `akcia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +62,7 @@ CREATE TABLE `druh_naradia` (
   `meno` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `meno_UNIQUE` (`meno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,6 +71,7 @@ CREATE TABLE `druh_naradia` (
 
 LOCK TABLES `druh_naradia` WRITE;
 /*!40000 ALTER TABLE `druh_naradia` DISABLE KEYS */;
+INSERT INTO `druh_naradia` VALUES (2,'Bruska'),(1,'Vrtacka');
 /*!40000 ALTER TABLE `druh_naradia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +146,7 @@ CREATE TABLE `naradie` (
   KEY `fk_naradie_user1_idx` (`vlastnik_id`),
   CONSTRAINT `fk_naradie_druh_naradia1` FOREIGN KEY (`druh_naradia_id`) REFERENCES `druh_naradia` (`id`),
   CONSTRAINT `fk_naradie_user1` FOREIGN KEY (`vlastnik_id`) REFERENCES `pouzivatel` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,6 +155,7 @@ CREATE TABLE `naradie` (
 
 LOCK TABLES `naradie` WRITE;
 /*!40000 ALTER TABLE `naradie` DISABLE KEYS */;
+INSERT INTO `naradie` VALUES (1,'Bosch','c12',1,1,6,'popis'),(2,'Makita','bbb',1,1,6,NULL),(3,'Bosch','aaa',1,2,6,'iny popis');
 /*!40000 ALTER TABLE `naradie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +181,7 @@ CREATE TABLE `pouzivatel` (
   `psc` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +190,7 @@ CREATE TABLE `pouzivatel` (
 
 LOCK TABLES `pouzivatel` WRITE;
 /*!40000 ALTER TABLE `pouzivatel` DISABLE KEYS */;
-INSERT INTO `pouzivatel` VALUES (1,'Samuel','Baran','samo@gamil.com','asdfg','hesloheslo','061545313','Vranov','Hanusovne','','','094 35'),(2,'Dominik','Dzama','domos2345@gmail.com','yxcv','topHeslo','0918062677','Prešov','Bystré','Druzstevna','',''),(3,'František','Kurimský','felko@gmail.com','qwert','feroHeslo','09516545','Košice','','Kukučínova','211','091 51'),(4,'a','a','a@','$2a$10$XwHL2bIT28k08LD6MN7vt.','$2a$10$XwHL2bIT28k08LD6MN7vt.7tNXnqMbv0QRhSIGLJ299n1m10blk8W','01','vr','bb','dr','423','094');
+INSERT INTO `pouzivatel` VALUES (6,'Samuel','Baran','sb@m','$2a$10$pHHFSm1WYwgdf0Cv8wCdVu','$2a$10$pHHFSm1WYwgdf0Cv8wCdVu3V.dnYHfEpXSor9/khg2mxDd5sX8Ni2','0901','VT',NULL,NULL,NULL,NULL),(7,'Dominik','Dzama','dd@m','$2a$10$vDg3.VYkYww9E3g8/uBDq.','$2a$10$vDg3.VYkYww9E3g8/uBDq.rNGhBMuZhZ7/7zR4vPS2A5VmSJ5r4Lm','0902','VT',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pouzivatel` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -200,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-12 17:36:52
+-- Dump completed on 2020-12-12 23:22:04
