@@ -28,7 +28,6 @@ CREATE TABLE `akcia` (
   `id` int NOT NULL AUTO_INCREMENT,
   `naradie_id` int NOT NULL,
   `pouzivatel_id` int NOT NULL,
-  `druh_akcie_id` int NOT NULL,
   `ziadost` datetime DEFAULT NULL,
   `pozicanie` datetime DEFAULT NULL,
   `zamietnutie` datetime DEFAULT NULL,
@@ -136,6 +135,7 @@ CREATE TABLE `naradie` (
   `id` int NOT NULL AUTO_INCREMENT,
   `znacka` varchar(45) NOT NULL,
   `typ` varchar(45) NOT NULL,
+  `je_dostupne` tinyint(1) NOT NULL,
   `druh_naradia_id` int NOT NULL,
   `vlastnik_id` int NOT NULL,
   `popis` varchar(500) DEFAULT NULL,
@@ -200,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-11 16:57:21
+-- Dump completed on 2020-12-12 17:36:52
