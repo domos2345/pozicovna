@@ -23,91 +23,93 @@ public class MysqlNaradieDao implements NaradieDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	private class NaradieRowMapper implements RowMapper<Naradie> {
-		public Naradie mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Long id = rs.getLong("id");
-			String znacka = rs.getString("znacka");
-			String typ = rs.getString("typ");
-			Boolean je_dostupne = rs.getBoolean("je_dostupne");
-			Long druh_naradia_id = rs.getLong("druh_naradia_id");
-			Long vlastnik_id = rs.getLong("vlastnik_id");
-			String popis = rs.getString("popis");
-
-			return new Naradie(id, znacka, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis);
-		}
-	}
+//	private class NaradieRowMapper implements RowMapper<Naradie> {
+//		public Naradie mapRow(ResultSet rs, int rowNum) throws SQLException {
+//			Long id = rs.getLong("id");
+//			String znacka = rs.getString("znacka");
+//			String typ = rs.getString("typ");
+//			Boolean je_dostupne = rs.getBoolean("je_dostupne");
+//			Long druh_naradia_id = rs.getLong("druh_naradia_id");
+//			Long vlastnik_id = rs.getLong("vlastnik_id");
+//			String popis = rs.getString("popis");
+//
+//			return new Naradie(id, znacka, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis);
+//		}
+//	}
 
 	public List<Naradie> getAll() {
-		return jdbcTemplate.query(
-				"SELECT id, znacka, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie",
-				new NaradieRowMapper());
+//		return jdbcTemplate.query(
+//				"SELECT id, znacka, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie",
+//				new NaradieRowMapper());
+		return null;
 	}
 
 	public Naradie getById(long id) throws EntityNotFoundException {
-		try {
-			return jdbcTemplate.queryForObject(
-					"SELECT id, znacky, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE id = "
-							+ id,
-					new NaradieRowMapper());
-		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("Náradie s id " + id + " not found");
-		}
-
+//		try {
+//			return jdbcTemplate.queryForObject(
+//					"SELECT id, znacky, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE id = "
+//							+ id,
+//					new NaradieRowMapper());
+//		} catch (DataAccessException e) {
+//			throw new EntityNotFoundException("Náradie s id " + id + " not found");
+//		}
+		return null;
 	}
 
 	public List<Naradie> getByVlastnikId(long id) throws EntityNotFoundException {
-		try {
-			return jdbcTemplate.query(
-					"SELECT id, znacky, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE vlastnik_id = "
-							+ id,
-					new NaradieRowMapper());
-		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("Náradie vlastníka s id " + id + " not found");
-		}
-
+//		try {
+//			return jdbcTemplate.query(
+//					"SELECT id, znacky, typ, je_dostupne, druh_naradia_id, vlastnik_id, popis FROM naradie WHERE vlastnik_id = "
+//							+ id,
+//					new NaradieRowMapper());
+//		} catch (DataAccessException e) {
+//			throw new EntityNotFoundException("Náradie vlastníka s id " + id + " not found");
+//		}
+		return null;
 	}
 
 	@Override
 	public Naradie save(Naradie naradie) throws EntityNotFoundException {
-		try {
-
-			if (naradie.getId() == null) {// INSERT
-				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
-				insert.withTableName("naradie");
-				insert.usingGeneratedKeyColumns("id");
-				insert.usingColumns("znacka", "typ", "je_dostupne", "druh_naradia_id", "vlastnik_id", "popis");
-
-				Map<String, Object> valuesMap = new HashMap<String, Object>();
-				Map<String, Long> valuesMapLong = new HashMap<String, Long>();
-
-				valuesMap.put("znacka", naradie.getZnacka());
-				valuesMap.put("typ", naradie.getTyp());
-				valuesMap.put("popis", naradie.getPopis());
-				valuesMap.put("je_dostupne", naradie.getJe_dostupne());
-				valuesMapLong.put("druh_naradia_id", naradie.getDruh_naradia_id());
-				valuesMapLong.put("vlastnik_id", naradie.getVlastnik_id());
-
-				insert.execute(valuesMapLong);
-				return new Naradie(insert.executeAndReturnKey(valuesMap).longValue(), naradie.getZnacka(),
-						naradie.getTyp(), naradie.getJe_dostupne(), naradie.getDruh_naradia_id(),
-						naradie.getVlastnik_id(), naradie.getPopis());
-
-			}
-
-			else {// UPDATE
-				String sql = "UPDATE naradie SET znacka = ?, typ = ?, je_dostupne = ?,"
-						+ " druh_naradia_id = ?, vlastnik_id = ?, popis = ?" + " WHERE id = ?";
-				int changed = jdbcTemplate.update(sql, naradie.getZnacka(), naradie.getTyp(), naradie.getJe_dostupne(),
-						naradie.getDruh_naradia_id(), naradie.getVlastnik_id(), naradie.getTyp(), naradie.getId());
-				if (changed == 1) {
-					return naradie;
-				} else {
-					throw new EntityNotFoundException("Náradie s id " + naradie.getId() + " not found");
-				}
-			}
-		} catch (DataIntegrityViolationException e) {
-			throw new EntityNotFoundException("Naradie s hodnotou null na povinných miestach ");
-		}
+//		try {
+//
+//			if (naradie.getId() == null) {// INSERT
+//				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
+//				insert.withTableName("naradie");
+//				insert.usingGeneratedKeyColumns("id");
+//				insert.usingColumns("znacka", "typ", "je_dostupne", "druh_naradia_id", "vlastnik_id", "popis");
+//
+//				Map<String, Object> valuesMap = new HashMap<String, Object>();
+//				Map<String, Long> valuesMapLong = new HashMap<String, Long>();
+//
+//				valuesMap.put("znacka", naradie.getZnacka());
+//				valuesMap.put("typ", naradie.getTyp());
+//				valuesMap.put("popis", naradie.getPopis());
+//				valuesMap.put("je_dostupne", naradie.getJe_dostupne());
+//				valuesMapLong.put("druh_naradia_id", naradie.getDruh_naradia_id());
+//				valuesMapLong.put("vlastnik_id", naradie.getVlastnik_id());
+//
+//				insert.execute(valuesMapLong);
+//				return new Naradie(insert.executeAndReturnKey(valuesMap).longValue(), naradie.getZnacka(),
+//						naradie.getTyp(), naradie.getJe_dostupne(), naradie.getDruh_naradia_id(),
+//						naradie.getVlastnik_id(), naradie.getPopis());
+//
+//			}
+//
+//			else {// UPDATE
+//				String sql = "UPDATE naradie SET znacka = ?, typ = ?, je_dostupne = ?,"
+//						+ " druh_naradia_id = ?, vlastnik_id = ?, popis = ?" + " WHERE id = ?";
+//				int changed = jdbcTemplate.update(sql, naradie.getZnacka(), naradie.getTyp(), naradie.getJe_dostupne(),
+//						naradie.getDruh_naradia_id(), naradie.getVlastnik_id(), naradie.getTyp(), naradie.getId());
+//				if (changed == 1) {
+//					return naradie;
+//				} else {
+//					throw new EntityNotFoundException("Náradie s id " + naradie.getId() + " not found");
+//				}
+//			}
+//		} catch (DataIntegrityViolationException e) {
+//			throw new EntityNotFoundException("Naradie s hodnotou null na povinných miestach ");
+//		}
+		return null;
 	}
 
 	@Override

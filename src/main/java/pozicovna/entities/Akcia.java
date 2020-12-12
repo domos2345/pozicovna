@@ -13,12 +13,12 @@ import java.util.Date;
 public class Akcia {
 	private Long id;
 	private Pouzivatel komu; // cez join v AkciaDao
-	private Date ziadost;
-	private Date zamietnute;
-	private Date pozicane;
-	private Date vratene;
+	private LocalDateTime ziadost;
+	private LocalDateTime zamietnute;
+	private LocalDateTime pozicane;
+	private LocalDateTime vratene;
 
-	public Akcia(Long id, Pouzivatel komu, Date ziadost, Date zamietnute, Date pozicane, Date vratene) {
+	public Akcia(Long id, Pouzivatel komu, LocalDateTime ziadost, LocalDateTime zamietnute, LocalDateTime pozicane, LocalDateTime vratene) {
 		this.id = id;
 		this.komu = komu;
 		this.ziadost = ziadost;
@@ -27,27 +27,23 @@ public class Akcia {
 		this.vratene = vratene;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public void setKomu(Pouzivatel komu) {
 		this.komu = komu;
 	}
 
-	public void setZiadost(Date ziadost) {
+	public void setZiadost(LocalDateTime ziadost) {
 		this.ziadost = ziadost;
 	}
 
-	public void setZamietnute(Date zamietnute) {
+	public void setZamietnute(LocalDateTime zamietnute) {
 		this.zamietnute = zamietnute;
 	}
 
-	public void setPozicane(Date pozicane) {
+	public void setPozicane(LocalDateTime pozicane) {
 		this.pozicane = pozicane;
 	}
 
-	public void setVratene(Date vratene) {
+	public void setVratene(LocalDateTime vratene) {
 		this.vratene = vratene;
 	}
 
@@ -59,19 +55,19 @@ public class Akcia {
 		return komu;
 	}
 
-	public Date getZiadost() {
+	public LocalDateTime getZiadost() {
 		return ziadost;
 	}
 
-	public Date getZamietnute() {
+	public LocalDateTime getZamietnute() {
 		return zamietnute;
 	}
 
-	public Date getPozicane() {
+	public LocalDateTime getPozicane() {
 		return pozicane;
 	}
 
-	public Date getVratene() {
+	public LocalDateTime getVratene() {
 		return vratene;
 	}
 
