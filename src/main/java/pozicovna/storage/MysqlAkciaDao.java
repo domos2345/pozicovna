@@ -44,7 +44,7 @@ public class MysqlAkciaDao implements AkciaDao {
     @Override
     public List<Akcia> getByNaradieId(Long id) {
         String sql =
-                "SELECT id, ziadost, zamietnutie, pozicanie, vratenie, pouzivatel_id AS ziadatel" +
+                "SELECT id, ziadost, zamietnutie, pozicanie, vratenie, pouzivatel_id AS ziadatel " +
                 "FROM akcia " +
                 "WHERE akcia.naradie_id = ?";
         return jdbcTemplate.query(sql, new AkciaRowMapper(), id);
