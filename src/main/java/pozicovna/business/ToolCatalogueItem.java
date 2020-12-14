@@ -5,6 +5,7 @@ import pozicovna.entities.Pouzivatel;
 
 public class ToolCatalogueItem {
 
+    private Naradie naradie;
     private String druh;
     private String znacka;
     private String typ;
@@ -13,6 +14,7 @@ public class ToolCatalogueItem {
     private String okres;
 
     public ToolCatalogueItem(Naradie naradie) {
+        this.naradie = naradie;
         this.druh = naradie.getDruhNaradia();
         this.znacka = naradie.getZnacka();
         this.typ = naradie.getTyp();
@@ -44,5 +46,21 @@ public class ToolCatalogueItem {
 
     public String getOkres() {
         return okres;
+    }
+
+    public Naradie getNaradie() {
+        return naradie;
+    }
+
+    @Override
+    public String toString() {
+        return "ToolCatalogueItem{" +
+                ", druh='" + druh + '\'' +
+                ", znacka='" + znacka + '\'' +
+                ", typ='" + typ + '\'' +
+                ", stav='" + stav + '\'' +
+                ", majitel='" + majitel + '\'' +
+                ", okres='" + okres + '\'' +
+                '}';
     }
 }

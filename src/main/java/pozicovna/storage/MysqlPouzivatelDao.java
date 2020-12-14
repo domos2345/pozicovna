@@ -99,9 +99,9 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 				}
 			}
 		} catch (DuplicateKeyException e) {
-			throw new EntityNotFoundException("Pouzivatel s emailom \"" + pouzivatel.getEmail() + "\" užexistuje");
+			throw new EntityNotFoundException("Pouzivatel s emailom \"" + pouzivatel.getEmail() + "\" uï¿½existuje");
 		} catch (DataIntegrityViolationException e) {
-			throw new EntityNotFoundException("Pouzivatel s hodnotou null na povinných miestach ");
+			throw new EntityNotFoundException("Pouzivatel s hodnotou null na povinnï¿½ch miestach ");
 		}
 	}
 
@@ -109,7 +109,6 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 		try {
 			String sql = "SELECT id, meno, priezvisko, email, tel_cislo, sol_hash,"
 					+ " heslo_hash, mesto, ulica, cislo_domu, psc, okres " + "FROM pouzivatel WHERE id = " + id;
-			System.out.println(sql);
 			return jdbcTemplate.queryForObject(sql, new PouzivatelRowMapper());
 		} catch (DataAccessException e) {
 			throw new EntityNotFoundException("Pouzivatel s id " + id + " not found");

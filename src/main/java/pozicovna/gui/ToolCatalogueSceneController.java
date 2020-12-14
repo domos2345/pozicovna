@@ -1,7 +1,9 @@
 package pozicovna.gui;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,8 +29,12 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
     private TableColumn<ToolCatalogueItem, String> majitelColumn;
     @FXML
     private TableColumn<ToolCatalogueItem, String> okresColumn;
+    @FXML
+    private Button borrowButton;
+
 
     ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
+    Naradie selectedNaradie;
 
     public ToolCatalogueSceneController(Pouzivatel pouzivatel) {
         super(pouzivatel);
@@ -38,6 +44,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
     void initialize() {
         super.initialize();
         toolCatalogueButton.setDisable(true);
+        borrowButton.setDisable(true);
 
         druhColumn.setCellValueFactory( new PropertyValueFactory<>("druh"));
         znackaColumn.setCellValueFactory( new PropertyValueFactory<>("znacka"));
@@ -51,5 +58,23 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
                     toolCatalogueItemManager.getToolCatalogueItems()
                 )
         );
+
+        // https://stackoverflow.com/questions/26424769/javafx8-how-to-create-listener-for-selection-of-row-in-tableview
+        toolCatalogueTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                borrowButton.setDisable(false);
+                selectedNaradie = newSelection.getNaradie();
+            }
+        });
+    }
+
+    @FXML
+    void borrowButtonClick(ActionEvent event) {
+        System.out.println(selectedNaradie);
+        //create akcia
+        //zmen hodnotu v naradi na nedostupne
+
+        //reload pouzivatel
+        //reload tabulku
     }
 }
