@@ -12,7 +12,9 @@ public interface NaradieDao {
 	Naradie getById(long id) throws EntityNotFoundException;
 	
 	List<Naradie> getByVlastnikId(long id) throws EntityNotFoundException;
-	
+
+	List<Naradie> getByBorrowedToId(long id);
+
 	Naradie save(Naradie naradie) throws EntityNotFoundException;
 
 	Naradie delete(long id) throws EntityNotFoundException;
