@@ -35,6 +35,11 @@ public class Akcia {
 		this.vratene = vratene;
 	}
 
+	public Akcia(Pouzivatel komu) {
+		this.komu = komu;
+		this.ziadost = LocalDateTime.now();
+	}
+
 	public void setKomu(Pouzivatel komu) {
 		this.komu = komu;
 	}

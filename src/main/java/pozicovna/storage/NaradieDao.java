@@ -13,7 +13,7 @@ public interface NaradieDao {
 	
 	List<Naradie> getByVlastnikId(long id) throws EntityNotFoundException;
 	
-	Naradie save(Naradie naradie, Pouzivatel vlastnik) throws EntityNotFoundException;
+	Naradie save(Naradie naradie) throws EntityNotFoundException;
 
 	Naradie delete(long id) throws EntityNotFoundException;
 }
