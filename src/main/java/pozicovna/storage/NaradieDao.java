@@ -3,6 +3,7 @@ package pozicovna.storage;
 import java.util.List;
 
 import pozicovna.entities.Naradie;
+import pozicovna.entities.Pouzivatel;
 
 public interface NaradieDao {
 
@@ -12,7 +13,7 @@ public interface NaradieDao {
 	
 	List<Naradie> getByVlastnikId(long id) throws EntityNotFoundException;
 	
-	Naradie save(Naradie naradie) throws EntityNotFoundException;
+	Naradie save(Naradie naradie, Pouzivatel vlastnik) throws EntityNotFoundException;
 
 	Naradie delete(long id) throws EntityNotFoundException;
 }
