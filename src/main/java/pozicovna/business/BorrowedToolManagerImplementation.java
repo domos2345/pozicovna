@@ -17,7 +17,7 @@ public class BorrowedToolManagerImplementation implements BorrowedToolManager {
         List<BorrowedTool> result = new ArrayList<>();
         for(Naradie naradie: pozicaneNaradie){
             for (Akcia akcia: naradie.getAkcie()){
-                if(akcia.getZiadatel().getId() == id){
+                if(akcia.getKomu().getId() == id){
                     result.add(new BorrowedTool(naradie, akcia));
                 }
             }
