@@ -21,6 +21,7 @@ public class ToolCatalogueItem {
         this.majitel = vlastnik.getPriezvisko() + ", " + vlastnik.getMeno();
         this.okres = vlastnik.getOkres();
     }
+    
 
     public String getDruh() {
         return druh;

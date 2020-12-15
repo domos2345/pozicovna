@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `pozicovna` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `pozicovna`;
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: pozicovna
 -- ------------------------------------------------------
--- Server version	8.0.22
+-- Server version	8.0.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,17 +27,17 @@ DROP TABLE IF EXISTS `akcia`;
 CREATE TABLE `akcia` (
   `id` int NOT NULL AUTO_INCREMENT,
   `naradie_id` int NOT NULL,
-  `pouzivatel_id` int NOT NULL,
+  `ziadatel_id` int NOT NULL,
   `ziadost` datetime DEFAULT NULL,
   `pozicanie` datetime DEFAULT NULL,
   `zamietnutie` datetime DEFAULT NULL,
   `vratenie` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_ziadost_naradie1_idx` (`naradie_id`),
-  KEY `fk_ziadost_pouzivatel1_idx` (`pouzivatel_id`),
+  KEY `fk_ziadost_pouzivatel1_idx` (`ziadatel_id`),
   CONSTRAINT `fk_ziadost_naradie1` FOREIGN KEY (`naradie_id`) REFERENCES `naradie` (`id`),
-  CONSTRAINT `fk_ziadost_pouzivatel1` FOREIGN KEY (`pouzivatel_id`) REFERENCES `pouzivatel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_ziadost_pouzivatel1` FOREIGN KEY (`ziadatel_id`) REFERENCES `pouzivatel` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `akcia` (
 
 LOCK TABLES `akcia` WRITE;
 /*!40000 ALTER TABLE `akcia` DISABLE KEYS */;
-INSERT INTO `akcia` VALUES (1,1,7,'2020-12-12 23:19:59',NULL,NULL,NULL);
+INSERT INTO `akcia` VALUES (1,3,14,'2020-12-14 21:38:00','2020-12-16 20:20:00',NULL,NULL),(2,2,13,'2020-12-15 06:00:00',NULL,NULL,NULL),(3,1,14,'2020-12-15 06:00:00',NULL,'2020-12-16 09:00:00',NULL),(4,5,13,'2020-12-15 06:00:00',NULL,'2020-12-15 18:00:00',NULL),(5,5,10,'2020-12-16 06:00:00',NULL,NULL,NULL),(6,5,9,'2020-12-15 15:00:00',NULL,NULL,NULL),(7,4,13,'2020-12-15 06:00:00',NULL,NULL,'2020-12-18 14:30:00'),(8,6,13,'2020-12-16 07:00:00','2020-12-16 10:08:00',NULL,NULL);
 /*!40000 ALTER TABLE `akcia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ CREATE TABLE `druh_naradia` (
   `meno` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `meno_UNIQUE` (`meno`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `druh_naradia` (
 
 LOCK TABLES `druh_naradia` WRITE;
 /*!40000 ALTER TABLE `druh_naradia` DISABLE KEYS */;
-INSERT INTO `druh_naradia` VALUES (2,'Bruska'),(1,'Vrtacka');
+INSERT INTO `druh_naradia` VALUES (3,'bruska'),(4,'flexa'),(5,'spinkovač'),(1,'vrtacka'),(2,'zbijacka');
 /*!40000 ALTER TABLE `druh_naradia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +146,7 @@ CREATE TABLE `naradie` (
   KEY `fk_naradie_user1_idx` (`vlastnik_id`),
   CONSTRAINT `fk_naradie_druh_naradia1` FOREIGN KEY (`druh_naradia_id`) REFERENCES `druh_naradia` (`id`),
   CONSTRAINT `fk_naradie_user1` FOREIGN KEY (`vlastnik_id`) REFERENCES `pouzivatel` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +155,7 @@ CREATE TABLE `naradie` (
 
 LOCK TABLES `naradie` WRITE;
 /*!40000 ALTER TABLE `naradie` DISABLE KEYS */;
-INSERT INTO `naradie` VALUES (1,'Bosch','c12',1,1,6,'popis'),(2,'Makita','bbb',1,1,6,NULL),(3,'Bosch','aaa',1,2,6,'iny popis');
+INSERT INTO `naradie` VALUES (1,'BOSH','a4',1,1,13,'menšia vŕtačka na bežné použitie.'),(2,'MAKITA','t600',1,2,14,'Veľká zbíjačka na betóna pod.'),(3,'BOSH','s55',0,1,13,'Vŕtanie do betónu a tvrdých mat.'),(4,'BOSH','a4',1,1,10,NULL),(5,'XIAOMI','mi2',1,4,14,NULL),(6,'MAKITA','spin2',0,5,10,'spinkovač na sieťky na okná');
 /*!40000 ALTER TABLE `naradie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +181,7 @@ CREATE TABLE `pouzivatel` (
   `psc` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `pouzivatel` (
 
 LOCK TABLES `pouzivatel` WRITE;
 /*!40000 ALTER TABLE `pouzivatel` DISABLE KEYS */;
-INSERT INTO `pouzivatel` VALUES (6,'Samuel','Baran','sb@m','$2a$10$pHHFSm1WYwgdf0Cv8wCdVu','$2a$10$pHHFSm1WYwgdf0Cv8wCdVu3V.dnYHfEpXSor9/khg2mxDd5sX8Ni2','0901','VT',NULL,NULL,NULL,NULL),(7,'Dominik','Dzama','dd@m','$2a$10$vDg3.VYkYww9E3g8/uBDq.','$2a$10$vDg3.VYkYww9E3g8/uBDq.rNGhBMuZhZ7/7zR4vPS2A5VmSJ5r4Lm','0902','VT',NULL,NULL,NULL,NULL);
+INSERT INTO `pouzivatel` VALUES (7,'Dominik','Džama','domos234@gmail.com','$2a$10$NJgM7SKEwLBaApmv/ZZRe.','$2a$10$NJgM7SKEwLBaApmv/ZZRe.A3PpDDUHJby6.EVBVDCFuyojlXj77bW','0918062677','VnT','Bystré',NULL,NULL,'09434'),(8,'Samuel','Baran','samuelbaran@gmail.com','$2a$10$rXHTykJKm.pBKXnApfbGnu','$2a$10$rXHTykJKm.pBKXnApfbGnuQnj6jUDpTaKIfSYoI.ILjhFLRECKMI2','09185632487','VnT','Hanusovce',NULL,NULL,'09435'),(9,'Damián','Mrkvička','dm@','$2a$10$Cqi8w2N1JCHFf4G9PH4YIe','$2a$10$Cqi8w2N1JCHFf4G9PH4YIeO4S1IW5gcqhWACgR4DvQWfCEfsYOvYO','0951431501','PO','Ľubotice','Benkova','561','09564'),(10,'Jerguš','Gombit','jg@','$2a$10$RQO3SDxoDR7cINM0gNkqb.','$2a$10$RQO3SDxoDR7cINM0gNkqb.zA/iWa6b3PYT5tFKySEv8uEeMqADG2C','0954196784','VnT','Čaklov',NULL,NULL,'04257'),(11,'Michal','Breškovič','mb@','$2a$10$9h/TL6DBNy7woTDvcDihcu','$2a$10$9h/TL6DBNy7woTDvcDihcuSxVEaBeaw2CEfuOmvGIzY63C6Z.N9qy','0951456789','PO',NULL,NULL,NULL,'09484'),(12,'Jožko','Majirský','jm@','$2a$10$Ucks1Kid6wR1u5sAgtFQNu','$2a$10$Ucks1Kid6wR1u5sAgtFQNuk6m9jR3.bQYqsrBHmIacQNqzt7Be0om','0951465312','BB','Kráľova Hoľa','vrcholová',NULL,NULL),(13,'Samo','Baran','sb@','$2a$10$073jWoC2TVn3wmQ10RhErO','$2a$10$073jWoC2TVn3wmQ10RhErO4Jwhknpuy3St.jwRJdludmj1VVe8FWq','0916458723','Vnt','Hanusovce',NULL,NULL,'09151'),(14,'Domčo','Dzama','dd@','$2a$10$lZrNCJ6ZvnVYIqb9F8kZr.','$2a$10$lZrNCJ6ZvnVYIqb9F8kZr.S3UyhXih7PyMR/TDGg26ulNfdNDMx.i','0951431501','VnT','Bystre','Zemplínska','78','09434');
 /*!40000 ALTER TABLE `pouzivatel` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -203,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-12 23:22:04
+-- Dump completed on 2020-12-15 10:02:31
