@@ -59,4 +59,12 @@ public class BorrowedTool {
     public String getTyp() {
         return typ;
     }
+
+    public Naradie getNaradie() {
+        return naradie;
+    }
+
+    public Akcia getAkcia() {
+        return akcia;
+    }
 }

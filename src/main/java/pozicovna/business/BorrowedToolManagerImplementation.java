@@ -14,6 +14,7 @@ public class BorrowedToolManagerImplementation implements BorrowedToolManager {
     @Override
     public List<BorrowedTool> getBorrowedTools(Long id) {
         List<Naradie> pozicaneNaradie = naradieDao.getByBorrowedToId(id);
+        System.out.println(pozicaneNaradie.size());
         List<BorrowedTool> result = new ArrayList<>();
         for(Naradie naradie: pozicaneNaradie){
             for (Akcia akcia: naradie.getAkcie()){
