@@ -78,7 +78,7 @@ public class MysqlNaradieDao implements NaradieDao {
 
 	@Override
 	public List<Naradie> getByBorrowedToId(long id) {
-		String sql = "SELECT n.id, dn.meno AS druh_naradia, n.znacka, n.typ, n.je_dostupne, n.popis, n.vlastnik_id "
+		String sql = "SELECT DISTINCT n.id, dn.meno AS druh_naradia, n.znacka, n.typ, n.je_dostupne, n.popis, n.vlastnik_id "
 				+ "FROM naradie AS n " + "JOIN druh_naradia AS dn ON dn.id = n.druh_naradia_id "
 				+ "JOIN akcia AS a ON a.naradie_id = n.id " + "WHERE a.ziadatel_id = " + id;
 		try {
