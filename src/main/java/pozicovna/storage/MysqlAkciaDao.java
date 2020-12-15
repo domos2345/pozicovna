@@ -35,8 +35,8 @@ public class MysqlAkciaDao implements AkciaDao {
 			Timestamp pozicanieTS = rs.getTimestamp("pozicanie");
 			Timestamp vratenieTS = rs.getTimestamp("vratenie");
 			LocalDateTime zamietnutie = zamietnutieTS == null ? null : zamietnutieTS.toLocalDateTime();
-			LocalDateTime pozicanie = pozicanieTS == null ? null : zamietnutieTS.toLocalDateTime();
-			LocalDateTime vratenie = vratenieTS == null ? null : zamietnutieTS.toLocalDateTime();
+			LocalDateTime pozicanie = pozicanieTS == null ? null : pozicanieTS.toLocalDateTime();
+			LocalDateTime vratenie = vratenieTS == null ? null : vratenieTS.toLocalDateTime();
 
 			Long ziadatelId = rs.getLong("ziadatel_id");
 			Pouzivatel ziadatel = pouzivatelDao.getById(ziadatelId);
@@ -47,7 +47,7 @@ public class MysqlAkciaDao implements AkciaDao {
 
 	@Override
 	public List<Akcia> getByNaradieId(Long id) {
-		String sql = "SELECT id, ziadost, zamietnutie, pozicanie, vratenie, pouzivatel_id AS ziadatel_id "
+		String sql = "SELECT id, ziadost, zamietnutie, pozicanie, vratenie, ziadatel_id "
 				+ "FROM akcia " + "WHERE akcia.naradie_id = ?";
 		return jdbcTemplate.query(sql, new AkciaRowMapper(), id);
 	}
