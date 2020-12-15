@@ -18,45 +18,43 @@ import java.util.Map;
 
 public class MysqlAkciaDao implements AkciaDao {
 
-    private JdbcTemplate jdbcTemplate;
-    private PouzivatelDao pouzivatelDao;
+	private JdbcTemplate jdbcTemplate;
+	private PouzivatelDao pouzivatelDao;
 
-    public MysqlAkciaDao(JdbcTemplate jdbc) {
-        this.jdbcTemplate = jdbc;
-        this.pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
-    }
+	public MysqlAkciaDao(JdbcTemplate jdbc) {
+		this.jdbcTemplate = jdbc;
+		this.pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+	}
 
-    private class AkciaRowMapper implements RowMapper<Akcia> {
-        public Akcia mapRow(ResultSet rs, int rowNum) throws SQLException {
-            Long id = rs.getLong("id");
-            LocalDateTime ziadost = rs.getTimestamp("ziadost").toLocalDateTime();
-            // ak mam null
-            Timestamp zamietnutieTS = rs.getTimestamp("zamietnutie");
-            Timestamp pozicanieTS = rs.getTimestamp("pozicanie");
-            Timestamp vratenieTS = rs.getTimestamp("vratenie");
-            LocalDateTime zamietnutie = zamietnutieTS == null ?null :zamietnutieTS.toLocalDateTime();
-            LocalDateTime pozicanie = pozicanieTS == null ?null :zamietnutieTS.toLocalDateTime();
-            LocalDateTime vratenie = vratenieTS == null ?null :zamietnutieTS.toLocalDateTime();
+	private class AkciaRowMapper implements RowMapper<Akcia> {
+		public Akcia mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Long id = rs.getLong("id");
+			LocalDateTime ziadost = rs.getTimestamp("ziadost").toLocalDateTime();
+			// ak mam null
+			Timestamp zamietnutieTS = rs.getTimestamp("zamietnutie");
+			Timestamp pozicanieTS = rs.getTimestamp("pozicanie");
+			Timestamp vratenieTS = rs.getTimestamp("vratenie");
+			LocalDateTime zamietnutie = zamietnutieTS == null ? null : zamietnutieTS.toLocalDateTime();
+			LocalDateTime pozicanie = pozicanieTS == null ? null : pozicanieTS.toLocalDateTime();
+			LocalDateTime vratenie = vratenieTS == null ? null : vratenieTS.toLocalDateTime();
 
-            Long ziadatelId = rs.getLong("ziadatel");
-            Pouzivatel ziadatel = pouzivatelDao.getById(ziadatelId);
+			Long ziadatelId = rs.getLong("ziadatel");
+			Pouzivatel ziadatel = pouzivatelDao.getById(ziadatelId);
 
-            return new Akcia(id, ziadatel, ziadost, zamietnutie, pozicanie, vratenie );
-        }
-    }
+			return new Akcia(id, ziadatel, ziadost, zamietnutie, pozicanie, vratenie);
+		}
+	}
 
-    @Override
-    public List<Akcia> getByNaradieId(Long id) {
-        String sql =
-                "SELECT id, ziadost, zamietnutie, pozicanie, vratenie, pouzivatel_id AS ziadatel " +
-                "FROM akcia " +
-                "WHERE akcia.naradie_id = ?";
-        return jdbcTemplate.query(sql, new AkciaRowMapper(), id);
-    }
+	@Override
+	public List<Akcia> getByNaradieId(Long id) {
+		String sql = "SELECT id, ziadost, zamietnutie, pozicanie, vratenie, ziadatel_id " + "FROM akcia "
+				+ "WHERE akcia.naradie_id = ?";
+		return jdbcTemplate.query(sql, new AkciaRowMapper(), id);
+	}
 
-    @Override
-    public Akcia save(Akcia akcia, Long naradieId) {
-        try {
+	@Override
+	public Akcia save(Akcia akcia, Long naradieId) {
+		try {
 			if (akcia.getId() == null) { // INSERT
 				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 				insert.withTableName("akcia");
@@ -72,14 +70,14 @@ public class MysqlAkciaDao implements AkciaDao {
 				valuesMap.put("zamietnutie", akcia.getZamietnute());
 				valuesMap.put("vratenie", akcia.getVratene());
 
-				return new Akcia(insert.executeAndReturnKey(valuesMap).longValue(), akcia.getKomu(),
-						akcia.getZiadost(),akcia.getZamietnute(), akcia.getPozicane(), akcia.getVratene());
+				return new Akcia(insert.executeAndReturnKey(valuesMap).longValue(), akcia.getKomu(), akcia.getZiadost(),
+						akcia.getZamietnute(), akcia.getPozicane(), akcia.getVratene());
 
 			} else { // UPDATE
 
 				String sql = "UPDATE akcia SET zamietnutie = ?, pozicanie = ?, vratenie = ?" + " WHERE id = ? ";
 				int changed = jdbcTemplate.update(sql, akcia.getZamietnute(), akcia.getPozicane(), akcia.getVratene(),
-                        akcia.getId());
+						akcia.getId());
 				if (changed == 1) {
 					return akcia;
 				} else {
@@ -89,7 +87,6 @@ public class MysqlAkciaDao implements AkciaDao {
 		} catch (DataIntegrityViolationException e) {
 			throw new NullValueNotAllowedException("Insertion of null value into not null column of Akcia table");
 		}
-    }
-
+	}
 
 }

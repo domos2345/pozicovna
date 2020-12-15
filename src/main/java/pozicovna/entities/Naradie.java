@@ -37,7 +37,6 @@ public class Naradie {
 		Akcia akcia = new Akcia(lender);
 		akciaDao.save(akcia, id);
 		akcie.add(akcia);
-		je_dostupne = false;
 		naradieDao.save(this);
 	}
 
