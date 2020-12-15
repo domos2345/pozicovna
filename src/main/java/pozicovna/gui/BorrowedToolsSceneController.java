@@ -73,7 +73,6 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
     }
 
     private void loadToolCatalogue(){
-        System.out.println(borrowedToolManager.getBorrowedTools(pouzivatel.getId()).size());
         borrowedToolsTableView.setItems(
                 FXCollections.observableArrayList(
                         borrowedToolManager.getBorrowedTools(pouzivatel.getId())

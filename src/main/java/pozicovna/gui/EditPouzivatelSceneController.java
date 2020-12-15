@@ -69,7 +69,6 @@ public class EditPouzivatelSceneController {
     }
 
     private void chooseRegistrationOrEditing(){
-        System.out.println(pouzivatel.get());
         if (pouzivatel.get() == null){
             titleLabel.setText("Registrácia");
             saveButton.setText("Registrovať");
