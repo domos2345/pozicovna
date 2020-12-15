@@ -103,7 +103,7 @@ public class MysqlNaradieDao implements NaradieDao {
 				String sql = "UPDATE naradie SET znacka = ?, typ = ?, je_dostupne = ?,"
 						+ " druh_naradia_id = ?, vlastnik_id = ?, popis = ?" + " WHERE id = ?";
 				int changed = jdbcTemplate.update(sql, naradie.getZnacka(), naradie.getTyp(), naradie.getJe_dostupne(),
-						naradie.getDruhNaradia(), naradie.getVlastnik_id(), naradie.getTyp(), naradie.getId());
+						naradie.getDruhNaradia(), naradie.getVlastnik().getId(), naradie.getTyp(), naradie.getId());
 				if (changed == 1) {
 					return naradie;
 				} else {
@@ -113,7 +113,6 @@ public class MysqlNaradieDao implements NaradieDao {
 		} catch (DataIntegrityViolationException e) {
 			throw new EntityNotFoundException("Naradie s hodnotou null na povinných miestach ");
 		}
-		return null;
 	}
 
 	@Override
