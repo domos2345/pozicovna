@@ -1,5 +1,9 @@
 package pozicovna.entities;
 
+import pozicovna.storage.AkciaDao;
+import pozicovna.storage.DaoFactory;
+import pozicovna.storage.NaradieDao;
+
 import java.util.List;
 
 public class Naradie {
@@ -11,6 +15,9 @@ public class Naradie {
 	private Pouzivatel vlastnik;
 	private String popis;
 	private List<Akcia> akcie;
+
+	AkciaDao akciaDao = DaoFactory.INSTANCE.getAkciaDao();
+	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 
 
 	public Naradie(Long id, String znacka, String typ, Boolean je_dostupne, String druhNaradia, Pouzivatel vlastnik, String popis, List<Akcia> akcie) {
@@ -24,28 +31,18 @@ public class Naradie {
 		this.akcie = akcie;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setZnacka(String znacka) {
-		this.znacka = znacka;
-	}
-
-	public void setTyp(String typ) {
-		this.typ = typ;
+	public void lendTo(Pouzivatel lender) throws NaradieCannotBeLendedException {
+		if(!je_dostupne)
+			throw new NaradieCannotBeLendedException("Naradie s id " + id + " uz je pozicane");
+		Akcia akcia = new Akcia(lender);
+		akciaDao.save(akcia, id);
+		akcie.add(akcia);
+		je_dostupne = false;
+		naradieDao.save(this);
 	}
 
 	public void setJe_dostupne(Boolean je_dostupne) {
 		this.je_dostupne = je_dostupne;
-	}
-
-	public void setDruhNaradia(String druhNaradia) {
-		this.druhNaradia = druhNaradia;
-	}
-
-	public void setVlastnik(Pouzivatel vlastnik) {
-		this.vlastnik = vlastnik;
 	}
 
 	public void setPopis(String popis) {

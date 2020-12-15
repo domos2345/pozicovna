@@ -8,4 +8,6 @@ public interface AkciaDao {
 
     List<Akcia> getByNaradieId(Long id);
 
+    Akcia save(Akcia akcia, Long naradieId);
+
 }

@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import pozicovna.entities.Akcia;
+import pozicovna.entities.DruhNaradia;
 
 public enum DaoFactory {
 	INSTANCE;
@@ -13,7 +14,8 @@ public enum DaoFactory {
 	private PouzivatelDao PouzivatelDao;
 	private NaradieDao NaradieDao;
 	private AkciaDao akciaDao;
-//	private PredmetDao predmetDao;
+	private DruhNaradiaDao druhNaradiaDao;
+
 
 	public void testing() {
 		testing = true;
@@ -42,6 +44,13 @@ public enum DaoFactory {
 			akciaDao = new MysqlAkciaDao(getJdbc());
 		}
 		return akciaDao;
+	}
+
+	public DruhNaradiaDao getDruhNaradiaDao() {
+		if(druhNaradiaDao == null){
+			druhNaradiaDao = new MysqlDruhNaradiaDao(jdbcTemplate);
+		}
+		return druhNaradiaDao;
 	}
 
 	private JdbcTemplate getJdbc() {

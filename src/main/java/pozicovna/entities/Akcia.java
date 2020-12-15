@@ -12,23 +12,38 @@ import java.util.Date;
 
 public class Akcia {
 	private Long id;
-	private Pouzivatel komu; // cez join v AkciaDao
+	private Pouzivatel ziadatel; // cez join v AkciaDao
 	private LocalDateTime ziadost;
 	private LocalDateTime zamietnute;
 	private LocalDateTime pozicane;
 	private LocalDateTime vratene;
 
-	public Akcia(Long id, Pouzivatel komu, LocalDateTime ziadost, LocalDateTime zamietnute, LocalDateTime pozicane, LocalDateTime vratene) {
+	public Akcia(Long id, Pouzivatel ziadatel, LocalDateTime ziadost, LocalDateTime zamietnute, LocalDateTime pozicane,
+			LocalDateTime vratene) {
 		this.id = id;
-		this.komu = komu;
+		this.ziadatel = ziadatel;
 		this.ziadost = ziadost;
 		this.zamietnute = zamietnute;
 		this.pozicane = pozicane;
 		this.vratene = vratene;
 	}
 
-	public void setKomu(Pouzivatel komu) {
-		this.komu = komu;
+	public Akcia(Pouzivatel ziadatel, LocalDateTime ziadost, LocalDateTime zamietnute, LocalDateTime pozicane,
+			LocalDateTime vratene) {
+		this.ziadatel = ziadatel;
+		this.ziadost = ziadost;
+		this.zamietnute = zamietnute;
+		this.pozicane = pozicane;
+		this.vratene = vratene;
+	}
+
+	public Akcia(Pouzivatel ziadatel) {
+		this.ziadatel = ziadatel;
+		this.ziadost = LocalDateTime.now();
+	}
+
+	public void setZiadatel(Pouzivatel ziadatel) {
+		this.ziadatel = ziadatel;
 	}
 
 	public void setZiadost(LocalDateTime ziadost) {
@@ -51,8 +66,8 @@ public class Akcia {
 		return id;
 	}
 
-	public Pouzivatel getKomu() {
-		return komu;
+	public Pouzivatel getZiadatel() {
+		return ziadatel;
 	}
 
 	public LocalDateTime getZiadost() {
@@ -73,7 +88,7 @@ public class Akcia {
 
 	@Override
 	public String toString() {
-		return "Akcia{" + "id=" + id + ", komu=" + komu + ", ziadost=" + ziadost + ", zamietnute=" + zamietnute
+		return "Akcia{" + "id=" + id + ", ziadatel=" + ziadatel + ", ziadost=" + ziadost + ", zamietnute=" + zamietnute
 				+ ", pozicane=" + pozicane + ", vratene=" + vratene + '}';
 	}
 }
