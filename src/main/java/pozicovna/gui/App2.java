@@ -20,6 +20,9 @@ public class App2 {
 
 		NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 		PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
+		DruhNaradiaDao druhNaradiaDao = DaoFactory.INSTANCE.getDruhNaradiaDao();
+		
+		System.out.println(druhNaradiaDao.getAll());
 
 //		 pouzivatelDao.save(new Pouzivatel("please", "a", "cmon", "01", "h", "bb", "dr",
 //		 "423", "094", "vr"));

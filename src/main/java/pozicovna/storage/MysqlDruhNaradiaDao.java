@@ -34,7 +34,7 @@ public class MysqlDruhNaradiaDao implements DruhNaradiaDao {
 
 	@Override
 	public List<DruhNaradia> getAll() {
-		return jdbcTemplate.query("SELECT id, meno FROM naradie", new DruhNaradiaRowMapper());
+		return jdbcTemplate.query("SELECT id, meno FROM druh_naradia", new DruhNaradiaRowMapper());
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class MysqlDruhNaradiaDao implements DruhNaradiaDao {
 		try {
 			return jdbcTemplate.queryForObject("SELECT id, meno WHERE meno = " + meno, new DruhNaradiaRowMapper());
 		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("Náradie s id " + meno + " not found");
+			throw new EntityNotFoundException("Nï¿½radie s id " + meno + " not found");
 		}
 	}
 
@@ -82,7 +82,7 @@ public class MysqlDruhNaradiaDao implements DruhNaradiaDao {
 				}
 			}
 		} catch (DataIntegrityViolationException e) {
-			throw new EntityNotFoundException("DruhNaradia s hodnotou null na povinných miestach (meno) ");
+			throw new EntityNotFoundException("DruhNaradia s hodnotou null na povinnï¿½ch miestach (meno) ");
 		}
 	}
 

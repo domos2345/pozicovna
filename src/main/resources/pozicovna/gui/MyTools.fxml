@@ -22,7 +22,7 @@
       <Line endX="610.0" endY="65.0" layoutY="-6.0" startX="40.0" startY="65.0" />
       <Line endX="610.0" endY="65.0" layoutY="40.0" startX="40.0" startY="65.0" />
       <Line endX="-1.0" endY="-108.0" layoutX="270.0" layoutY="207.0" startX="-1.0" startY="-142.0" />
-      <TableView fx:id="toolCatalogueTableView" layoutX="40.0" layoutY="147.0" prefHeight="317.0" prefWidth="571.0">
+      <TableView fx:id="toolCatalogueTableView" layoutX="40.0" layoutY="147.0" prefHeight="302.0" prefWidth="571.0">
         <columns>
           <TableColumn fx:id="druhColumn" prefWidth="119.0" text="Druh" />
           <TableColumn fx:id="znackaColumn" prefWidth="129.59996032714844" text="Znacka" />
@@ -30,5 +30,8 @@
             <TableColumn fx:id="stavColumn" prefWidth="182.4000244140625" text="Stav" />
         </columns>
       </TableView>
+      <Button fx:id="addToolButton" layoutX="281.0" layoutY="461.0" mnemonicParsing="false" onAction="#addToolButtonClick" text="Pridať náradie" />
+      <Button fx:id="editToolButton" layoutX="39.0" layoutY="461.0" mnemonicParsing="false" onAction="#editToolButtonClick" text="Upraviť náradie" />
+      <Button fx:id="deleteToolButton" layoutX="501.0" layoutY="461.0" mnemonicParsing="false" onAction="#deleteToolButtonClick" text="Odstrániť náradie" />
    </children>
 </AnchorPane>

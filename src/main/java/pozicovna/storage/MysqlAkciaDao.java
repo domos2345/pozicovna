@@ -38,7 +38,7 @@ public class MysqlAkciaDao implements AkciaDao {
 			LocalDateTime pozicanie = pozicanieTS == null ? null : pozicanieTS.toLocalDateTime();
 			LocalDateTime vratenie = vratenieTS == null ? null : vratenieTS.toLocalDateTime();
 
-			Long ziadatelId = rs.getLong("ziadatel");
+			Long ziadatelId = rs.getLong("ziadatel_id");
 			Pouzivatel ziadatel = pouzivatelDao.getById(ziadatelId);
 
 			return new Akcia(id, ziadatel, ziadost, zamietnutie, pozicanie, vratenie);
@@ -59,19 +59,19 @@ public class MysqlAkciaDao implements AkciaDao {
 				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 				insert.withTableName("akcia");
 				insert.usingGeneratedKeyColumns("id");
-				insert.usingColumns("naradie_id", "pouzivatel_id", "ziadost", "pozicanie", "zamietnutie", "vratenie");
+				insert.usingColumns("naradie_id", "ziadatel_id", "ziadost", "pozicanie", "zamietnutie", "vratenie");
 
 				Map<String, Object> valuesMap = new HashMap<>();
 
 				valuesMap.put("naradie_id", naradieId);
-				valuesMap.put("pouzivatel_id", akcia.getKomu().getId());
+				valuesMap.put("ziadatel_id", akcia.getZiadatel().getId());
 				valuesMap.put("ziadost", akcia.getZiadost());
 				valuesMap.put("pozicanie", akcia.getPozicane());
 				valuesMap.put("zamietnutie", akcia.getZamietnute());
 				valuesMap.put("vratenie", akcia.getVratene());
 
-				return new Akcia(insert.executeAndReturnKey(valuesMap).longValue(), akcia.getKomu(), akcia.getZiadost(),
-						akcia.getZamietnute(), akcia.getPozicane(), akcia.getVratene());
+				return new Akcia(insert.executeAndReturnKey(valuesMap).longValue(), akcia.getZiadatel(),
+						akcia.getZiadost(), akcia.getZamietnute(), akcia.getPozicane(), akcia.getVratene());
 
 			} else { // UPDATE
 

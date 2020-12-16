@@ -33,7 +33,7 @@ public class DruhNaradia {
 
 	@Override
 	public String toString() {
-		return "DruhNaradia [id=" + id + ", meno=" + meno + "]";
+		return meno+"" ;
 	}
 
 }

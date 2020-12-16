@@ -19,8 +19,8 @@ public class Naradie {
 	AkciaDao akciaDao = DaoFactory.INSTANCE.getAkciaDao();
 	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 
-
-	public Naradie(Long id, String znacka, String typ, Boolean je_dostupne, String druhNaradia, Pouzivatel vlastnik, String popis, List<Akcia> akcie) {
+	public Naradie(Long id, String znacka, String typ, Boolean je_dostupne, String druhNaradia, Pouzivatel vlastnik,
+			String popis, List<Akcia> akcie) {
 		this.id = id;
 		this.znacka = znacka;
 		this.typ = typ;
@@ -30,9 +30,26 @@ public class Naradie {
 		this.popis = popis;
 		this.akcie = akcie;
 	}
+	
+	
+
+	public Naradie(String znacka, String typ, Boolean je_dostupne, String druhNaradia, Pouzivatel vlastnik,
+			String popis, List<Akcia> akcie, AkciaDao akciaDao, NaradieDao naradieDao) {
+		this.znacka = znacka;
+		this.typ = typ;
+		this.je_dostupne = je_dostupne;
+		this.druhNaradia = druhNaradia;
+		this.vlastnik = vlastnik;
+		this.popis = popis;
+		this.akcie = akcie;
+		this.akciaDao = akciaDao;
+		this.naradieDao = naradieDao;
+	}
+
+
 
 	public void lendTo(Pouzivatel lender) throws NaradieCannotBeLendedException {
-		if(!je_dostupne)
+		if (!je_dostupne)
 			throw new NaradieCannotBeLendedException("Naradie s id " + id + " uz je pozicane");
 		Akcia akcia = new Akcia(lender);
 		akciaDao.save(akcia, id);
@@ -86,15 +103,8 @@ public class Naradie {
 
 	@Override
 	public String toString() {
-		return "Naradie{" +
-				"id=" + id +
-				", znacka='" + znacka + '\'' +
-				", typ='" + typ + '\'' +
-				", je_dostupne=" + je_dostupne +
-				", druhNaradia='" + druhNaradia + '\'' +
-				", vlastnik=" + vlastnik +
-				", popis='" + popis + '\'' +
-				", akcie=" + akcie +
-				'}';
+		return "Naradie{" + "id=" + id + ", znacka='" + znacka + '\'' + ", typ='" + typ + '\'' + ", je_dostupne="
+				+ je_dostupne + ", druhNaradia='" + druhNaradia + '\'' + ", vlastnik=" + vlastnik + ", popis='" + popis
+				+ '\'' + ", akcie=" + akcie + '}';
 	}
 }

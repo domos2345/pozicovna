@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BorrowedToolManagerImplementation implements BorrowedToolManager {
-    NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
+	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 
-    @Override
-    public List<BorrowedTool> getBorrowedTools(Long id) {
-        List<Naradie> pozicaneNaradie = naradieDao.getByBorrowedToId(id);
-        List<BorrowedTool> result = new ArrayList<>();
-        for(Naradie naradie: pozicaneNaradie){
-            for (Akcia akcia: naradie.getAkcie()){
-                if(akcia.getKomu().getId() == id){
-                    result.add(new BorrowedTool(naradie, akcia));
-                }
-            }
-        }
-        return result;
-    }
+	@Override
+	public List<BorrowedTool> getBorrowedTools(Long id) {
+		List<Naradie> pozicaneNaradie = naradieDao.getByBorrowedToId(id);
+		List<BorrowedTool> result = new ArrayList<>();
+		for (Naradie naradie : pozicaneNaradie) {
+			for (Akcia akcia : naradie.getAkcie()) {
+				if (akcia.getZiadatel().getId() == id) {
+					result.add(new BorrowedTool(naradie, akcia));
+				}
+			}
+		}
+		return result;
+	}
 }
