@@ -4,6 +4,7 @@ import pozicovna.storage.AkciaDao;
 import pozicovna.storage.DaoFactory;
 import pozicovna.storage.NaradieDao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Naradie {
@@ -55,6 +56,17 @@ public class Naradie {
 		akciaDao.save(akcia, id);
 		akcie.add(akcia);
 		naradieDao.save(this);
+	}
+
+	public void returnNaradie(Akcia akcia) throws NaradieCannotBeReturnedException {
+		if(!je_dostupne && akcia.getZamietnute()==null && akcia.getPozicane()!=null){
+			akcia.setVratene(LocalDateTime.now());
+			akciaDao.save(akcia, id);
+			this.je_dostupne = true;
+			naradieDao.save(this);
+		} else {
+			throw new NaradieCannotBeReturnedException("Naradie nebolo pozicane");
+		}
 	}
 
 	public void setJe_dostupne(Boolean je_dostupne) {
