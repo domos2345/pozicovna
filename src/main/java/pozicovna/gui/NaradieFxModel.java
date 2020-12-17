@@ -1,26 +1,31 @@
 package pozicovna.gui;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 
 import pozicovna.entities.Akcia;
+import pozicovna.entities.DruhNaradia;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.DaoFactory;
+import pozicovna.storage.DruhNaradiaDao;
 
 public class NaradieFxModel {
 	Pouzivatel pouzivatel;
 	Naradie naradie;
+	private DruhNaradiaDao druhNaradiaDao = DaoFactory.INSTANCE.getDruhNaradiaDao();
 
 	private Long id;
 	private Boolean jeDostupne;
 	private Long vlastnikId;
 	private StringProperty brand;
 	private StringProperty type;
-	private StringProperty kind;
 	private StringProperty description;
+	private ObjectProperty<DruhNaradia> kind;
 
 	// editacia náradia
 	public NaradieFxModel(Naradie naradie) {
@@ -32,7 +37,7 @@ public class NaradieFxModel {
 
 		this.brand = new SimpleStringProperty(naradie.getZnacka());
 		this.type = new SimpleStringProperty(naradie.getTyp());
-		this.kind = new SimpleStringProperty(naradie.getDruhNaradia());
+		this.kind = new SimpleObjectProperty<DruhNaradia>(druhNaradiaDao.getByMeno(naradie.getDruhNaradia()));
 		this.description = new SimpleStringProperty(naradie.getPopis());
 
 	}
@@ -45,7 +50,7 @@ public class NaradieFxModel {
 
 		this.brand = new SimpleStringProperty();
 		this.type = new SimpleStringProperty();
-		this.kind = new SimpleStringProperty();
+		this.kind = new SimpleObjectProperty<DruhNaradia>(null);
 		this.description = new SimpleStringProperty();
 
 	}
@@ -84,15 +89,15 @@ public class NaradieFxModel {
 	}
 
 	public String getKind() {
-		return kind.get();
+		return kind.get().getMeno();
 	}
 
-	public StringProperty kindProperty() {
+	public void setKind(ObjectProperty<DruhNaradia> kind) {
+		this.kind = kind;
+	}
+
+	public ObjectProperty<DruhNaradia> kindProperty() {
 		return kind;
-	}
-
-	public void setKind(String kind) {
-		this.kind.set(kind);
 	}
 
 	public String getDescription() {

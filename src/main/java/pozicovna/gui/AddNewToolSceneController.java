@@ -101,7 +101,6 @@ public class AddNewToolSceneController {
 	}
 
 	private void chooseRegistrationOrEditing() {
-		System.out.println(naradie.get());
 		if (naradie.get() == null) {
 			titleLabel.setText("Pridávanie nového náradia");
 		} else {
@@ -115,6 +114,7 @@ public class AddNewToolSceneController {
 		brandTextField.textProperty().bindBidirectional(naradieModel.brandProperty());
 		typeTextField.textProperty().bindBidirectional(naradieModel.typeProperty());
 		descriptionTextField.textProperty().bindBidirectional(naradieModel.descriptionProperty());
+		selectedDruhNaradia.bindBidirectional(naradieModel.kindProperty());
 	}
 
 	private boolean mandatoryFieldsFilled() {
@@ -147,6 +147,7 @@ public class AddNewToolSceneController {
 			return;
 
 		naradie.set(naradieDao.save(naradieModel.getNaradie()));
+
 		brandTextField.getParent().getScene().getWindow().hide();
 
 	}
