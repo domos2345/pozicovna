@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="298.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="addNewToolButton" layoutX="453.0" layoutY="242.0" mnemonicParsing="false" onAction="#addNewToolButtonClick" prefHeight="25.0" prefWidth="99.0" text="Pridať náradie" />
+      <Button fx:id="saveButton" layoutX="453.0" layoutY="242.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="99.0" text="Uložiť" />
       <Label fx:id="titleLabel" alignment="CENTER" layoutX="152.0" layoutY="27.0" prefHeight="32.0" prefWidth="280.0" text="Pridávanie náradia">
          <font>
             <Font name="System Bold" size="22.0" />

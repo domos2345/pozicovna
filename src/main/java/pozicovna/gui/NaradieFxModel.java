@@ -17,10 +17,10 @@ public class NaradieFxModel {
 	private Long id;
 	private Boolean jeDostupne;
 	private Long vlastnikId;
-	private StringProperty znacka;
-	private StringProperty typ;
-	private StringProperty druh;
-	private StringProperty popis;
+	private StringProperty brand;
+	private StringProperty type;
+	private StringProperty kind;
+	private StringProperty description;
 
 	// editacia náradia
 	public NaradieFxModel(Naradie naradie) {
@@ -30,10 +30,10 @@ public class NaradieFxModel {
 		this.jeDostupne = naradie.getJe_dostupne();
 		this.vlastnikId = naradie.getVlastnik().getId();
 
-		this.znacka = new SimpleStringProperty(naradie.getZnacka());
-		this.typ = new SimpleStringProperty(naradie.getTyp());
-		this.druh = new SimpleStringProperty(naradie.getDruhNaradia());
-		this.popis = new SimpleStringProperty(naradie.getPopis());
+		this.brand = new SimpleStringProperty(naradie.getZnacka());
+		this.type = new SimpleStringProperty(naradie.getTyp());
+		this.kind = new SimpleStringProperty(naradie.getDruhNaradia());
+		this.description = new SimpleStringProperty(naradie.getPopis());
 
 	}
 
@@ -43,74 +43,74 @@ public class NaradieFxModel {
 		this.pouzivatel = pouzivatel;
 		this.vlastnikId = this.pouzivatel.getId();
 
-		this.znacka = new SimpleStringProperty();
-		this.typ = new SimpleStringProperty();
-		this.druh = new SimpleStringProperty();
-		this.popis = new SimpleStringProperty();
+		this.brand = new SimpleStringProperty();
+		this.type = new SimpleStringProperty();
+		this.kind = new SimpleStringProperty();
+		this.description = new SimpleStringProperty();
 
 	}
 
 	Naradie getNaradie() {
 		if (id == null) // PRIDAVANIE NOVEHO NARADIA
-			return new Naradie(getZnacka(), getTyp(), true, getDruh(), pouzivatel, getPopis(), new ArrayList<Akcia>(),
-					DaoFactory.INSTANCE.getAkciaDao(), DaoFactory.INSTANCE.getNaradieDao());
+			return new Naradie(getBrand(), getType(), true, getKind(), pouzivatel, getDescription(),
+					new ArrayList<Akcia>(), DaoFactory.INSTANCE.getAkciaDao(), DaoFactory.INSTANCE.getNaradieDao());
 		else // EDITACIA
-			return new Naradie(id, getZnacka(), getTyp(), jeDostupne, getDruh(), naradie.getVlastnik(), getPopis(),
-					naradie.getAkcie());
+			return new Naradie(id, getBrand(), getType(), jeDostupne, getKind(), naradie.getVlastnik(),
+					getDescription(), naradie.getAkcie());
 	}
 
-	public String getZnacka() {
-		return znacka.get();
+	public String getBrand() {
+		return brand.get();
 	}
 
-	public StringProperty znackaProperty() {
-		return znacka;
+	public StringProperty brandProperty() {
+		return brand;
 	}
 
-	public void setZnacka(String znacka) {
-		this.znacka.set(znacka);
+	public void setBrand(String brand) {
+		this.brand.set(brand);
 	}
 
-	public String getTyp() {
-		return typ.get();
+	public String getType() {
+		return type.get();
 	}
 
-	public StringProperty typProperty() {
-		return typ;
+	public StringProperty typeProperty() {
+		return type;
 	}
 
-	public void setTyp(String typ) {
-		this.typ.set(typ);
+	public void setType(String type) {
+		this.type.set(type);
 	}
 
-	public String getDruh() {
-		return druh.get();
+	public String getKind() {
+		return kind.get();
 	}
 
-	public StringProperty druhProperty() {
-		return druh;
+	public StringProperty kindProperty() {
+		return kind;
 	}
 
-	public void setDruh(String druh) {
-		this.druh.set(druh);
+	public void setKind(String kind) {
+		this.kind.set(kind);
 	}
 
-	public String getPopis() {
-		return popis.get();
+	public String getDescription() {
+		return description.get();
 	}
 
-	public StringProperty popisProperty() {
-		return popis;
+	public StringProperty descriptionProperty() {
+		return description;
 	}
 
 	public void setPopis(String popis) {
-		this.popis.set(popis);
+		this.description.set(popis);
 	}
 
 	@Override
 	public String toString() {
 		return "NaradieFxModel: id=" + id + ", jeDostupne=" + jeDostupne + ", vlastnikId=" + vlastnikId + ", znacka="
-				+ getZnacka() + ", typ=" + getTyp() + ", druh=" + getDruh() + ", popis=" + getPopis();
+				+ getBrand() + ", typ=" + getType() + ", druh=" + getKind() + ", popis=" + getDescription();
 	}
 
 }
