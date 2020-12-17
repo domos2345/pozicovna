@@ -60,7 +60,7 @@ public class MysqlNaradieDao implements NaradieDao {
 		try {
 			return jdbcTemplate.queryForObject(sql, new NaradieRowMapper());
 		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("N·radie s id " + id + " not found");
+			throw new EntityNotFoundException("NÔøΩradie s id " + id + " not found");
 		}
 	}
 
@@ -72,19 +72,31 @@ public class MysqlNaradieDao implements NaradieDao {
 		try {
 			return jdbcTemplate.query(sql, new NaradieRowMapper());
 		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("N·radie vlastnÌka s id " + id + " not found");
+			throw new EntityNotFoundException("NÔøΩradie vlastnÔøΩka s id " + id + " not found");
 		}
 	}
 
 	@Override
-	public List<Naradie> getByBorrowedToId(long id) {
+	public List<Naradie> getByBorrowedToId(long id) { // (NARADIE, NA KTOR√â M√ÅM ≈ΩIADOS≈§)(???)
 		String sql = "SELECT DISTINCT n.id, dn.meno AS druh_naradia, n.znacka, n.typ, n.je_dostupne, n.popis, n.vlastnik_id "
 				+ "FROM naradie AS n " + "JOIN druh_naradia AS dn ON dn.id = n.druh_naradia_id "
 				+ "JOIN akcia AS a ON a.naradie_id = n.id " + "WHERE a.ziadatel_id = " + id;
 		try {
 			return jdbcTemplate.query(sql, new NaradieRowMapper());
 		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("N·radie vlastnÌka s id " + id + " not found");
+			throw new EntityNotFoundException("NÔøΩradie vlastnÔøΩka s id " + id + " not found");
+		}
+	}
+
+	public List<Naradie> getAllLentByVlastnikId(long id) throws EntityNotFoundException {
+		// NARADIE, KTOR√â SOM (alebo pouzivatel podla id) POZICAL
+		String sql = "SELECT DISTINCT n.id, dn.meno AS druh_naradia, n.znacka, n.typ, n.je_dostupne, n.popis, n.vlastnik_id "
+				+ "FROM naradie AS n " + "JOIN druh_naradia AS dn ON dn.id = n.druh_naradia_id "
+				+ "JOIN akcia AS a ON a.naradie_id = n.id " + "WHERE n.vlastnik_id = " + id + " and n.je_dostupne = 0";
+		try {
+			return jdbcTemplate.query(sql, new NaradieRowMapper());
+		} catch (DataAccessException e) {
+			throw new EntityNotFoundException("NÔøΩradie vlastnÔøΩka s id " + id + " not found");
 		}
 	}
 
@@ -122,7 +134,7 @@ public class MysqlNaradieDao implements NaradieDao {
 				if (changed == 1) {
 					return naradie;
 				} else {
-					throw new EntityNotFoundException("N·radie s id " + naradie.getId() + " not found");
+					throw new EntityNotFoundException("NÔøΩradie s id " + naradie.getId() + " not found");
 				}
 			}
 		} catch (DataIntegrityViolationException e) {

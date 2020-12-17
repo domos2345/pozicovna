@@ -16,12 +16,12 @@ import pozicovna.storage.*;
 public class App2 {
 
 	public static void main(String[] args) {
-//		DaoFactory.INSTANCE.testing(); // NEMAZAT!!! :D
+		DaoFactory.INSTANCE.testing(); // NEMAZAT!!! :D
 
 		NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 		PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
 		DruhNaradiaDao druhNaradiaDao = DaoFactory.INSTANCE.getDruhNaradiaDao();
-		
+
 		System.out.println(druhNaradiaDao.getAll());
 
 //		 pouzivatelDao.save(new Pouzivatel("please", "a", "cmon", "01", "h", "bb", "dr",
@@ -38,14 +38,16 @@ public class App2 {
 //			System.out.println(pouzivatelia.get(i).toString());
 //		}
 
-//		List<Naradie> naradieList = naradieDao.getAll();
-//		System.out.println("LIST NARADI");
-//		for (int i = 0; i < naradieList.size(); i++) {
-//			System.out.println(naradieList.get(i).toString());
-//		}
+		List<Naradie> naradieList = naradieDao.getAll();
+		System.out.println("LIST NARADI");
+		for (int i = 0; i < naradieList.size(); i++) {
+			System.out.println(naradieList.get(i).toString());
+		}
 
+		// System.out.println(naradieDao.getAll());
+		System.out.println("POZICANE MNOU");
 
-		System.out.println(naradieDao.getAll());
+		System.out.println(naradieDao.getAllLentByVlastnikId(10));
 
 	}
 

@@ -17,79 +17,76 @@ import pozicovna.entities.Pouzivatel;
 
 public class BorrowedToolsSceneController extends LoggedInSceneController {
 
-    @FXML
-    private TableView<BorrowedTool> borrowedToolsTableView;
-    @FXML
-    private TableColumn<BorrowedTool, String> druhColumn;
-    @FXML
-    private TableColumn<BorrowedTool, String> znackaColumn;
-    @FXML
-    private TableColumn<BorrowedTool, String> typColumn;
-    @FXML
-    private TableColumn<BorrowedTool, String> poziadanieDateColumn;
-    @FXML
-    private TableColumn<BorrowedTool, String> zamietnutieDateColumn;
-    @FXML
-    private TableColumn<BorrowedTool, String> pozicanieDateColumn;
-    @FXML
-    private TableColumn<BorrowedTool, String> vratenieDateColumn;
-    @FXML
-    private Button returnButton;
+	@FXML
+	private TableView<BorrowedTool> borrowedToolsTableView;
+	@FXML
+	private TableColumn<BorrowedTool, String> druhColumn;
+	@FXML
+	private TableColumn<BorrowedTool, String> znackaColumn;
+	@FXML
+	private TableColumn<BorrowedTool, String> typColumn;
+	@FXML
+	private TableColumn<BorrowedTool, String> poziadanieDateColumn;
+	@FXML
+	private TableColumn<BorrowedTool, String> zamietnutieDateColumn;
+	@FXML
+	private TableColumn<BorrowedTool, String> pozicanieDateColumn;
+	@FXML
+	private TableColumn<BorrowedTool, String> vratenieDateColumn;
+	@FXML
+	private Button returnButton;
 
+	BorrowedToolManager borrowedToolManager = new BorrowedToolManagerImplementation();
+	BorrowedTool selectedBorrowedTool;
 
-    BorrowedToolManager borrowedToolManager = new BorrowedToolManagerImplementation();
-    BorrowedTool selectedBorrowedTool;
+	public BorrowedToolsSceneController(Pouzivatel pouzivatel) {
+		super(pouzivatel);
+	}
 
-    public BorrowedToolsSceneController(Pouzivatel pouzivatel) {
-        super(pouzivatel);
-    }
+	@FXML
+	void initialize() {
+		super.initialize();
+		borrowedToolsButton.setDisable(true);
+		returnButton.setDisable(true);
 
-    @FXML
-    void initialize() {
-        super.initialize();
-        borrowedToolsButton.setDisable(true);
-        returnButton.setDisable(true);
+		setColumns();
 
-        setColumns();
+		loadToolCatalogue();
 
-        loadToolCatalogue();
+		borrowedToolsTableView.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
+						returnButton.setDisable(false);
+						selectedBorrowedTool = newSelection;
+					}
+				});
+	}
 
-        borrowedToolsTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                returnButton.setDisable(false);
-                selectedBorrowedTool = newSelection;
-            }
-        });
-    }
+	private void setColumns() {
+		druhColumn.setCellValueFactory(new PropertyValueFactory<>("druh"));
+		znackaColumn.setCellValueFactory(new PropertyValueFactory<>("znacka"));
+		typColumn.setCellValueFactory(new PropertyValueFactory<>("typ"));
+		poziadanieDateColumn.setCellValueFactory(new PropertyValueFactory<>("poziadanie"));
+		zamietnutieDateColumn.setCellValueFactory(new PropertyValueFactory<>("zamietnutie"));
+		pozicanieDateColumn.setCellValueFactory(new PropertyValueFactory<>("pozicanie"));
+		vratenieDateColumn.setCellValueFactory(new PropertyValueFactory<>("vratenie"));
+	}
 
-    private void setColumns(){
-        druhColumn.setCellValueFactory( new PropertyValueFactory<>("druh"));
-        znackaColumn.setCellValueFactory( new PropertyValueFactory<>("znacka"));
-        typColumn.setCellValueFactory( new PropertyValueFactory<>("typ"));
-        poziadanieDateColumn.setCellValueFactory( new PropertyValueFactory<>("poziadanie"));
-        zamietnutieDateColumn.setCellValueFactory( new PropertyValueFactory<>("zamietnutie"));
-        pozicanieDateColumn.setCellValueFactory( new PropertyValueFactory<>("pozicanie"));
-        vratenieDateColumn.setCellValueFactory( new PropertyValueFactory<>("vratenie"));
-    }
+	private void loadToolCatalogue() {
+		borrowedToolsTableView
+				.setItems(FXCollections.observableArrayList(borrowedToolManager.getBorrowedTools(pouzivatel.getId())));
+	}
 
-    private void loadToolCatalogue(){
-        borrowedToolsTableView.setItems(
-                FXCollections.observableArrayList(
-                        borrowedToolManager.getBorrowedTools(pouzivatel.getId())
-                )
-        );
-    }
-
-    @FXML
-    void returnButtonClick(ActionEvent event) {
-        try {
-            selectedBorrowedTool.getNaradie().returnNaradie(selectedBorrowedTool.getAkcia());
-            loadToolCatalogue();
-        } catch (NaradieCannotBeReturnedException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Toto naradie momentalne nemate pozicane");
-            alert.show();
-        }
-        returnButton.setDisable(true);
-    }
+	@FXML
+	void returnButtonClick(ActionEvent event) {
+		try {
+			selectedBorrowedTool.getNaradie().returnNaradie(selectedBorrowedTool.getAkcia());
+			loadToolCatalogue();
+		} catch (NaradieCannotBeReturnedException e) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText("Toto naradie momentalne nemate pozicane");
+			alert.show();
+		}
+		returnButton.setDisable(true);
+	}
 }
