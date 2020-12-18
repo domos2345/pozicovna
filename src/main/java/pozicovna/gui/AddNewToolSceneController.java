@@ -128,9 +128,16 @@ public class AddNewToolSceneController {
 				errorLabel.setText("Nevyplnené povinné políčka");
 				errorLabel.setStyle("-fx-text-fill: lightcoral");
 				return false;
+
 			} else {
 				tf.setStyle("-fx-background-color: white");
 			}
+		}
+		if (kindComboBox.getValue() == null && addNewKindTextField.getText().isBlank()) {
+			kindComboBox.setStyle("-fx-background-color: lightcoral");
+			errorLabel.setText("Vyberte (alebo pridajte) druh");
+			errorLabel.setStyle("-fx-text-fill: lightcoral");
+			return false;
 		}
 		return true;
 	}
