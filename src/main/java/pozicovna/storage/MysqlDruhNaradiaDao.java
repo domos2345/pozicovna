@@ -40,16 +40,18 @@ public class MysqlDruhNaradiaDao implements DruhNaradiaDao {
 	@Override
 	public DruhNaradia getByMeno(String meno) throws EntityNotFoundException {
 		try {
-			return jdbcTemplate.queryForObject("SELECT id, meno WHERE meno = " + meno, new DruhNaradiaRowMapper());
+			return jdbcTemplate.queryForObject("SELECT id, meno FROM druh_naradia WHERE meno = ?",
+					new DruhNaradiaRowMapper(), meno);
 		} catch (DataAccessException e) {
-			throw new EntityNotFoundException("N�radie s id " + meno + " not found");
+			throw new EntityNotFoundException(" DruhN�radia s menom " + meno + " not found");
 		}
 	}
 
 	@Override
 	public DruhNaradia getById(long id) throws EntityNotFoundException {
 		try {
-			return jdbcTemplate.queryForObject("SELECT id, meno WHERE id = " + id, new DruhNaradiaRowMapper());
+			return jdbcTemplate.queryForObject("SELECT id, meno FROM druh_naradia WHERE id = " + id,
+					new DruhNaradiaRowMapper());
 		} catch (DataAccessException e) {
 			throw new EntityNotFoundException("DruhNaradia s id " + id + " not found");
 		}

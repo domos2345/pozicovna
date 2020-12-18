@@ -1,5 +1,6 @@
 package pozicovna.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pozicovna.entities.Akcia;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.*;
@@ -21,6 +23,8 @@ public class App2 {
 		NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 		PouzivatelDao pouzivatelDao = DaoFactory.INSTANCE.getPouzivatelDao();
 		DruhNaradiaDao druhNaradiaDao = DaoFactory.INSTANCE.getDruhNaradiaDao();
+		AkciaDao akciaDao = DaoFactory.INSTANCE.getAkciaDao();
+		List<Akcia> akcie = new ArrayList<Akcia>();
 
 		System.out.println(druhNaradiaDao.getAll());
 
@@ -37,6 +41,11 @@ public class App2 {
 //		for (int i = 0; i < pouzivatelia.size(); i++) {
 //			System.out.println(pouzivatelia.get(i).toString());
 //		}
+
+		Naradie naradie = new Naradie("SUPREME", "t64", true, "vrtacka", pouzivatelDao.getById(13), "skuska ukladania",
+				akcie, akciaDao, naradieDao);
+		
+		naradieDao.save(naradie);
 
 		List<Naradie> naradieList = naradieDao.getAll();
 		System.out.println("LIST NARADI");
