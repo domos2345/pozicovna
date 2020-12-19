@@ -102,7 +102,6 @@ public class MysqlNaradieDao implements NaradieDao {
 
 	public Naradie save(Naradie naradie) throws EntityNotFoundException {
 		try {
-			System.out.println(naradie.getId());
 			if (naradie.getId() == null) { // INSERT
 				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 				insert.withTableName("naradie");

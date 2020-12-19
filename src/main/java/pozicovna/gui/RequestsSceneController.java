@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pozicovna.business.*;
+import pozicovna.entities.NaradieCannotBeLendedException;
 import pozicovna.entities.Pouzivatel;
 
 public class RequestsSceneController extends LoggedInSceneController{
@@ -30,6 +31,7 @@ public class RequestsSceneController extends LoggedInSceneController{
 
 
     RequestsManager requestsManager = new RequestsManagerImplementation();
+    Request selectedRequest;
 
     public RequestsSceneController(Pouzivatel pouzivatel) {
         super(pouzivatel);
@@ -42,7 +44,15 @@ public class RequestsSceneController extends LoggedInSceneController{
 
         setColumns();
 
-        loadToolCatalogue();
+        loadRequests();
+
+        requestsTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                confirmButton.setDisable(false);
+                rejectButton.setDisable(false);
+                selectedRequest = newSelection;
+            }
+        });
     }
 
     private void setColumns(){
@@ -53,21 +63,27 @@ public class RequestsSceneController extends LoggedInSceneController{
         datumColumn.setCellValueFactory( new PropertyValueFactory<>("datum"));
     }
 
-    private void loadToolCatalogue(){
+    private void loadRequests(){
         requestsTableView.setItems(
                 FXCollections.observableArrayList(
-                        requestsManager.GetRequestsForNaradieOfPouzivatel(pouzivatel.getId())
+                        requestsManager.getRequestsForNaradieOfPouzivatel(pouzivatel.getId())
                 )
         );
     }
 
     @FXML
     void confirmButtonClick(ActionEvent event) {
-
+        try {
+            selectedRequest.getNaradie().lendTo(selectedRequest.getAkcia().getZiadatel());
+        } catch (NaradieCannotBeLendedException e) {
+            e.printStackTrace();
+        }
+        loadRequests();
     }
 
     @FXML
     void rejectButtonClick(ActionEvent event) {
-
+        selectedRequest.getAkcia().reject(selectedRequest.getNaradie().getId());
+        loadRequests();
     }
 }

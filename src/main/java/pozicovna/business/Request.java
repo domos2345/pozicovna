@@ -29,7 +29,7 @@ public class Request {
         this.datum = akcia.getZiadost();
     }
 
-    public String getPoziadanie() {
+    public String getDatum() {
         return datum == null ?"-" :formatter.format(datum);
     }
 

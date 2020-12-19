@@ -1,11 +1,13 @@
 package pozicovna.entities;
 
+import pozicovna.business.RequestsManagerImplementation;
 import pozicovna.storage.AkciaDao;
 import pozicovna.storage.DaoFactory;
 import pozicovna.storage.NaradieDao;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Naradie {
 	private Long id;
@@ -31,8 +33,6 @@ public class Naradie {
 		this.popis = popis;
 		this.akcie = akcie;
 	}
-	
-	
 
 	public Naradie(String znacka, String typ, Boolean je_dostupne, String druhNaradia, Pouzivatel vlastnik,
 			String popis, List<Akcia> akcie, AkciaDao akciaDao, NaradieDao naradieDao) {
@@ -48,13 +48,35 @@ public class Naradie {
 	}
 
 
-
-	public void lendTo(Pouzivatel lender) throws NaradieCannotBeLendedException {
+	public void sendRequest(Pouzivatel lender) throws NaradieCannotBeLendedException {
 		if (!je_dostupne)
 			throw new NaradieCannotBeLendedException("Naradie s id " + id + " uz je pozicane");
 		Akcia akcia = new Akcia(lender);
 		akciaDao.save(akcia, id);
 		akcie.add(akcia);
+		naradieDao.save(this);
+	}
+
+	public void lendTo(Pouzivatel ziadatel) throws NaradieCannotBeLendedException {
+		// nemalo by nastat ak je spravne spravene ziadanie o pozicanie
+		if (!getJe_dostupne())
+			throw new NaradieCannotBeLendedException("Nie je mozne schvalit ziadost na naradie ktore je pozicane");
+
+		// upravujem vsetky aktualne ziadosti
+		new RequestsManagerImplementation()
+			.getRequestsForNaradie(this.getId())
+			.stream()
+			.map(request -> { return request.getAkcia(); })
+			.map(akcia -> {
+				LocalDateTime now = LocalDateTime.now();
+				if(akcia.getZiadatel().equals(ziadatel))
+					akcia.setPozicane(now);
+				else
+					akcia.setZamietnute(now);
+				return akciaDao.save(akcia, this.getId());
+			}).collect(Collectors.toList());
+
+		this.setJe_dostupne(false);
 		naradieDao.save(this);
 	}
 

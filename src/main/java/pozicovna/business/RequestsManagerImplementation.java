@@ -12,8 +12,8 @@ public class RequestsManagerImplementation implements RequestsManager {
 	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 
 	@Override
-	public List<Request> GetRequestsForNaradieOfPouzivatel(Long id) {
-		List<Naradie> mojeNaradie = naradieDao.getByVlastnikId(id);
+	public List<Request> getRequestsForNaradieOfPouzivatel(Long idVlastnik) {
+		List<Naradie> mojeNaradie = naradieDao.getByVlastnikId(idVlastnik);
 		List<Request> result = new ArrayList<>();
 
 		for (Naradie naradie : mojeNaradie) {
@@ -23,6 +23,21 @@ public class RequestsManagerImplementation implements RequestsManager {
 						akcia.getZamietnute() == null ) {
 					result.add(new Request(naradie, akcia));
 				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<Request> getRequestsForNaradie(Long idNaradie) {
+		Naradie naradie = naradieDao.getById(idNaradie);
+		List<Request> result = new ArrayList<>();
+
+		for (Akcia akcia : naradie.getAkcie()) {
+			if (	akcia.getZiadost() != null &&
+					akcia.getPozicane() == null &&
+					akcia.getZamietnute() == null ) {
+				result.add(new Request(naradie, akcia));
 			}
 		}
 		return result;
