@@ -49,9 +49,22 @@ public class Naradie {
 
 
 	public void sendRequest(Pouzivatel lender) {
-		Akcia akcia = new Akcia(lender);
+		Akcia akcia = null;
+		for (Akcia a: akciaDao.getByNaradieId(id)) {
+			if (a.getZiadatel().getId() == lender.getId() && a.getZiadost()!=null){
+				akcia = a;
+				break;
+			}
+		}
+		System.out.println(akcia);
+		if(akcia == null){
+			akcia = new Akcia(lender);
+			akcie.add(akcia);
+		} else {
+			akcia.setZiadost(LocalDateTime.now());
+		}
+
 		akciaDao.save(akcia, id);
-		akcie.add(akcia);
 		naradieDao.save(this);
 	}
 
