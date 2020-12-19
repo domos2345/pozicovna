@@ -56,7 +56,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
         // https://stackoverflow.com/questions/26424769/javafx8-how-to-create-listener-for-selection-of-row-in-tableview
         toolCatalogueTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                borrowButton.setDisable(false);
+                borrowButton.setDisable(!newSelection.getNaradie().getJe_dostupne());
                 selectedNaradie = newSelection.getNaradie();
             }
         });
@@ -81,13 +81,12 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
 
     @FXML
     void borrowButtonClick(ActionEvent event) {
-        try {
-            selectedNaradie.sendRequest(pouzivatel);
-        } catch (NaradieCannotBeLendedException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("Toto naradia je uz pozicane");
-            alert.show();
-        }
+        selectedNaradie.sendRequest(pouzivatel);
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setHeaderText("Žiadosť o požicanie náradia vytvorená");
+        alert.show();
+
         loadToolCatalogue();
     }
 }

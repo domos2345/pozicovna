@@ -48,9 +48,7 @@ public class Naradie {
 	}
 
 
-	public void sendRequest(Pouzivatel lender) throws NaradieCannotBeLendedException {
-		if (!je_dostupne)
-			throw new NaradieCannotBeLendedException("Naradie s id " + id + " uz je pozicane");
+	public void sendRequest(Pouzivatel lender) {
 		Akcia akcia = new Akcia(lender);
 		akciaDao.save(akcia, id);
 		akcie.add(akcia);
