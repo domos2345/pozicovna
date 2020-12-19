@@ -19,6 +19,8 @@ import pozicovna.business.ToolCatalogueItemManager;
 import pozicovna.business.ToolCatalogueItemManagerImplementation;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
+import pozicovna.storage.DaoFactory;
+import pozicovna.storage.NaradieDao;
 
 public class MyToolsSceneController extends LoggedInSceneController {
 
@@ -44,6 +46,8 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
 
 	Naradie selectedNaradie;
+
+	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 
 	public MyToolsSceneController(Pouzivatel pouzivatel) {
 		super(pouzivatel);
@@ -102,7 +106,8 @@ public class MyToolsSceneController extends LoggedInSceneController {
 
 	@FXML
 	void deleteToolButtonClick(ActionEvent event) {
-
+		naradieDao.delete(selectedNaradie.getId());
+		loadToolCatalogue();
 	}
 
 	@FXML
