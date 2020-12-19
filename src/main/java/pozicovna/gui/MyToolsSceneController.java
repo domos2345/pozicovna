@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import pozicovna.business.ToolCatalogueItem;
 import pozicovna.business.ToolCatalogueItemManager;
 import pozicovna.business.ToolCatalogueItemManagerImplementation;
+import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 
 public class MyToolsSceneController extends LoggedInSceneController {
@@ -40,6 +41,45 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	@FXML
 	private Button deleteToolButton;
 
+	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
+
+	Naradie selectedNaradie;
+
+	public MyToolsSceneController(Pouzivatel pouzivatel) {
+		super(pouzivatel);
+	}
+
+	@FXML
+	void initialize() {
+		myToolsButton.setDisable(true);
+		editToolButton.setDisable(true);
+		setColumns();
+		loadToolCatalogue();
+
+		toolCatalogueTableView.getSelectionModel().selectedItemProperty()
+				.addListener((obs, oldSelection, newSelection) -> {
+					if (newSelection != null) {
+						editToolButton.setDisable(false);
+						selectedNaradie = newSelection.getNaradie();
+					}
+				});
+
+	}
+
+	private void setColumns() {
+		druhColumn.setCellValueFactory(new PropertyValueFactory<>("druh"));
+		znackaColumn.setCellValueFactory(new PropertyValueFactory<>("znacka"));
+		typColumn.setCellValueFactory(new PropertyValueFactory<>("typ"));
+		stavColumn.setCellValueFactory(new PropertyValueFactory<>("stav"));
+
+	}
+
+	private void loadToolCatalogue() {
+		toolCatalogueTableView.setItems(FXCollections
+				.observableArrayList(toolCatalogueItemManager.getOwnedToolCatalogueItems(pouzivatel.getId())));
+
+	}
+
 	@FXML
 	void addToolButtonClick(ActionEvent event) {
 		try {
@@ -53,11 +93,11 @@ public class MyToolsSceneController extends LoggedInSceneController {
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Pridávanie náradia");
 			stage.setScene(scene);
-			stage.show();
+			stage.showAndWait();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		loadToolCatalogue();
 	}
 
 	@FXML
@@ -67,25 +107,22 @@ public class MyToolsSceneController extends LoggedInSceneController {
 
 	@FXML
 	void editToolButtonClick(ActionEvent event) {
+		try {
+			AddNewToolSceneController controller = new AddNewToolSceneController(pouzivatel, selectedNaradie);
+			FXMLLoader loader = new FXMLLoader(App.class.getResource("addNewTool.fxml"));
+			loader.setController(controller);
+			Parent parent = loader.load();
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Pridávanie náradia");
+			stage.setScene(scene);
+			stage.showAndWait();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		loadToolCatalogue();
 
-	}
-
-	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
-
-	public MyToolsSceneController(Pouzivatel pouzivatel) {
-		super(pouzivatel);
-	}
-
-	@FXML
-	void initialize() {
-		myToolsButton.setDisable(true);
-
-		druhColumn.setCellValueFactory(new PropertyValueFactory<>("druh"));
-		znackaColumn.setCellValueFactory(new PropertyValueFactory<>("znacka"));
-		typColumn.setCellValueFactory(new PropertyValueFactory<>("typ"));
-		stavColumn.setCellValueFactory(new PropertyValueFactory<>("stav"));
-
-		toolCatalogueTableView.setItems(FXCollections
-				.observableArrayList(toolCatalogueItemManager.getOwnedToolCatalogueItems(pouzivatel.getId())));
 	}
 }

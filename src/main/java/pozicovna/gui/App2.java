@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pozicovna.entities.Akcia;
+import pozicovna.entities.DruhNaradia;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.*;
@@ -44,8 +45,9 @@ public class App2 {
 
 		Naradie naradie = new Naradie("SUPREME", "t64", true, "vrtacka", pouzivatelDao.getById(13), "skuska ukladania",
 				akcie, akciaDao, naradieDao);
-		
-		naradieDao.save(naradie);
+
+		naradieDao.save(new Naradie(naradie.getId(), "SUPPP", "ssss", naradie.getJe_dostupne(), "vrtacka",
+				naradie.getVlastnik(), "da sa editovat??", naradie.getAkcie()));
 
 		List<Naradie> naradieList = naradieDao.getAll();
 		System.out.println("LIST NARADI");
@@ -57,6 +59,10 @@ public class App2 {
 		System.out.println("POZICANE MNOU");
 
 		System.out.println(naradieDao.getAllLentByVlastnikId(10));
+
+		System.out.println("druhNaradiaSkuska");
+		DruhNaradia dn = druhNaradiaDao.getByMeno(naradie.getDruhNaradia());
+		System.out.println(dn);
 
 	}
 
