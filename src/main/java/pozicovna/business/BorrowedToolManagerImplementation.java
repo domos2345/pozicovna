@@ -7,6 +7,7 @@ import pozicovna.storage.NaradieDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BorrowedToolManagerImplementation implements BorrowedToolManager {
 	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
@@ -23,5 +24,17 @@ public class BorrowedToolManagerImplementation implements BorrowedToolManager {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<BorrowedTool> getLendedTools(Long vlastnikId) {
+		return naradieDao.getAllLentByVlastnikId(vlastnikId)
+			.stream()
+			.flatMap(
+				naradie -> naradie.getAkcie()
+					.stream()
+					.filter(akcia -> akcia.getPozicane() != null)
+					.map(akcia -> new BorrowedTool(naradie, akcia))
+			).collect(Collectors.toList());
 	}
 }

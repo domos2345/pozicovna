@@ -10,13 +10,17 @@ public class BorrowedTool {
 
     private Naradie naradie;
     private Akcia akcia;
+
     private String druh;
     private String znacka;
     private String typ;
+
+    private String ziadatel;
     private LocalDateTime poziadanie;
     private LocalDateTime zamietnutie;
     private LocalDateTime pozicanie;
     private LocalDateTime vratenie;
+    
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
@@ -26,6 +30,7 @@ public class BorrowedTool {
         this.druh = naradie.getDruhNaradia();
         this.znacka = naradie.getZnacka();
         this.typ = naradie.getTyp();
+        this.ziadatel = akcia.getZiadatel().getPriezvisko() + ", " + akcia.getZiadatel().getMeno();
         this.poziadanie = akcia.getZiadost();
         this.zamietnutie = akcia.getZamietnute();
         this.pozicanie = akcia.getPozicane();
@@ -58,6 +63,10 @@ public class BorrowedTool {
 
     public String getTyp() {
         return typ;
+    }
+
+    public String getZiadatel() {
+        return ziadatel;
     }
 
     public Naradie getNaradie() {
