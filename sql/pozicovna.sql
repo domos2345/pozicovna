@@ -35,7 +35,8 @@ CREATE TABLE `akcia` (
   PRIMARY KEY (`id`),
   KEY `fk_ziadost_naradie1_idx` (`naradie_id`),
   KEY `fk_ziadost_pouzivatel1_idx` (`ziadatel_id`),
-  CONSTRAINT `fk_ziadost_naradie1` FOREIGN KEY (`naradie_id`) REFERENCES `naradie` (`id`),
+  CONSTRAINT `fk_ziadost_naradie1` FOREIGN KEY (`naradie_id`) REFERENCES `naradie` (`id`)
+  ON DELETE CASCADE,
   CONSTRAINT `fk_ziadost_pouzivatel1` FOREIGN KEY (`ziadatel_id`) REFERENCES `pouzivatel` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -43,11 +43,12 @@ public class App2 {
 //			System.out.println(pouzivatelia.get(i).toString());
 //		}
 
-		Naradie naradie = new Naradie("SUPREME", "t64", true, "vrtacka", pouzivatelDao.getById(13), "skuska ukladania",
+		Naradie naradie = new Naradie("EDIT", "t64", true, "vrtacka", pouzivatelDao.getById(13), "skuska ukladania",
 				akcie, akciaDao, naradieDao);
+//		naradieDao.save(naradie);
 
-		naradieDao.save(new Naradie(naradie.getId(), "SUPPP", "ssss", naradie.getJe_dostupne(), "vrtacka",
-				naradie.getVlastnik(), "da sa editovat??", naradie.getAkcie()));
+		naradieDao.save(new Naradie(Long.valueOf(10), "EDITEDITEDIT", "ssss", naradie.getJe_dostupne(), "vrtacka",
+				naradie.getVlastnik(), "da sa editovat?otaznik?WHAAAAT?", naradie.getAkcie()));
 
 		List<Naradie> naradieList = naradieDao.getAll();
 		System.out.println("LIST NARADI");
@@ -56,13 +57,13 @@ public class App2 {
 		}
 
 		// System.out.println(naradieDao.getAll());
-		System.out.println("POZICANE MNOU");
-
-		System.out.println(naradieDao.getAllLentByVlastnikId(10));
-
-		System.out.println("druhNaradiaSkuska");
-		DruhNaradia dn = druhNaradiaDao.getByMeno(naradie.getDruhNaradia());
-		System.out.println(dn);
+//		System.out.println("POZICANE MNOU");
+//
+//		System.out.println(naradieDao.getAllLentByVlastnikId(10));
+//
+//		System.out.println("druhNaradiaSkuska");
+//		DruhNaradia dn = druhNaradiaDao.getByMeno(naradie.getDruhNaradia());
+//		System.out.println(dn);
 
 	}
 
