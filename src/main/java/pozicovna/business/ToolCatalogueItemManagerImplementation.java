@@ -12,11 +12,12 @@ public class ToolCatalogueItemManagerImplementation implements ToolCatalogueItem
 	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
 
 	@Override
-	public List<ToolCatalogueItem> getToolCatalogueItems() {
+	public List<ToolCatalogueItem> getToolCatalogueItemsNotOwnedBy(Long vlastnikId) {
 		List<Naradie> naradia = naradieDao.getAll();
 		List<ToolCatalogueItem> result = new ArrayList<>();
 		for (Naradie naradie : naradia)
-			result.add(new ToolCatalogueItem(naradie));
+			if(naradie.getVlastnik().getId()!=vlastnikId)
+				result.add(new ToolCatalogueItem(naradie));
 		return result;
 	}
 

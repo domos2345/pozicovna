@@ -74,7 +74,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
     private void loadToolCatalogue(){
         toolCatalogueTableView.setItems(
                 FXCollections.observableArrayList(
-                        toolCatalogueItemManager.getToolCatalogueItems()
+                        toolCatalogueItemManager.getToolCatalogueItemsNotOwnedBy(pouzivatel.getId())
                 )
         );
     }

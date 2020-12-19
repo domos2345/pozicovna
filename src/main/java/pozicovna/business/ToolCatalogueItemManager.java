@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ToolCatalogueItemManager {
 
-	List<ToolCatalogueItem> getToolCatalogueItems();
+	List<ToolCatalogueItem> getToolCatalogueItemsNotOwnedBy(Long vlastnikId);
 
 	List<ToolCatalogueItem> getOwnedToolCatalogueItems(Long vlastnikId);
 
