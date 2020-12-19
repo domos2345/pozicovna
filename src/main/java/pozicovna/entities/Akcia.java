@@ -7,6 +7,7 @@ import java.util.List;
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import pozicovna.storage.DaoFactory;
 
 import java.util.Date;
 
@@ -40,6 +41,11 @@ public class Akcia {
 	public Akcia(Pouzivatel ziadatel) {
 		this.ziadatel = ziadatel;
 		this.ziadost = LocalDateTime.now();
+	}
+
+	public void reject(long idNaradie) {
+		zamietnute = LocalDateTime.now();
+		DaoFactory.INSTANCE.getAkciaDao().save(this, idNaradie);
 	}
 
 	public void setZiadatel(Pouzivatel ziadatel) {

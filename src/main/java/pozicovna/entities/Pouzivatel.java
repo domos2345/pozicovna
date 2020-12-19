@@ -2,6 +2,8 @@ package pozicovna.entities;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import java.util.Objects;
+
 public class Pouzivatel {
 	private Long id;
 	private String meno;
@@ -153,4 +155,16 @@ public class Pouzivatel {
 				+ mesto + ", ulica=" + ulica + ", cislo_domu=" + cislo_domu + ", psc=" + psc + ", okres=" + okres + "]";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Pouzivatel that = (Pouzivatel) o;
+		return Objects.equals(id, that.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }

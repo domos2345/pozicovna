@@ -8,4 +8,6 @@ public interface BorrowedToolManager {
 
     List<BorrowedTool> getBorrowedTools(Long id);
 
+    List<BorrowedTool> getLendedTools(Long idVlastnika);
+
 }

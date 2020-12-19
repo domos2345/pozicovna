@@ -14,8 +14,6 @@ import pozicovna.business.ToolCatalogueItemManager;
 import pozicovna.business.ToolCatalogueItemManagerImplementation;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
-import pozicovna.storage.AkciaDao;
-import pozicovna.storage.DaoFactory;
 import pozicovna.entities.NaradieCannotBeLendedException;
 
 public class ToolCatalogueSceneController extends LoggedInSceneController{
@@ -40,7 +38,6 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
 
     ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
     Naradie selectedNaradie;
-    AkciaDao akciaDao = DaoFactory.INSTANCE.getAkciaDao();
 
     public ToolCatalogueSceneController(Pouzivatel pouzivatel) {
         super(pouzivatel);
@@ -59,7 +56,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
         // https://stackoverflow.com/questions/26424769/javafx8-how-to-create-listener-for-selection-of-row-in-tableview
         toolCatalogueTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                borrowButton.setDisable(false);
+                borrowButton.setDisable(!newSelection.getNaradie().getJe_dostupne());
                 selectedNaradie = newSelection.getNaradie();
             }
         });
@@ -77,20 +74,19 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
     private void loadToolCatalogue(){
         toolCatalogueTableView.setItems(
                 FXCollections.observableArrayList(
-                        toolCatalogueItemManager.getToolCatalogueItems()
+                        toolCatalogueItemManager.getToolCatalogueItemsNotOwnedBy(pouzivatel.getId())
                 )
         );
     }
 
     @FXML
     void borrowButtonClick(ActionEvent event) {
-        try {
-            selectedNaradie.lendTo(pouzivatel);
-        } catch (NaradieCannotBeLendedException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("Toto naradia je uz pozicane");
-            alert.show();
-        }
+        selectedNaradie.sendRequest(pouzivatel);
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setHeaderText("Žiadosť o požicanie náradia vytvorená");
+        alert.show();
+
         loadToolCatalogue();
     }
 }

@@ -92,7 +92,7 @@ public class MysqlNaradieDao implements NaradieDao {
 		// NARADIE, KTORÉ SOM (alebo pouzivatel podla id) POZICAL
 		String sql = "SELECT DISTINCT n.id, dn.meno AS druh_naradia, n.znacka, n.typ, n.je_dostupne, n.popis, n.vlastnik_id "
 				+ "FROM naradie AS n " + "JOIN druh_naradia AS dn ON dn.id = n.druh_naradia_id "
-				+ "JOIN akcia AS a ON a.naradie_id = n.id " + "WHERE n.vlastnik_id = " + id + " and n.je_dostupne = 0";
+				+ "JOIN akcia AS a ON a.naradie_id = n.id " + "WHERE n.vlastnik_id = " + id;
 		try {
 			return jdbcTemplate.query(sql, new NaradieRowMapper());
 		} catch (DataAccessException e) {
@@ -102,7 +102,6 @@ public class MysqlNaradieDao implements NaradieDao {
 
 	public Naradie save(Naradie naradie) throws EntityNotFoundException {
 		try {
-			System.out.println(naradie.getId());
 			if (naradie.getId() == null) { // INSERT
 				SimpleJdbcInsert insert = new SimpleJdbcInsert(jdbcTemplate);
 				insert.withTableName("naradie");
