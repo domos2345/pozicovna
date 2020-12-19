@@ -77,6 +77,7 @@ public class AddNewToolSceneController {
 		bindTool();
 		mandatoryFields = Arrays.asList(brandTextField, typeTextField);
 		kindComboBox.setItems(FXCollections.observableArrayList(druhyNaradia));
+		kindComboBox.getSelectionModel().select(naradieModel.getKindProperty().getValue());
 		kindComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<DruhNaradia>() {
 
 			@Override
@@ -85,6 +86,7 @@ public class AddNewToolSceneController {
 				selectedDruhNaradia.setValue(newValue);
 			}
 		});
+
 		selectedDruhNaradia.addListener(new ChangeListener<DruhNaradia>() {
 
 			@Override
@@ -128,24 +130,55 @@ public class AddNewToolSceneController {
 				errorLabel.setText("Nevyplnené povinné políčka");
 				errorLabel.setStyle("-fx-text-fill: lightcoral");
 				return false;
+
 			} else {
 				tf.setStyle("-fx-background-color: white");
 			}
 		}
+		if (kindComboBox.getValue() == null) {
+			if (addNewKindTextField.getText().isBlank()) {
+				kindComboBox.setStyle("-fx-background-color: lightcoral");
+				errorLabel.setText("Vyberte (alebo pridajte) druh");
+				errorLabel.setStyle("-fx-text-fill: lightcoral");
+				return false;
+			} else {
+				addNewKind();
+			}
+		}
+
 		return true;
+	}
+
+	private void addNewKind() {
+		String newKind = addNewKindTextField.getText();
+		if (newKind.isBlank()) {
+			errorLabel.setText("Vyberte alebo pridajte druh");
+			return;
+		}
+		for (DruhNaradia tempDruh : druhyNaradia) {
+			if (tempDruh.getMeno().equals(newKind)) {
+				selectedDruhNaradia.setValue(tempDruh);
+				return;
+			}
+		}
+		DruhNaradia novyDruhNaradia = druhNaradiaDao.save(new DruhNaradia(newKind));
+		druhyNaradia.add(novyDruhNaradia);
+
+		kindComboBox.setItems(FXCollections.observableArrayList(druhyNaradia));
+
+		selectedDruhNaradia.setValue(novyDruhNaradia);
 	}
 
 	@FXML
 	void addNewKindButtonClick(ActionEvent event) {
-
-		selectedDruhNaradia.setValue(null);
+		addNewKind();
 	}
 
 	@FXML
 	void saveButtonClick(ActionEvent event) {
 		if (!mandatoryFieldsFilled())
 			return;
-
+		System.out.println(naradieModel.getNaradie());
 		naradie.set(naradieDao.save(naradieModel.getNaradie()));
 
 		brandTextField.getParent().getScene().getWindow().hide();
