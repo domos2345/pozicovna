@@ -1,7 +1,9 @@
 package pozicovna.gui;
 
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,9 +27,12 @@ public class LendedToolsSceneController extends LoggedInSceneController{
     private TableColumn<BorrowedTool, String> pozicanieDateColumn;
     @FXML
     private TableColumn<BorrowedTool, String> vratenieDateColumn;
+    @FXML
+    private Button detailButton;
 
 
     BorrowedToolManager lendedToolManager = new BorrowedToolManagerImplementation();
+    BorrowedTool selectedTool;
 
     public LendedToolsSceneController(Pouzivatel pouzivatel) {
         super(pouzivatel);
@@ -37,10 +42,18 @@ public class LendedToolsSceneController extends LoggedInSceneController{
     void initialize() {
         super.initialize();
         lendedToolsButton.setDisable(true);
+        detailButton.setDisable(true);
 
         setColumns();
 
         loadToolCatalogue();
+
+        lendedToolsTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                detailButton.setDisable(false);
+                selectedTool = newSelection;
+            }
+        });
     }
 
     private void setColumns() {
@@ -55,5 +68,10 @@ public class LendedToolsSceneController extends LoggedInSceneController{
     private void loadToolCatalogue() {
             lendedToolsTableView.setItems(
                     FXCollections.observableArrayList(lendedToolManager.getLendedTools(pouzivatel.getId())));
+    }
+
+    @FXML
+    void detailButtonClick(ActionEvent event) {
+        showToolInfoWindow(selectedTool.getNaradie(), selectedTool.getAkcia());
     }
 }

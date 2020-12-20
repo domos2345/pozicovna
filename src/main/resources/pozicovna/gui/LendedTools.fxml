@@ -32,5 +32,6 @@
             <TableColumn fx:id="vratenieDateColumn" maxWidth="80.0" minWidth="80.0" text="Vratenie" />
         </columns>
       </TableView>
+      <Button fx:id="detailButton" layoutX="555.0" layoutY="114.0" mnemonicParsing="false" onAction="#detailButtonClick" prefHeight="25.0" prefWidth="55.0" text="Detail" />
    </children>
 </AnchorPane>
