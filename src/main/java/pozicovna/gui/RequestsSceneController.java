@@ -28,6 +28,8 @@ public class RequestsSceneController extends LoggedInSceneController{
     private Button rejectButton;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Button detailButton;
 
 
     RequestsManager requestsManager = new RequestsManagerImplementation();
@@ -41,6 +43,9 @@ public class RequestsSceneController extends LoggedInSceneController{
     void initialize() {
         super.initialize();
         requestsButton.setDisable(true);
+        confirmButton.setDisable(true);
+        rejectButton.setDisable(true);
+        detailButton.setDisable(true);
 
         setColumns();
 
@@ -51,6 +56,7 @@ public class RequestsSceneController extends LoggedInSceneController{
                 confirmButton.setDisable(false);
                 rejectButton.setDisable(false);
                 selectedRequest = newSelection;
+                detailButton.setDisable(false);
             }
         });
     }
@@ -69,6 +75,9 @@ public class RequestsSceneController extends LoggedInSceneController{
                         requestsManager.getRequestsForNaradieOfPouzivatel(pouzivatel.getId())
                 )
         );
+        confirmButton.setDisable(true);
+        rejectButton.setDisable(true);
+        detailButton.setDisable(true);
     }
 
     @FXML
@@ -86,4 +95,10 @@ public class RequestsSceneController extends LoggedInSceneController{
         selectedRequest.getAkcia().reject(selectedRequest.getNaradie().getId());
         loadRequests();
     }
+
+    @FXML
+    void detailButtonClick(ActionEvent event) {
+        showToolInfoWindow(selectedRequest.getNaradie(), selectedRequest.getAkcia());
+    }
+
 }
