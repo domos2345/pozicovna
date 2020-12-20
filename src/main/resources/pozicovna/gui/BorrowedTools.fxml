@@ -34,5 +34,6 @@
         </columns>
       </TableView>
       <Button fx:id="returnButton" layoutX="543.0" layoutY="114.0" mnemonicParsing="false" onAction="#returnButtonClick" prefHeight="25.0" prefWidth="67.0" text="Vratit" />
+      <Button fx:id="detailButton" layoutX="477.0" layoutY="114.0" mnemonicParsing="false" onAction="#detailButtonClick" prefHeight="25.0" prefWidth="55.0" text="Detail" />
    </children>
 </AnchorPane>
