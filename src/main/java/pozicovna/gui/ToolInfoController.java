@@ -79,7 +79,6 @@ public class ToolInfoController {
     }
 
     private void nastavVseobecneInfo(){
-        System.out.println(naradie);
         this.druhLabel.setText(naradie.getDruhNaradia());
         this.znackaLabel.setText(naradie.getZnacka());
         this.typLabel.setText(naradie.getTyp());
