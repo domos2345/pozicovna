@@ -127,9 +127,11 @@ public class MysqlNaradieDao implements NaradieDao {
 
 			else {// UPDATE
 
-				String sql = "UPDATE naradie SET je_dostupne = ?, vlastnik_id = ?, popis = ? " + "WHERE id = ?";
-				int changed = jdbcTemplate.update(sql, naradie.getJe_dostupne(), naradie.getVlastnik().getId(),
-						naradie.getPopis(), naradie.getId());
+				String sql = "UPDATE naradie SET znacka = ?, typ = ?, druh_naradia_id = ?, je_dostupne = ?, vlastnik_id = ?, popis = ? WHERE id = ?";
+				long druhNaradiaId = druhNaradiaDao.getByMeno(naradie.getDruhNaradia()).getId();
+				
+				int changed = jdbcTemplate.update(sql, naradie.getZnacka(), naradie.getTyp(), druhNaradiaId,
+						naradie.getJe_dostupne(), naradie.getVlastnik().getId(), naradie.getPopis(), naradie.getId());
 
 				if (changed == 1) {
 					return naradie;

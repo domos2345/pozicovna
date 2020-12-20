@@ -16,7 +16,6 @@ public enum DaoFactory {
 	private AkciaDao akciaDao;
 	private DruhNaradiaDao druhNaradiaDao;
 
-
 	public void testing() {
 		testing = true;
 	}
@@ -29,7 +28,7 @@ public enum DaoFactory {
 		return PouzivatelDao;
 
 	}
-	
+
 	public NaradieDao getNaradieDao() {
 		if (NaradieDao == null) {
 			NaradieDao = new MysqlNaradieDao(getJdbc());
@@ -47,8 +46,8 @@ public enum DaoFactory {
 	}
 
 	public DruhNaradiaDao getDruhNaradiaDao() {
-		if(druhNaradiaDao == null){
-			druhNaradiaDao = new MysqlDruhNaradiaDao(jdbcTemplate);
+		if (druhNaradiaDao == null) {
+			druhNaradiaDao = new MysqlDruhNaradiaDao(getJdbc());
 		}
 		return druhNaradiaDao;
 	}

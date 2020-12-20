@@ -175,7 +175,6 @@ public class AddNewToolSceneController {
 	void saveButtonClick(ActionEvent event) {
 		if (!mandatoryFieldsFilled())
 			return;
-		System.out.println(naradieModel.getNaradie());
 		naradie.set(naradieDao.save(naradieModel.getNaradie()));
 
 		brandTextField.getParent().getScene().getWindow().hide();

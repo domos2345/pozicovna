@@ -20,6 +20,10 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
 	private JdbcTemplate jdbcTemplate;
 
+	public MysqlPouzivatelDao(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	private class PouzivatelRowMapper implements RowMapper<Pouzivatel> {
 		public Pouzivatel mapRow(ResultSet rs, int rowNum) throws SQLException {
 			Long id = rs.getLong("id");
@@ -37,10 +41,6 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 			return new Pouzivatel(id, meno, priezvisko, email, tel_cislo, sol_hash, heslo_hash, mesto, ulica,
 					cislo_domu, psc, okres);
 		}
-	}
-
-	public MysqlPouzivatelDao(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	public List<Pouzivatel> getAll() {
