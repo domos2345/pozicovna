@@ -69,12 +69,12 @@ public class ToolInfoController {
     @FXML
     void initialize() {
         nastavVseobecneInfo();
-        nastavPouzivatela(naradie.getVlastnik());
+        nastavMajitela(naradie.getVlastnik());
 
         if(akcia == null)
             return;
 
-        nastavPouzivatela(akcia.getZiadatel());
+        nastavZiadatela(akcia.getZiadatel());
         nastavDatumy();
     }
 
@@ -86,7 +86,7 @@ public class ToolInfoController {
         this.popisTextArea.setText(naradie.getPopis());
     }
 
-    private void nastavPouzivatela(Pouzivatel pouzivatel){
+    private void nastavMajitela(Pouzivatel pouzivatel){
         this.majitelPriezviskoLabel.setText(pouzivatel.getMeno());
         this.majitelMenoLabel.setText(pouzivatel.getPriezvisko());
         this.majitelCisloLabel.setText(pouzivatel.getTel_cislo());
@@ -94,6 +94,16 @@ public class ToolInfoController {
         this.majitelOkresLabel.setText(pouzivatel.getOkres());
         String adresa = pouzivatel.getUlica() + " " + pouzivatel.getCislo_domu() + ",\n" + pouzivatel.getPsc()  + " \n" + pouzivatel.getMesto();
         this.majitelAdresaLabel.setText(adresa);
+    }
+
+    private void nastavZiadatela(Pouzivatel pouzivatel){
+        this.ziadatelPriezviskoLabel.setText(pouzivatel.getMeno());
+        this.ziadatelMenoLabel.setText(pouzivatel.getPriezvisko());
+        this.ziadatelCisloLabel.setText(pouzivatel.getTel_cislo());
+        this.ziadatelEmailLabel.setText(pouzivatel.getEmail());
+        this.ziadatelOkresLabel.setText(pouzivatel.getOkres());
+        String adresa = pouzivatel.getUlica() + " " + pouzivatel.getCislo_domu() + ",\n" + pouzivatel.getPsc()  + " \n" + pouzivatel.getMesto();
+        this.ziadatelAdresaLabel.setText(adresa);
     }
 
     private void nastavDatumy(){
