@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import pozicovna.entities.DruhNaradia;
-import pozicovna.entities.Naradie;
 
 public class MysqlDruhNaradiaDao implements DruhNaradiaDao {
 

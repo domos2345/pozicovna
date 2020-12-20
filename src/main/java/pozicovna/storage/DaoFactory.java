@@ -3,8 +3,7 @@ package pozicovna.storage;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import pozicovna.entities.Akcia;
-import pozicovna.entities.DruhNaradia;
+
 
 public enum DaoFactory {
 	INSTANCE;

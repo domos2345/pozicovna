@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import pozicovna.entities.DruhNaradia;
-import pozicovna.entities.Pouzivatel;
 
 class MysqlDruhNaradiaDaoTest {
 
