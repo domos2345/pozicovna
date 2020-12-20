@@ -33,5 +33,6 @@
         </columns>
       </TableView>
       <Button fx:id="borrowButton" layoutX="543.0" layoutY="114.0" mnemonicParsing="false" onAction="#borrowButtonClick" text="Požičať si" />
+      <Button fx:id="detailButton" layoutX="477.0" layoutY="114.0" mnemonicParsing="false" onAction="#detailButtonClick" prefHeight="25.0" prefWidth="55.0" text="Detail" />
    </children>
 </AnchorPane>

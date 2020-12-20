@@ -48,6 +48,11 @@ public class Akcia {
 		DaoFactory.INSTANCE.getAkciaDao().save(this, idNaradie);
 	}
 
+
+	public boolean mozemVratit() {
+		return pozicane != null && vratene == null;
+	}
+
 	public void setZiadatel(Pouzivatel ziadatel) {
 		this.ziadatel = ziadatel;
 	}

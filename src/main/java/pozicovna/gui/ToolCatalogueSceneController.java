@@ -34,6 +34,8 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
     private TableColumn<ToolCatalogueItem, String> okresColumn;
     @FXML
     private Button borrowButton;
+    @FXML
+    private Button detailButton;
 
 
     ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
@@ -48,6 +50,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
         super.initialize();
         toolCatalogueButton.setDisable(true);
         borrowButton.setDisable(true);
+        detailButton.setDisable(true);
 
         setColumns();
 
@@ -57,6 +60,7 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
         toolCatalogueTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 borrowButton.setDisable(!newSelection.getNaradie().getJe_dostupne());
+                detailButton.setDisable(false);
                 selectedNaradie = newSelection.getNaradie();
             }
         });
@@ -77,6 +81,8 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
                         toolCatalogueItemManager.getToolCatalogueItemsNotOwnedBy(pouzivatel.getId())
                 )
         );
+        borrowButton.setDisable(true);
+        detailButton.setDisable(true);
     }
 
     @FXML
@@ -88,5 +94,10 @@ public class ToolCatalogueSceneController extends LoggedInSceneController{
         alert.show();
 
         loadToolCatalogue();
+    }
+
+    @FXML
+    void detailButtonClick(ActionEvent event) {
+        showToolInfoWindow(selectedNaradie);
     }
 }

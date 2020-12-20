@@ -30,8 +30,9 @@
             <TableColumn fx:id="stavColumn" prefWidth="182.4000244140625" text="Stav" />
         </columns>
       </TableView>
-      <Button fx:id="addToolButton" layoutX="281.0" layoutY="461.0" mnemonicParsing="false" onAction="#addToolButtonClick" text="Pridať náradie" />
-      <Button fx:id="editToolButton" layoutX="39.0" layoutY="461.0" mnemonicParsing="false" onAction="#editToolButtonClick" text="Upraviť náradie" />
+      <Button fx:id="addToolButton" layoutX="337.0" layoutY="461.0" mnemonicParsing="false" onAction="#addToolButtonClick" prefHeight="25.0" prefWidth="92.0" text="Pridať náradie" />
+      <Button fx:id="editToolButton" layoutX="166.0" layoutY="461.0" mnemonicParsing="false" onAction="#editToolButtonClick" prefHeight="25.0" prefWidth="100.0" text="Upraviť náradie" />
       <Button fx:id="deleteToolButton" layoutX="501.0" layoutY="461.0" mnemonicParsing="false" onAction="#deleteToolButtonClick" text="Odstrániť náradie" />
+      <Button fx:id="detailButton" layoutX="40.0" layoutY="461.0" mnemonicParsing="false" onAction="#detailButtonClick" prefHeight="25.0" prefWidth="55.0" text="Detail" />
    </children>
 </AnchorPane>

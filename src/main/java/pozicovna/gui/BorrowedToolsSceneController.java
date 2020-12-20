@@ -35,6 +35,9 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 	private TableColumn<BorrowedTool, String> vratenieDateColumn;
 	@FXML
 	private Button returnButton;
+	@FXML
+	private Button detailButton;
+
 
 	BorrowedToolManager borrowedToolManager = new BorrowedToolManagerImplementation();
 	BorrowedTool selectedBorrowedTool;
@@ -48,6 +51,7 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 		super.initialize();
 		borrowedToolsButton.setDisable(true);
 		returnButton.setDisable(true);
+		detailButton.setDisable(true);
 
 		setColumns();
 
@@ -56,8 +60,9 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 		borrowedToolsTableView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
-						returnButton.setDisable(false);
+						returnButton.setDisable(!newSelection.getAkcia().mozemVratit());
 						selectedBorrowedTool = newSelection;
+						detailButton.setDisable(false);
 					}
 				});
 	}
@@ -75,6 +80,8 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 	private void loadToolCatalogue() {
 		borrowedToolsTableView
 				.setItems(FXCollections.observableArrayList(borrowedToolManager.getBorrowedTools(pouzivatel.getId())));
+		returnButton.setDisable(true);
+		detailButton.setDisable(true);
 	}
 
 	@FXML
@@ -87,6 +94,11 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 			alert.setContentText("Toto naradie momentalne nemate pozicane");
 			alert.show();
 		}
-		returnButton.setDisable(true);
+	}
+
+	@FXML
+	void detailButtonClick(ActionEvent event) {
+		System.out.println(selectedBorrowedTool.getAkcia().getZiadatel());
+		showToolInfoWindow(selectedBorrowedTool.getNaradie(), selectedBorrowedTool.getAkcia());
 	}
 }

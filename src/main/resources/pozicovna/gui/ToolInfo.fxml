@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="151.0" layoutY="24.0" text="Informácie o náradí">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="75.0" text="Druh:" />
+      <Label layoutX="50.0" layoutY="115.0" text="Typ:" />
+      <Label layoutX="50.0" layoutY="95.0" text="Značka:" />
+      <Label fx:id="druhLabel" layoutX="108.0" layoutY="75.0" prefHeight="17.0" prefWidth="70.0" text="druh" />
+      <Label fx:id="znackaLabel" layoutX="108.0" layoutY="95.0" prefHeight="17.0" prefWidth="70.0" text="znacka" />
+      <Label fx:id="typLabel" layoutX="108.0" layoutY="115.0" prefWidth="70.0" text="typ" />
+      <Label layoutX="195.0" layoutY="75.0" text="Popis:" />
+      <TextArea fx:id="popisTextArea" editable="false" layoutX="195.0" layoutY="92.0" prefHeight="60.0" prefWidth="142.0" text="viacriadkovy&#10;...&#10;popis" wrapText="true" />
+      <Label layoutX="50.0" layoutY="180.0" text="Majiteľ:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="60.0" layoutY="210.0" text="Meno:" />
+      <Label layoutX="60.0" layoutY="230.0" text="Priezvisko:" />
+      <Label layoutX="60.0" layoutY="250.0" text="Tel. číslo:" />
+      <Label layoutX="60.0" layoutY="270.0" text="Email:" />
+      <Label layoutX="60.0" layoutY="290.0" text="Okres:" />
+      <Label layoutX="60.0" layoutY="310.0" text="Adresa:" />
+      <Label layoutX="280.0" layoutY="180.0" text="Žiadateľ:">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="290.0" layoutY="210.0" text="Meno:" />
+      <Label layoutX="290.0" layoutY="230.0" text="Priezvisko:" />
+      <Label layoutX="290.0" layoutY="250.0" text="Tel. číslo:" />
+      <Label layoutX="290.0" layoutY="270.0" text="Email:" />
+      <Label layoutX="290.0" layoutY="290.0" text="Okres:" />
+      <Label layoutX="290.0" layoutY="310.0" text="Adresa:" />
+      <Label fx:id="majitelPriezviskoLabel" layoutX="125.0" layoutY="230.0" prefWidth="127.0" text="text" />
+      <Label fx:id="majitelMenoLabel" layoutX="125.0" layoutY="210.0" prefWidth="127.0" text="text" />
+      <Label fx:id="majitelCisloLabel" layoutX="125.0" layoutY="250.0" prefWidth="127.0" text="text" />
+      <Label fx:id="majitelEmailLabel" layoutX="125.0" layoutY="270.0" prefWidth="127.0" text="text" />
+      <Label fx:id="majitelOkresLabel" layoutX="125.0" layoutY="290.0" prefWidth="127.0" text="text" />
+      <Label fx:id="majitelAdresaLabel" layoutX="125.0" layoutY="310.0" prefWidth="127.0" text="Uliacaaaa 0000/11, 09431 Meeeeesto" wrapText="true" />
+      <Label fx:id="ziadatelPriezviskoLabel" layoutX="355.0" layoutY="230.0" prefWidth="127.0" text="-" />
+      <Label fx:id="ziadatelAdresaLabel" layoutX="355.0" layoutY="310.0" prefWidth="127.0" text="-" wrapText="true" />
+      <Label fx:id="ziadatelMenoLabel" layoutX="355.0" layoutY="210.0" prefWidth="127.0" text="-" />
+      <Label fx:id="ziadatelCisloLabel" layoutX="355.0" layoutY="250.0" prefWidth="127.0" text="-" />
+      <Label fx:id="ziadatelEmailLabel" layoutX="355.0" layoutY="270.0" prefWidth="127.0" text="-" />
+      <Label fx:id="ziadatelOkresLabel" layoutX="355.0" layoutY="290.0" prefWidth="127.0" text="-" />
+      <Label layoutX="50.0" layoutY="135.0" text="Stav:" />
+      <Label fx:id="stavLabel" layoutX="108.0" layoutY="135.0" prefWidth="70.0" text="stav" />
+      <Label layoutX="360.0" layoutY="74.0" text="Žiadosť:" />
+      <Label layoutX="360.0" layoutY="114.0" text="Požičanie:" />
+      <Label layoutX="360.0" layoutY="94.0" text="Zamietnutie:" />
+      <Label fx:id="ziadostLabel" layoutX="431.0" layoutY="74.0" prefHeight="17.0" prefWidth="60.0" text="-" />
+      <Label fx:id="zamietnutieLabel" layoutX="431.0" layoutY="94.0" prefHeight="17.0" prefWidth="60.0" text="-" />
+      <Label fx:id="pozicanieLabel" layoutX="431.0" layoutY="114.0" prefWidth="60.0" text="-" />
+      <Label layoutX="360.0" layoutY="134.0" text="Vrátenie" />
+      <Label fx:id="vratenieLabel" layoutX="431.0" layoutY="134.0" prefWidth="60.0" text="-" />
+   </children>
+</AnchorPane>
