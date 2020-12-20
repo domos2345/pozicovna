@@ -36,12 +36,12 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	private TableColumn<ToolCatalogueItem, String> stavColumn;
 	@FXML
 	private Button addToolButton;
-
 	@FXML
 	private Button editToolButton;
-
 	@FXML
 	private Button deleteToolButton;
+	@FXML
+	private Button detailButton;
 
 	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
 
@@ -57,6 +57,9 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	void initialize() {
 		myToolsButton.setDisable(true);
 		editToolButton.setDisable(true);
+		deleteToolButton.setDisable(true);
+		detailButton.setDisable(true);
+
 		setColumns();
 		loadToolCatalogue();
 
@@ -64,6 +67,8 @@ public class MyToolsSceneController extends LoggedInSceneController {
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
 						editToolButton.setDisable(false);
+						deleteToolButton.setDisable(false);
+						detailButton.setDisable(false);
 						selectedNaradie = newSelection.getNaradie();
 					}
 				});
@@ -81,7 +86,9 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	private void loadToolCatalogue() {
 		toolCatalogueTableView.setItems(FXCollections
 				.observableArrayList(toolCatalogueItemManager.getOwnedToolCatalogueItems(pouzivatel.getId())));
-
+		editToolButton.setDisable(true);
+		deleteToolButton.setDisable(true);
+		detailButton.setDisable(true);
 	}
 
 	@FXML
@@ -129,5 +136,10 @@ public class MyToolsSceneController extends LoggedInSceneController {
 		}
 		loadToolCatalogue();
 
+	}
+
+	@FXML
+	void detailButtonClick(ActionEvent event) {
+		showToolInfoWindow(selectedNaradie);
 	}
 }
