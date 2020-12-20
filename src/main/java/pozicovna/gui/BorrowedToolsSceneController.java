@@ -60,7 +60,7 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 		borrowedToolsTableView.getSelectionModel().selectedItemProperty()
 				.addListener((obs, oldSelection, newSelection) -> {
 					if (newSelection != null) {
-						returnButton.setDisable(false);
+						returnButton.setDisable(!newSelection.getAkcia().mozemVratit());
 						selectedBorrowedTool = newSelection;
 						detailButton.setDisable(false);
 					}
