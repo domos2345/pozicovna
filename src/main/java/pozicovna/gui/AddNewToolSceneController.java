@@ -10,10 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import pozicovna.entities.DruhNaradia;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
@@ -49,7 +46,7 @@ public class AddNewToolSceneController {
 	@FXML
 	private TextField typeTextField;
 	@FXML
-	private TextField descriptionTextField;
+	private TextArea descriptionTextArea;
 	@FXML
 	private ComboBox<DruhNaradia> kindComboBox;
 	@FXML
@@ -115,7 +112,7 @@ public class AddNewToolSceneController {
 	private void bindTool() {
 		brandTextField.textProperty().bindBidirectional(naradieModel.brandProperty());
 		typeTextField.textProperty().bindBidirectional(naradieModel.typeProperty());
-		descriptionTextField.textProperty().bindBidirectional(naradieModel.descriptionProperty());
+		descriptionTextArea.textProperty().bindBidirectional(naradieModel.descriptionProperty());
 		selectedDruhNaradia.bindBidirectional(naradieModel.kindProperty());
 	}
 
