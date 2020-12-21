@@ -1,6 +1,8 @@
 package pozicovna.gui;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -11,9 +13,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pozicovna.business.BorrowedTool;
 import pozicovna.business.ToolCatalogueItem;
 import pozicovna.business.ToolCatalogueItemManager;
 import pozicovna.business.ToolCatalogueItemManagerImplementation;
@@ -42,9 +46,12 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	private Button deleteToolButton;
 	@FXML
 	private Button detailButton;
+	@FXML
+	private TextField searchTextField;
+
 
 	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
-
+	List<ToolCatalogueItem> allTools;
 	Naradie selectedNaradie;
 
 	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
@@ -73,6 +80,26 @@ public class MyToolsSceneController extends LoggedInSceneController {
 					}
 				});
 
+		searchTextField.textProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				find(newSelection);
+			}
+		});
+	}
+
+	private void find(String substring) {
+		List<ToolCatalogueItem> list = substring.equals("")
+				? allTools
+				: filterAllTools(substring);
+
+		toolCatalogueTableView.setItems(FXCollections.observableArrayList(list));
+		editToolButton.setDisable(true);
+		deleteToolButton.setDisable(true);
+		detailButton.setDisable(true);
+	}
+
+	private List<ToolCatalogueItem> filterAllTools(String substring){
+		return allTools.stream().filter(tci -> tci.getNaradie().contains(substring.toLowerCase())).collect(Collectors.toList());
 	}
 
 	private void setColumns() {
@@ -84,8 +111,9 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	}
 
 	private void loadToolCatalogue() {
-		toolCatalogueTableView.setItems(FXCollections
-				.observableArrayList(toolCatalogueItemManager.getOwnedToolCatalogueItems(pouzivatel.getId())));
+		allTools = toolCatalogueItemManager.getOwnedToolCatalogueItems(pouzivatel.getId());
+		toolCatalogueTableView.setItems(FXCollections.observableArrayList(allTools));
+
 		editToolButton.setDisable(true);
 		deleteToolButton.setDisable(true);
 		detailButton.setDisable(true);
