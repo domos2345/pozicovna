@@ -56,7 +56,6 @@ public class Naradie {
 				break;
 			}
 		}
-		System.out.println(akcia);
 		if(akcia == null){
 			akcia = new Akcia(lender);
 			akcie.add(akcia);

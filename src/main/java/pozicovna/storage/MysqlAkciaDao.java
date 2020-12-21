@@ -73,8 +73,6 @@ public class MysqlAkciaDao implements AkciaDao {
 						akcia.getZiadost(), akcia.getZamietnute(), akcia.getPozicane(), akcia.getVratene());
 
 			} else { // UPDATE
-				// System.out.println(akcia);
-
 				String sql = "UPDATE akcia SET ziadost = ?, zamietnutie = ?, pozicanie = ?, vratenie = ?"
 						+ " WHERE id = ? ";
 				int changed = jdbcTemplate.update(sql, akcia.getZiadost(), akcia.getZamietnute(), akcia.getPozicane(),

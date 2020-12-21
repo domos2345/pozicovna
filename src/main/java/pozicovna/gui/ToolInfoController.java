@@ -93,7 +93,7 @@ public class ToolInfoController {
         this.majitelCisloLabel.setText(pouzivatel.getTel_cislo());
         this.majitelEmailLabel.setText(pouzivatel.getEmail());
         this.majitelOkresLabel.setText(pouzivatel.getOkres());
-        String adresa = pouzivatel.getUlica() + " " + pouzivatel.getCislo_domu() + ",\n" + pouzivatel.getPsc()  + " \n" + pouzivatel.getMesto();
+        String adresa = pouzivatel.getUlica() + " " + pouzivatel.getCislo_domu() + ",\n" + pouzivatel.getPsc()  + " " + pouzivatel.getMesto();
         this.majitelAdresaLabel.setText(adresa);
     }
 
@@ -103,7 +103,7 @@ public class ToolInfoController {
         this.ziadatelCisloLabel.setText(pouzivatel.getTel_cislo());
         this.ziadatelEmailLabel.setText(pouzivatel.getEmail());
         this.ziadatelOkresLabel.setText(pouzivatel.getOkres());
-        String adresa = pouzivatel.getUlica() + " " + pouzivatel.getCislo_domu() + ",\n" + pouzivatel.getPsc()  + " \n" + pouzivatel.getMesto();
+        String adresa = pouzivatel.getUlica() + " " + pouzivatel.getCislo_domu() + ",\n" + pouzivatel.getPsc()  + " " + pouzivatel.getMesto();
         this.ziadatelAdresaLabel.setText(adresa);
     }
 
