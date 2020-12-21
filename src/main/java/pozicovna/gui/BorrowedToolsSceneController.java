@@ -122,7 +122,6 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 
 	@FXML
 	void detailButtonClick(ActionEvent event) {
-		System.out.println(selectedBorrowedTool.getAkcia().getZiadatel());
 		showToolInfoWindow(selectedBorrowedTool.getNaradie(), selectedBorrowedTool.getAkcia());
 	}
 }

@@ -29,7 +29,6 @@ public class App2 {
 
 //		pouzivatelDao.delete(pouzivatelDao.getByEmail("CCC").getId());
 
-		System.out.println(druhNaradiaDao.getAll());
 
 //		Pouzivatel savedPouzivatel = pouzivatelDao
 //				.save(new Pouzivatel("please", "a", "cmon", "01", "h", "bb", "dr", "423", "094", "vr"));

@@ -60,15 +60,11 @@ public class NaradieFxModel {
 			return new Naradie(getBrand(), getType(), true, getKind(), pouzivatel, getDescription(),
 					new ArrayList<Akcia>(), DaoFactory.INSTANCE.getAkciaDao(), DaoFactory.INSTANCE.getNaradieDao());
 		else // EDITACIA
-			System.out.println(naradie.getId() + getBrand() + getType() + jeDostupne + getKind() + naradie.getVlastnik()
-					+ getDescription() + naradie.getAkcie().toString());
 		return new Naradie(naradie.getId(), getBrand(), getType(), jeDostupne, getKind(), naradie.getVlastnik(),
 				getDescription(), naradie.getAkcie());
 	}
 
 	public String getBrand() {
-		System.out.println("znacka_property_string");
-		System.out.println(brand.get());
 		return brand.get();
 	}
 
