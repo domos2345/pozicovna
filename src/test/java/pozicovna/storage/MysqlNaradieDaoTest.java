@@ -94,23 +94,13 @@ class MysqlNaradieDaoTest {
 		assertNotNull(naradieDao.getByVlastnikId(savedPouzivatel.getId()).get(0));
 	}
 
-//	@Test
-//	void testGetByBorrowedToId() {
-//
-//	}
-
-//	@Test
-//	void testGetAllLentByVlastnikId() {
-//		fail("Not yet implemented");
-//	}
-
 	@Test
 	void testSave() {
 		List<Naradie> originalList = naradieDao.getAll();
 		Naradie newSaved = naradieDao.save(newNaradie);
 		assertEquals(originalList.size() + 1, naradieDao.getAll().size());
 
-		// CISTENIE PO SEBE a rovno skusanie delete
+		// CISTENIE PO SEBE
 		naradieDao.delete(newSaved.getId());
 
 	}
