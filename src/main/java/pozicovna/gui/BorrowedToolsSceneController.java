@@ -3,16 +3,17 @@ package pozicovna.gui;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pozicovna.business.BorrowedTool;
 import pozicovna.business.BorrowedToolManager;
 import pozicovna.business.BorrowedToolManagerImplementation;
+import pozicovna.business.ToolCatalogueItem;
 import pozicovna.entities.NaradieCannotBeReturnedException;
 import pozicovna.entities.Pouzivatel;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BorrowedToolsSceneController extends LoggedInSceneController {
 
@@ -36,9 +37,12 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 	private Button returnButton;
 	@FXML
 	private Button detailButton;
+	@FXML
+	private TextField searchTextField;
 
 
 	BorrowedToolManager borrowedToolManager = new BorrowedToolManagerImplementation();
+	List<BorrowedTool> allTools;
 	BorrowedTool selectedBorrowedTool;
 
 	public BorrowedToolsSceneController(Pouzivatel pouzivatel) {
@@ -64,6 +68,26 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 						detailButton.setDisable(false);
 					}
 				});
+
+		searchTextField.textProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				find(newSelection);
+			}
+		});
+	}
+
+	private void find(String substring) {
+		List<BorrowedTool> list = substring.equals("")
+				? allTools
+				: filterAllTools(substring);
+
+		borrowedToolsTableView.setItems(FXCollections.observableArrayList(list));
+		returnButton.setDisable(true);
+		detailButton.setDisable(true);
+	}
+
+	private List<BorrowedTool> filterAllTools(String substring){
+		return allTools.stream().filter(borrowedTool -> borrowedTool.getNaradie().contains(substring.toLowerCase())).collect(Collectors.toList());
 	}
 
 	private void setColumns() {
@@ -77,8 +101,9 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 	}
 
 	private void loadToolCatalogue() {
-		borrowedToolsTableView
-				.setItems(FXCollections.observableArrayList(borrowedToolManager.getBorrowedTools(pouzivatel.getId())));
+		allTools = borrowedToolManager.getBorrowedTools(pouzivatel.getId());
+		borrowedToolsTableView.setItems(FXCollections.observableArrayList(allTools));
+
 		returnButton.setDisable(true);
 		detailButton.setDisable(true);
 	}

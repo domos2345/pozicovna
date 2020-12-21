@@ -11,4 +11,5 @@ public interface ToolCatalogueItemManager {
 
 	List<ToolCatalogueItem> getOwnedToolCatalogueItems(Long vlastnikId);
 
+	List<ToolCatalogueItem> getAllToolCatalogueItems();
 }

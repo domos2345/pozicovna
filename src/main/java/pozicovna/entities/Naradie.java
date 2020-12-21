@@ -91,6 +91,12 @@ public class Naradie {
 		naradieDao.save(this);
 	}
 
+
+	public Akcia najdiAktualnuPozicku() {
+		List<Akcia> list = akcie.stream().filter(akcia -> akcia.getPozicane()!=null && akcia.getVratene() == null).collect(Collectors.toList());
+		return list.isEmpty() ? null : list.get(0);
+	}
+
 	public void returnNaradie(Akcia akcia) throws NaradieCannotBeReturnedException {
 		if(!je_dostupne && akcia.getZamietnute()==null && akcia.getPozicane()!=null){
 			akcia.setVratene(LocalDateTime.now());
@@ -152,4 +158,12 @@ public class Naradie {
 				+ je_dostupne + ", druhNaradia='" + druhNaradia + '\'' + ", vlastnik=" + vlastnik + ", popis='" + popis
 				+ '\'' + ", akcie=" + akcie + '}';
 	}
+
+    public boolean contains(String substring) {
+		return druhNaradia.toLowerCase().contains(substring) ||
+				typ.toLowerCase().contains(substring) ||
+				znacka.toLowerCase().contains(substring) ||
+				(popis != null && popis.toLowerCase().contains(substring)) ||
+				vlastnik.contains(substring);
+    }
 }

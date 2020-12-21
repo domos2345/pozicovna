@@ -7,6 +7,7 @@ import pozicovna.storage.NaradieDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ToolCatalogueItemManagerImplementation implements ToolCatalogueItemManager {
 	NaradieDao naradieDao = DaoFactory.INSTANCE.getNaradieDao();
@@ -28,5 +29,10 @@ public class ToolCatalogueItemManagerImplementation implements ToolCatalogueItem
 		for (Naradie naradie : naradia)
 			result.add(new ToolCatalogueItem(naradie));
 		return result;
+	}
+
+	@Override
+	public List<ToolCatalogueItem> getAllToolCatalogueItems() {
+		return naradieDao.getAll().stream().map(naradie -> new ToolCatalogueItem(naradie)).collect(Collectors.toList());
 	}
 }
