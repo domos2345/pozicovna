@@ -3,12 +3,15 @@ package pozicovna.storage;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import pozicovna.entities.Akcia;
+import pozicovna.entities.DruhNaradia;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 
@@ -44,8 +47,8 @@ class MysqlNaradieDaoTest {
 		savedPouzivatel2 = pouzivatelDao.save(newPouzivatel2);
 
 		vlastnik = pouzivatelDao.getByEmail("dd@");
-		newNaradie = new Naradie("znackaa", "t4", true, "vrtacka", vlastnik, "pp", new ArrayList<Akcia>(), akciaDao,
-				naradieDao);
+		newNaradie = new Naradie("znackaa", "t4", true, "vrtacka", savedPouzivatel, "pp", new ArrayList<Akcia>(),
+				akciaDao, naradieDao);
 		savedNaradie = naradieDao.save(newNaradie);
 
 		newAkcia = new Akcia(savedPouzivatel);
@@ -68,32 +71,57 @@ class MysqlNaradieDaoTest {
 
 	@Test
 	void testGetById() {
-		fail("Not yet implemented");
+		assertThrows(EntityNotFoundException.class, new Executable() {
+
+			@Override
+			public void execute() throws Throwable {
+				naradieDao.getById(-1L);
+
+			}
+		});
+
+		Naradie byIdNaradie = naradieDao.getById(savedNaradie.getId());
+
+		assertEquals(savedNaradie.getZnacka(), byIdNaradie.getZnacka());
+		assertEquals(savedNaradie.getTyp(), byIdNaradie.getTyp());
+		assertEquals(savedNaradie.getDruhNaradia(), byIdNaradie.getDruhNaradia());
+		assertEquals(savedNaradie.getPopis(), byIdNaradie.getPopis());
 	}
 
 	@Test
 	void testGetByVlastnikId() {
-		fail("Not yet implemented");
+		assertTrue(naradieDao.getByVlastnikId(savedPouzivatel.getId()).size() > 0);
+		assertNotNull(naradieDao.getByVlastnikId(savedPouzivatel.getId()).get(0));
 	}
 
-	@Test
-	void testGetByBorrowedToId() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testGetByBorrowedToId() {
+//
+//	}
 
-	@Test
-	void testGetAllLentByVlastnikId() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	void testGetAllLentByVlastnikId() {
+//		fail("Not yet implemented");
+//	}
 
 	@Test
 	void testSave() {
-		assertTrue(savedNaradie.getAkcie().size() > 0);
+		List<Naradie> originalList = naradieDao.getAll();
+		Naradie newSaved = naradieDao.save(newNaradie);
+		assertEquals(originalList.size() + 1, naradieDao.getAll().size());
+
+		// CISTENIE PO SEBE a rovno skusanie delete
+		naradieDao.delete(newSaved.getId());
+
 	}
 
 	@Test
 	void testDelete() {
-		fail("Not yet implemented");
+
+		Naradie newSaved = naradieDao.save(newNaradie);
+		List<Naradie> originalList = naradieDao.getAll();
+		naradieDao.delete(newSaved.getId());
+		assertEquals(originalList.size() - 1, naradieDao.getAll().size());
 	}
 
 }
