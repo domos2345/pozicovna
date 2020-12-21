@@ -55,11 +55,15 @@ class MysqlNaradieDaoTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		naradieDao.delete(savedNaradie.getId());
+		pouzivatelDao.delete(savedPouzivatel.getId());
+		pouzivatelDao.delete(savedPouzivatel2.getId());
 	}
 
 	@Test
 	void testGetAll() {
-		fail("Not yet implemented");
+		assertTrue(naradieDao.getAll().size() > 0);
+		assertNotNull(naradieDao.getAll().get(0));
 	}
 
 	@Test
