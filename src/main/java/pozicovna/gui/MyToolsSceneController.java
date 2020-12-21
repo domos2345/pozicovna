@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import pozicovna.business.BorrowedTool;
 import pozicovna.business.ToolCatalogueItem;
 import pozicovna.business.ToolCatalogueItemManager;
 import pozicovna.business.ToolCatalogueItemManagerImplementation;
@@ -48,7 +47,6 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	private Button detailButton;
 	@FXML
 	private TextField searchTextField;
-
 
 	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
 	List<ToolCatalogueItem> allTools;
@@ -88,9 +86,7 @@ public class MyToolsSceneController extends LoggedInSceneController {
 	}
 
 	private void find(String substring) {
-		List<ToolCatalogueItem> list = substring.equals("")
-				? allTools
-				: filterAllTools(substring);
+		List<ToolCatalogueItem> list = substring.equals("") ? allTools : filterAllTools(substring);
 
 		toolCatalogueTableView.setItems(FXCollections.observableArrayList(list));
 		editToolButton.setDisable(true);
@@ -98,8 +94,9 @@ public class MyToolsSceneController extends LoggedInSceneController {
 		detailButton.setDisable(true);
 	}
 
-	private List<ToolCatalogueItem> filterAllTools(String substring){
-		return allTools.stream().filter(tci -> tci.getNaradie().contains(substring.toLowerCase())).collect(Collectors.toList());
+	private List<ToolCatalogueItem> filterAllTools(String substring) {
+		return allTools.stream().filter(tci -> tci.getNaradie().contains(substring.toLowerCase()))
+				.collect(Collectors.toList());
 	}
 
 	private void setColumns() {

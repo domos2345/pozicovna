@@ -1,6 +1,5 @@
 package pozicovna.business;
 
-import pozicovna.entities.Pouzivatel;
 
 import java.util.List;
 

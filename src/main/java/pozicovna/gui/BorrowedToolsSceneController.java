@@ -8,7 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pozicovna.business.BorrowedTool;
 import pozicovna.business.BorrowedToolManager;
 import pozicovna.business.BorrowedToolManagerImplementation;
-import pozicovna.business.ToolCatalogueItem;
 import pozicovna.entities.NaradieCannotBeReturnedException;
 import pozicovna.entities.Pouzivatel;
 
@@ -39,7 +38,6 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 	private Button detailButton;
 	@FXML
 	private TextField searchTextField;
-
 
 	BorrowedToolManager borrowedToolManager = new BorrowedToolManagerImplementation();
 	List<BorrowedTool> allTools;
@@ -77,17 +75,16 @@ public class BorrowedToolsSceneController extends LoggedInSceneController {
 	}
 
 	private void find(String substring) {
-		List<BorrowedTool> list = substring.equals("")
-				? allTools
-				: filterAllTools(substring);
+		List<BorrowedTool> list = substring.equals("") ? allTools : filterAllTools(substring);
 
 		borrowedToolsTableView.setItems(FXCollections.observableArrayList(list));
 		returnButton.setDisable(true);
 		detailButton.setDisable(true);
 	}
 
-	private List<BorrowedTool> filterAllTools(String substring){
-		return allTools.stream().filter(borrowedTool -> borrowedTool.getNaradie().contains(substring.toLowerCase())).collect(Collectors.toList());
+	private List<BorrowedTool> filterAllTools(String substring) {
+		return allTools.stream().filter(borrowedTool -> borrowedTool.getNaradie().contains(substring.toLowerCase()))
+				.collect(Collectors.toList());
 	}
 
 	private void setColumns() {

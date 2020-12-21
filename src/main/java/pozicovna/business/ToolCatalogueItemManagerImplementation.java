@@ -1,7 +1,6 @@
 package pozicovna.business;
 
 import pozicovna.entities.Naradie;
-import pozicovna.entities.Pouzivatel;
 import pozicovna.storage.DaoFactory;
 import pozicovna.storage.NaradieDao;
 
@@ -17,7 +16,7 @@ public class ToolCatalogueItemManagerImplementation implements ToolCatalogueItem
 		List<Naradie> naradia = naradieDao.getAll();
 		List<ToolCatalogueItem> result = new ArrayList<>();
 		for (Naradie naradie : naradia)
-			if(naradie.getVlastnik().getId()!=vlastnikId)
+			if (naradie.getVlastnik().getId() != vlastnikId)
 				result.add(new ToolCatalogueItem(naradie));
 		return result;
 	}

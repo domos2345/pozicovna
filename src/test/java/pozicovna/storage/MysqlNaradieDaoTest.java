@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import pozicovna.entities.Akcia;
-import pozicovna.entities.DruhNaradia;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 
