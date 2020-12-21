@@ -59,6 +59,7 @@ public class ToolInfoController {
 
     public ToolInfoController(Naradie naradie) {
         this.naradie = naradie;
+        this.akcia = naradie.najdiAktualnuPozicku();
     }
 
     public ToolInfoController(Naradie naradie, Akcia akcia) {

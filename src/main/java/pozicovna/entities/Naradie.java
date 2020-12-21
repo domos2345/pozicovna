@@ -91,6 +91,12 @@ public class Naradie {
 		naradieDao.save(this);
 	}
 
+
+	public Akcia najdiAktualnuPozicku() {
+		List<Akcia> list = akcie.stream().filter(akcia -> akcia.getPozicane()!=null && akcia.getVratene() == null).collect(Collectors.toList());
+		return list.isEmpty() ? null : list.get(0);
+	}
+
 	public void returnNaradie(Akcia akcia) throws NaradieCannotBeReturnedException {
 		if(!je_dostupne && akcia.getZamietnute()==null && akcia.getPozicane()!=null){
 			akcia.setVratene(LocalDateTime.now());
