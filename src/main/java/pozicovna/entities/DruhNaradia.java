@@ -19,7 +19,7 @@ public class DruhNaradia {
 		return id;
 	}
 
-	public void setDruh_naraia_id(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -33,7 +33,7 @@ public class DruhNaradia {
 
 	@Override
 	public String toString() {
-		return meno+"" ;
+		return meno + "";
 	}
 
 }

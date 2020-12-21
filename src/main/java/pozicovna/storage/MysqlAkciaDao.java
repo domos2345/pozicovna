@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import pozicovna.entities.Akcia;
-import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
 
 import java.sql.ResultSet;

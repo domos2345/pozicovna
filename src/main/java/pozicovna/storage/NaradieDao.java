@@ -3,7 +3,6 @@ package pozicovna.storage;
 import java.util.List;
 
 import pozicovna.entities.Naradie;
-import pozicovna.entities.Pouzivatel;
 
 public interface NaradieDao {
 

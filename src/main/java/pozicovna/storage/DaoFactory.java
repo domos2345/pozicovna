@@ -3,8 +3,7 @@ package pozicovna.storage;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import pozicovna.entities.Akcia;
-import pozicovna.entities.DruhNaradia;
+
 
 public enum DaoFactory {
 	INSTANCE;
@@ -15,7 +14,6 @@ public enum DaoFactory {
 	private NaradieDao NaradieDao;
 	private AkciaDao akciaDao;
 	private DruhNaradiaDao druhNaradiaDao;
-
 
 	public void testing() {
 		testing = true;
@@ -29,7 +27,7 @@ public enum DaoFactory {
 		return PouzivatelDao;
 
 	}
-	
+
 	public NaradieDao getNaradieDao() {
 		if (NaradieDao == null) {
 			NaradieDao = new MysqlNaradieDao(getJdbc());
@@ -47,8 +45,8 @@ public enum DaoFactory {
 	}
 
 	public DruhNaradiaDao getDruhNaradiaDao() {
-		if(druhNaradiaDao == null){
-			druhNaradiaDao = new MysqlDruhNaradiaDao(jdbcTemplate);
+		if (druhNaradiaDao == null) {
+			druhNaradiaDao = new MysqlDruhNaradiaDao(getJdbc());
 		}
 		return druhNaradiaDao;
 	}

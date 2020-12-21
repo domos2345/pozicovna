@@ -1,6 +1,11 @@
 package pozicovna.entities;
 
 public class NaradieCannotBeReturnedException extends Throwable {
-    public NaradieCannotBeReturnedException(String s) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3722978509376504604L;
+
+	public NaradieCannotBeReturnedException(String s) {
     }
 }

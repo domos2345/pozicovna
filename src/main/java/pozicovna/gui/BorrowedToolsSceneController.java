@@ -11,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pozicovna.business.BorrowedTool;
 import pozicovna.business.BorrowedToolManager;
 import pozicovna.business.BorrowedToolManagerImplementation;
-import pozicovna.entities.Naradie;
 import pozicovna.entities.NaradieCannotBeReturnedException;
 import pozicovna.entities.Pouzivatel;
 

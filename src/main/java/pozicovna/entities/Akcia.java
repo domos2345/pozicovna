@@ -1,15 +1,8 @@
 package pozicovna.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
-import org.springframework.format.annotation.DateTimeFormat;
 import pozicovna.storage.DaoFactory;
-
-import java.util.Date;
 
 public class Akcia {
 	private Long id;
@@ -47,7 +40,6 @@ public class Akcia {
 		zamietnute = LocalDateTime.now();
 		DaoFactory.INSTANCE.getAkciaDao().save(this, idNaradie);
 	}
-
 
 	public boolean mozemVratit() {
 		return pozicane != null && vratene == null;
