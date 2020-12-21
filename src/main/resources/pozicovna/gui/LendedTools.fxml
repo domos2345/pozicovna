@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField layoutX="39.0" layoutY="114.0" text="lended tools" />
+      <TextField fx:id="searchTextField" layoutX="39.0" layoutY="114.0" />
       <Button layoutX="524.0" layoutY="25.0" mnemonicParsing="false" onAction="#logOutButtonClick" prefHeight="25.0" prefWidth="86.0" text="Odhlásiť sa" />
       <Button fx:id="requestsButton" layoutX="384.0" layoutY="69.0" mnemonicParsing="false" onAction="#requestsButtonClick" prefHeight="25.0" prefWidth="129.0" text="Žiadosti o požičanie" />
       <Button fx:id="lendedToolsButton" layoutX="524.0" layoutY="69.0" mnemonicParsing="false" onAction="#lendedToolsButtonClick" prefHeight="25.0" prefWidth="86.0" text="Požičal som" />
