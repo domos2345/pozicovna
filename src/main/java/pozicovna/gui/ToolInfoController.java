@@ -87,8 +87,8 @@ public class ToolInfoController {
     }
 
     private void nastavMajitela(Pouzivatel pouzivatel){
-        this.majitelPriezviskoLabel.setText(pouzivatel.getMeno());
-        this.majitelMenoLabel.setText(pouzivatel.getPriezvisko());
+        this.majitelPriezviskoLabel.setText(pouzivatel.getPriezvisko());
+        this.majitelMenoLabel.setText(pouzivatel.getMeno());
         this.majitelCisloLabel.setText(pouzivatel.getTel_cislo());
         this.majitelEmailLabel.setText(pouzivatel.getEmail());
         this.majitelOkresLabel.setText(pouzivatel.getOkres());
@@ -97,8 +97,8 @@ public class ToolInfoController {
     }
 
     private void nastavZiadatela(Pouzivatel pouzivatel){
-        this.ziadatelPriezviskoLabel.setText(pouzivatel.getMeno());
-        this.ziadatelMenoLabel.setText(pouzivatel.getPriezvisko());
+        this.ziadatelPriezviskoLabel.setText(pouzivatel.getPriezvisko());
+        this.ziadatelMenoLabel.setText(pouzivatel.getMeno());
         this.ziadatelCisloLabel.setText(pouzivatel.getTel_cislo());
         this.ziadatelEmailLabel.setText(pouzivatel.getEmail());
         this.ziadatelOkresLabel.setText(pouzivatel.getOkres());
