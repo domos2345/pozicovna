@@ -167,4 +167,10 @@ public class Pouzivatel {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
+    public boolean contains(String substring) {
+		return meno.toLowerCase().contains(substring) ||
+				priezvisko.toLowerCase().contains(substring) ||
+				okres.toLowerCase().contains(substring);
+    }
 }

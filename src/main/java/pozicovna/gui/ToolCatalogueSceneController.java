@@ -3,17 +3,17 @@ package pozicovna.gui;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pozicovna.business.ToolCatalogueItem;
 import pozicovna.business.ToolCatalogueItemManager;
 import pozicovna.business.ToolCatalogueItemManagerImplementation;
 import pozicovna.entities.Naradie;
 import pozicovna.entities.Pouzivatel;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ToolCatalogueSceneController extends LoggedInSceneController {
 
@@ -35,9 +35,13 @@ public class ToolCatalogueSceneController extends LoggedInSceneController {
 	private Button borrowButton;
 	@FXML
 	private Button detailButton;
+	@FXML
+	private TextField searchTextField;
+
 
 	ToolCatalogueItemManager toolCatalogueItemManager = new ToolCatalogueItemManagerImplementation();
 	Naradie selectedNaradie;
+	List<ToolCatalogueItem> allTools;
 
 	public ToolCatalogueSceneController(Pouzivatel pouzivatel) {
 		super(pouzivatel);
@@ -63,6 +67,26 @@ public class ToolCatalogueSceneController extends LoggedInSceneController {
 						selectedNaradie = newSelection.getNaradie();
 					}
 				});
+
+		searchTextField.textProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				find(newSelection);
+			}
+		});
+	}
+
+	private void find(String substring) {
+		List<ToolCatalogueItem> list = substring.equals("")
+				? allTools
+				: filterAllTools(substring);
+
+		toolCatalogueTableView.setItems(FXCollections.observableArrayList(list));
+		borrowButton.setDisable(true);
+		detailButton.setDisable(true);
+	}
+
+	private List<ToolCatalogueItem> filterAllTools(String substring){
+		return allTools.stream().filter(tci -> tci.getNaradie().contains(substring.toLowerCase())).collect(Collectors.toList());
 	}
 
 	private void setColumns() {
@@ -75,8 +99,9 @@ public class ToolCatalogueSceneController extends LoggedInSceneController {
 	}
 
 	private void loadToolCatalogue() {
-		toolCatalogueTableView.setItems(FXCollections
-				.observableArrayList(toolCatalogueItemManager.getToolCatalogueItemsNotOwnedBy(pouzivatel.getId())));
+		allTools = toolCatalogueItemManager.getToolCatalogueItemsNotOwnedBy(pouzivatel.getId());
+		toolCatalogueTableView.setItems(FXCollections.observableArrayList(allTools));
+
 		borrowButton.setDisable(true);
 		detailButton.setDisable(true);
 	}

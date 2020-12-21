@@ -158,4 +158,12 @@ public class Naradie {
 				+ je_dostupne + ", druhNaradia='" + druhNaradia + '\'' + ", vlastnik=" + vlastnik + ", popis='" + popis
 				+ '\'' + ", akcie=" + akcie + '}';
 	}
+
+    public boolean contains(String substring) {
+		return druhNaradia.toLowerCase().contains(substring) ||
+				typ.toLowerCase().contains(substring) ||
+				znacka.toLowerCase().contains(substring) ||
+				(popis != null && popis.toLowerCase().contains(substring)) ||
+				vlastnik.contains(substring);
+    }
 }
